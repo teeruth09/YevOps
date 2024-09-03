@@ -1,8 +1,48 @@
 import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
+
 import TextField from '../components/hook-form/rhf-textfield'
 
 const RegisterPage = () => {
-  const { register, handleSubmit } = useForm()
+  const RegisterSchema = z
+    .object({
+      firstname: z.string().min(1, { message: 'Firstname is required' }),
+      lastname: z.string().min(1, { message: 'Lastname is required' }),
+      email: z.string().email({ message: 'Invalid email address' }),
+      password: z
+        .string()
+        .min(8, { message: 'Password must be at least 8 characters long' }),
+      confirmPassword: z.string().min(8, {
+        message: 'Confirm Password must be at least 8 characters long',
+      }),
+      idCardNumber: z
+        .string()
+        .length(13, { message: 'ID Card Number must be 13 characters' })
+        .refine(
+          (cardNumber) => /^[0-9]\d*$/.test(cardNumber),
+          'ID Card Number must be numbers'
+        ),
+      phone: z
+        .string()
+        .min(9, { message: 'Phone number must be at least 9 digits' })
+        .max(10, { message: 'Phone number must be at most 10 digits' })
+        .refine((phone) => /^0\d{8,9}$/.test(phone), 'Invalid phone number'),
+      userType: z.string().min(1, { message: 'User type is required' }),
+      username: z.string().min(1, { message: 'Username is required' }),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: 'Passwords do not match',
+      path: ['confirmPassword'], // path of error
+    })
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(RegisterSchema),
+  })
 
   const onSubmit = async (data) => {
     console.log(`data = ${JSON.stringify(data)}`)
@@ -19,15 +59,17 @@ const RegisterPage = () => {
         <div className='w-full flex gap-2'>
           <TextField
             placeholder='Firstname'
-            name='firstName'
+            name='firstname'
             className='w-1/2'
             register={register}
+            error={errors.firstname}
           />
           <TextField
             placeholder='Lastname'
-            name='lastName'
+            name='lastname'
             className='w-1/2'
             register={register}
+            error={errors.lastname}
           />
         </div>
 
@@ -36,23 +78,29 @@ const RegisterPage = () => {
           placeholder='Email Address'
           name='email'
           register={register}
+          error={errors.email}
         />
 
         <div className='w-full flex gap-2'>
-          <TextField
-            placeholder='Password'
-            type='password'
-            name='password'
-            className='w-1/2'
-            register={register}
-          />
-          <TextField
-            placeholder='Confirm Password'
-            type='password'
-            name='confirmPassword'
-            className='w-1/2'
-            register={register}
-          />
+          <div className='w-1/2 flex flex-col gap-2'>
+            <TextField
+              placeholder='Password'
+              type='password'
+              name='password'
+              register={register}
+              error={errors.password}
+            />
+          </div>
+
+          <div className='w-1/2 flex flex-col gap-2'>
+            <TextField
+              placeholder='Confirm Password'
+              type='password'
+              name='confirmPassword'
+              register={register}
+              error={errors.confirmPassword}
+            />
+          </div>
         </div>
 
         <div className='w-full grid grid-cols-5 gap-2'>
@@ -91,25 +139,33 @@ const RegisterPage = () => {
         </div>
 
         <div className='w-full flex gap-2'>
-          <TextField
-            placeholder='ID Card Number'
-            name='idCardNumber'
-            className='w-1/2'
-            register={register}
-          />
-          <TextField
-            placeholder='Phone'
-            name='phone'
-            className='w-1/2'
-            register={register}
-          />
-        </div>
+          <div className='w-1/2 flex flex-col gap-2'>
+            <TextField
+              placeholder='ID Card Number'
+              name='idCardNumber'
+              register={register}
+              error={errors.idCardNumber}
+            />
+          </div>
 
-        <textarea placeholder='Address' className='border rounded px-4 py-2' />
+          <div className='w-1/2 flex flex-col gap-2'>
+            <TextField
+              placeholder='Phone'
+              name='phone'
+              register={register}
+              error={errors.phone}
+            />
+          </div>
+        </div>
 
         <div className='w-full flex items-center gap-2'>
           <p className='w-1/3'>Create As : </p>
-          <TextField placeholder='User' name='userType' register={register} />
+          <TextField
+            placeholder='User'
+            name='userType'
+            register={register}
+            error={errors.userType}
+          />
         </div>
 
         <div className='w-full flex items-center gap-2'>
@@ -118,6 +174,7 @@ const RegisterPage = () => {
             placeholder='Username'
             name='username'
             register={register}
+            error={errors.username}
           />
         </div>
 

@@ -1,11 +1,24 @@
 import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 
 import { Link } from 'react-router-dom'
 
 import TextField from '../components/hook-form/rhf-textfield'
 
 const LoginPage = () => {
-  const { register, handleSubmit } = useForm()
+  const LoginSchema = z.object({
+    email: z.string().email({ message: 'Invalid email' }),
+    password: z.string(),
+  })
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(LoginSchema),
+  })
 
   const onSubmit = async (data) => {
     console.log(`data = ${JSON.stringify(data)}`)
@@ -24,6 +37,7 @@ const LoginPage = () => {
           placeholder='Email Address'
           name='email'
           register={register}
+          error={errors.email}
         />
 
         <TextField
@@ -31,6 +45,7 @@ const LoginPage = () => {
           placeholder='Password'
           name='password'
           register={register}
+          error={errors.password}
         />
 
         <div className='flex gap-2'>
