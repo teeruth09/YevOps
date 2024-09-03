@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import axios, { endpoints } from '../util/axios'
 
 import TextField from '../components/hook-form/rhf-textfield'
 
@@ -46,6 +47,13 @@ const RegisterPage = () => {
 
   const onSubmit = async (data) => {
     console.log(`data = ${JSON.stringify(data)}`)
+
+    try {
+      const response = await axios.post(endpoints.auth.register, data)
+      console.log(`response = ${JSON.stringify(response)}`)
+    } catch (error) {
+      console.log(`error = ${JSON.stringify(error)}`)
+    }
   }
 
   return (
@@ -57,20 +65,23 @@ const RegisterPage = () => {
         <p className='mb-8 font-bold text-2xl text-center'>Create an Account</p>
 
         <div className='w-full flex gap-2'>
-          <TextField
-            placeholder='Firstname'
-            name='firstname'
-            className='w-1/2'
-            register={register}
-            error={errors.firstname}
-          />
-          <TextField
-            placeholder='Lastname'
-            name='lastname'
-            className='w-1/2'
-            register={register}
-            error={errors.lastname}
-          />
+          <div className='w-1/2 flex flex-col gap-2'>
+            <TextField
+              placeholder='Firstname'
+              name='firstname'
+              register={register}
+              error={errors.firstname}
+            />
+          </div>
+
+          <div className='w-1/2 flex flex-col gap-2'>
+            <TextField
+              placeholder='Lastname'
+              name='lastname'
+              register={register}
+              error={errors.lastname}
+            />
+          </div>
         </div>
 
         <TextField
@@ -157,6 +168,8 @@ const RegisterPage = () => {
             />
           </div>
         </div>
+
+        <textarea placeholder='Address' className='border rounded px-4 py-2' />
 
         <div className='w-full flex items-center gap-2'>
           <p className='w-1/3'>Create As : </p>

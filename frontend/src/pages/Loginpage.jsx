@@ -5,6 +5,7 @@ import { z } from 'zod'
 import { Link } from 'react-router-dom'
 
 import TextField from '../components/hook-form/rhf-textfield'
+import useLogin from '../react-query/hooks/useLogin'
 
 const LoginPage = () => {
   const LoginSchema = z.object({
@@ -20,8 +21,16 @@ const LoginPage = () => {
     resolver: zodResolver(LoginSchema),
   })
 
+  const { mutateAsync } = useLogin()
+
   const onSubmit = async (data) => {
     console.log(`data = ${JSON.stringify(data)}`)
+
+    try {
+      await mutateAsync(data)
+    } catch (error) {
+      console.log(`error = ${JSON.stringify(error)}`)
+    }
   }
 
   return (

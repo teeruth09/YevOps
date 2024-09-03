@@ -9,7 +9,7 @@ const TextField = ({
   error,
 }) => {
   return (
-    <>
+    <div className='w-full'>
       <input
         required
         type={type}
@@ -18,8 +18,8 @@ const TextField = ({
         autoComplete='off'
         className={`w-full border rounded px-4 py-2 ${className}`}
       />
-      {error && <p className='text-red-400 text-sm'>* {error.message}</p>}
-    </>
+      {error && <p className='text-red-400 text-sm mt-1'>* {error.message}</p>}
+    </div>
   )
 }
 
