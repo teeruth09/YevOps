@@ -3,6 +3,14 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import axios, { endpoints } from '../util/axios'
 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import TextField from '../components/hook-form/rhf-textfield'
 
 const RegisterPage = () => {
@@ -115,38 +123,63 @@ const RegisterPage = () => {
         </div>
 
         <div className='w-full grid grid-cols-5 gap-2'>
-          <select
-            className='col-span-2 border rounded px-4 py-2'
-            defaultValue=''
-          >
-            <option value='' disabled>
-              Gender
-            </option>
-            <option value='male'>Male</option>
-            <option value='female'>Female</option>
-            <option value='other'>Other</option>
-          </select>
+          <Select>
+            <SelectTrigger className='w-full col-span-2'>
+              <SelectValue placeholder='Gender' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value='Male'>Male</SelectItem>
+                <SelectItem value='Female'>Female</SelectItem>
+                <SelectItem value='Other'>Other</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
 
-          <select className='border rounded px-4 py-2' defaultValue='Date'>
-            <option value='Date' disabled>
-              Date
-            </option>
-            {/* Replace with dynamic date options */}
-          </select>
+          <Select>
+            <SelectTrigger className='w-full'>
+              <SelectValue placeholder='Date' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                {Array.from({ length: 31 }, (_, i) => (
+                  <SelectItem key={i + 1} value={(i + 1).toString()}>
+                    {i + 1}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
 
-          <select className='border rounded px-4 py-2' defaultValue=''>
-            <option value='' disabled>
-              Month
-            </option>
-            {/* Replace with dynamic month options */}
-          </select>
+          <Select>
+            <SelectTrigger className='w-full'>
+              <SelectValue placeholder='Month' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                {Array.from({ length: 12 }, (_, i) => (
+                  <SelectItem key={i + 1} value={(i + 1).toString()}>
+                    {i + 1}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
 
-          <select className='border rounded px-4 py-2' defaultValue=''>
-            <option value='' disabled>
-              Year
-            </option>
-            {/* Replace with dynamic year options */}
-          </select>
+          <Select>
+            <SelectTrigger className='w-full'>
+              <SelectValue placeholder='Year' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                {Array.from({ length: 124 }, (_, i) => (
+                  <SelectItem key={i} value={(i + 1).toString()}>
+                    {i + 1901}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
         </div>
 
         <div className='w-full flex gap-2'>
@@ -173,12 +206,18 @@ const RegisterPage = () => {
 
         <div className='w-full flex items-center gap-2'>
           <p className='w-1/3'>Create As : </p>
-          <TextField
-            placeholder='User'
-            name='userType'
-            register={register}
-            error={errors.userType}
-          />
+
+          <Select>
+            <SelectTrigger className='w-full'>
+              <SelectValue placeholder='User' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value="User">User</SelectItem>
+                <SelectItem value="Shop">Shop</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
         </div>
 
         <div className='w-full flex items-center gap-2'>
