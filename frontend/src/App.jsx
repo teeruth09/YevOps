@@ -7,6 +7,7 @@ import ClientProfileHistoryPage from "./pages/ClientProfileHistorypage"
 import ClientProfileChangePsPage from "./pages/ClientProfileChangePSpage"
 import LoginPage from './pages/Loginpage'
 import RegisterPage from './pages/Register'
+import ShowShopAfterSearch from './pages/ShowShopAfterSearch'
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/viewshop' element={<Viewshoppage />} />
-
+        <Route path="/search" element={<ShowShopAfterSearch />} />
       </Routes>
    
   )
