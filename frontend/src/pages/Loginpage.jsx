@@ -2,12 +2,14 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import TextField from '../components/hook-form/rhf-textfield'
 import useLogin from '../react-query/hooks/useLogin'
 
 const LoginPage = () => {
+  const navigate = useNavigate()
+
   const LoginSchema = z.object({
     email: z.string().email({ message: 'Invalid email' }),
     password: z.string(),
@@ -28,6 +30,7 @@ const LoginPage = () => {
 
     try {
       await mutateAsync(data)
+      navigate('/')
     } catch (error) {
       console.log(`error = ${JSON.stringify(error)}`)
     }

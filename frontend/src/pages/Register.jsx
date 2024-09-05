@@ -3,6 +3,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import axios, { endpoints } from '../util/axios'
 
+import { useNavigate } from 'react-router-dom'
+
 import {
   Select,
   SelectContent,
@@ -15,6 +17,8 @@ import TextField from '../components/hook-form/rhf-textfield'
 import SelectRow from '@/components/register/SelectRow'
 
 const RegisterPage = () => {
+  const navigate = useNavigate()
+
   const RegisterSchema = z
     .object({
       firstname: z.string().min(1, { message: 'Firstname is required' }),
@@ -67,6 +71,8 @@ const RegisterPage = () => {
     try {
       const response = await axios.post(endpoints.auth.register, data)
       console.log(`response = ${JSON.stringify(response)}`)
+
+      navigate('/login')
     } catch (error) {
       console.log(`error = ${JSON.stringify(error)}`)
     }
