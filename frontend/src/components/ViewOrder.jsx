@@ -14,9 +14,8 @@ function ViewOrder(props) {
                 <div className='mb-8'>
                     Order{' > '}{shop.name}
                 </div>
-                <div className='flex justify-between lg:flex-row-reverse'>
-                    <OrderSideBar shop={shop} order={order}/>
-                    <div className='flex flex-col w-3/5'>
+                <div className='flex flex-col md:flex-row gap-x-10 justify-center'>
+                    <div className='flex flex-col w-auto md:w-3/5'>
                         <BillingInfoCard 
                             client_name={client.fullname}
                             client_phone={client.phone}
@@ -27,6 +26,7 @@ function ViewOrder(props) {
                             size={client.size}
                         />
                     </div>
+                    <OrderSideBar shop={shop} order={order}/>
                 </div>
                 </div>
         </div>

@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Navbar from '../components/Navbar';
+import NavbarClient from '../components/Navbar';
 import ViewOrder from '@/components/ViewOrder';
 
 const ViewOrderPage = () => {
     const [order, setOrder] = useState({
-      status: "Complete-Review",
+      status: "Pending",
       code: "9ARMS",
       total: 500,
       discount: 100,
@@ -25,8 +25,8 @@ const ViewOrderPage = () => {
     });
 
   return (
-    <div>
-        <Navbar/>
+    <div className='w-screen'>
+        <NavbarClient/>
         <ViewOrder shop={shop} client={client} order={order} />
     </div>
   );

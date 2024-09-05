@@ -8,8 +8,8 @@ function SingleButton(props) {
 }
 
 function DoubleButton(props) {
-    return (<div className='flex lg:flex-col'>
-        <button className={`w-full bg-red-700 hover:bg-red-500 hover:text-white text-white border py-2 px-4 rounded mt-5 ${ props.disable ? "opacity-50 cursor-not-allowed" : "" }`}>
+    return (<div className='flex flex-col'>
+        <button className={`w-full bg-red-700 hover:bg-red-500 hover:text-white text-white border py-2 px-4 rounded mt-3 lg:mt-5 ${ props.disable ? "opacity-50 cursor-not-allowed" : "" }`}>
           {props.button1}
         </button>
         <button className="w-full bg-white hover:bg-red-500 hover:text-white text-red-500 border py-2 px-4 rounded mt-3">
@@ -62,12 +62,12 @@ function OrderSideBar(props) {
     }
 
     return (
-        <div className='bg-white p-10 w-1/3 rounded-lg shadow-2xl'>
-            <div className='flex gap-x-5 mb-3'>
+        <div className='bg-white p-10 md:w-[480px] rounded-lg shadow-2xl'>
+            <div className='flex gap-x-5 mb-3 flex-col sm:flex-row'>
                 <img
                     src="https://th.bing.com/th/id/OIP.6Vkv1Oyc641507Z8PhZrRgHaHX?w=900&h=895&rs=1&pid=ImgDetMain"
                     alt="profile.jpg"
-                    className="w-32 h-32 lg:w-48 lg:h-48"
+                    className="w-24 h-24 lg:w-32 lg:h-32"
                 />
                 <div>
                     <h4 className='font-bold text-2xl mb-2'>{shop.name}</h4>
@@ -79,7 +79,7 @@ function OrderSideBar(props) {
                 <div className='flex text-base text-gray-400 mb-1'>
                     {shopTagList}
                 </div>
-                <p className='text-sm'>{shop.description}</p>
+                <p className='text-xs lg:text-sm'>{shop.description}</p>
             </div>
             <div className='mb-4'>
                 <h5 className='text-xl mb-2'>Code</h5>
