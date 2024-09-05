@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import TextField from '../components/hook-form/rhf-textfield'
+import SelectRow from '@/components/register/SelectRow'
 
 const RegisterPage = () => {
   const RegisterSchema = z
@@ -19,6 +20,7 @@ const RegisterPage = () => {
       firstname: z.string().min(1, { message: 'Firstname is required' }),
       lastname: z.string().min(1, { message: 'Lastname is required' }),
       email: z.string().email({ message: 'Invalid email address' }),
+      // TODO: make regex for password
       password: z
         .string()
         .min(8, { message: 'Password must be at least 8 characters long' }),
@@ -43,7 +45,7 @@ const RegisterPage = () => {
       date: z.string().min(1, { message: 'Date is required' }),
       month: z.string().min(1, { message: 'Month is required' }),
       year: z.string().min(1, { message: 'Year is required' }),
-      userType: z.string().min(1, { message: 'User type is required' }),
+      userType: z.string().default('User'),
     })
     .refine((data) => data.password === data.confirmPassword, {
       message: 'Passwords do not match',
@@ -128,65 +130,7 @@ const RegisterPage = () => {
           </div>
         </div>
 
-        <div className='w-full grid grid-cols-5 gap-2'>
-          <Select onValueChange={(gender) => setValue('gender', gender)}>
-            <SelectTrigger className='w-full col-span-2'>
-              <SelectValue placeholder='Gender' />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value='Male'>Male</SelectItem>
-                <SelectItem value='Female'>Female</SelectItem>
-                <SelectItem value='Other'>Other</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-
-          <Select onValueChange={(date) => setValue('date', date)}>
-            <SelectTrigger className='w-full'>
-              <SelectValue placeholder='Date' />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {Array.from({ length: 31 }, (_, i) => (
-                  <SelectItem key={i + 1} value={(i + 1).toString()}>
-                    {i + 1}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-
-          <Select onValueChange={(month) => setValue('month', month)}>
-            <SelectTrigger className='w-full'>
-              <SelectValue placeholder='Month' />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {Array.from({ length: 12 }, (_, i) => (
-                  <SelectItem key={i + 1} value={(i + 1).toString()}>
-                    {i + 1}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-
-          <Select onValueChange={(year) => setValue('year', year)}>
-            <SelectTrigger className='w-full'>
-              <SelectValue placeholder='Year' />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {Array.from({ length: 124 }, (_, i) => (
-                  <SelectItem key={i} value={(i + 1901).toString()}>
-                    {i + 1901}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
+        <SelectRow setValue={setValue} />
 
         <div className='w-full flex gap-2'>
           <div className='w-1/2 flex flex-col gap-2'>
@@ -234,7 +178,7 @@ const RegisterPage = () => {
             <SelectContent>
               <SelectGroup>
                 <SelectItem value='User'>User</SelectItem>
-                <SelectItem value='Shop'>Shop</SelectItem>
+                <SelectItem value='Shop'>Online Shop</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
