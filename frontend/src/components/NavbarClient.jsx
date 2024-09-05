@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState ,useEffect } from 'react';
 import { NavLink } from 'react-router-dom'
 import { FaUserCircle } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
@@ -11,7 +11,25 @@ const NavbarClient = () => {
     const toggleDropdown = () => {
         setIsDropdownOpen(!isDropdownOpen);
     };
-
+    const [userInfo, setUserInfo] = useState({
+        username: "Teeruth",
+    });
+    useEffect(() => {
+        async function fetchUserData() {
+            try {
+                const response = await fetch('/api/user'); // Replace with your API endpoint
+                const data = await response.json();
+                setUserInfo({
+                    ...userInfo,
+                    username: data.username,                  
+                });
+            } catch (error) {
+                console.error("Failed to fetch user data:", error);
+            }
+        }
+    
+        fetchUserData();
+    }, []);
 
     return (
         <nav className="bg-red-800">
@@ -91,7 +109,7 @@ const NavbarClient = () => {
                     <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 ">
                         <div className="flex items-center space-x-7">
                         <div className="font-medium  text-white">
-                            Username
+                            {userInfo.username}
                         </div>
                         <FaUserCircle size={50} onClick={toggleDropdown} className="cursor-pointer " />
 

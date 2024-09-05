@@ -1,12 +1,33 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { FaFolder, FaHeart, FaHistory, FaEdit, FaLock, FaSignOutAlt } from 'react-icons/fa';
 import { BsBank2 } from "react-icons/bs";
 import { NavLink } from 'react-router-dom';
 
 const ClientSidebar = () => {
+
+    const [userInfo, setUserInfo] = useState({
+        username: "Teeruth",
+    });
+    useEffect(() => {
+        async function fetchUserData() {
+            try {
+                const response = await fetch('/api/user'); // Replace with your API endpoint
+                const data = await response.json();
+                setUserInfo({
+                    ...userInfo,
+                    username: data.username,                  
+                });
+            } catch (error) {
+                console.error("Failed to fetch user data:", error);
+            }
+        }
+    
+        fetchUserData();
+    }, []);
+
     return (
         <div className="w-64 h-full bg-white shadow-lg p-5">
-            <h2 className="text-xl font-semibold mb-6 font-bold">Teerusss</h2>
+            <h2 className="text-xl font-semibold mb-6 font-bold">{userInfo.username}</h2>
             <hr className="border-t border-gray-300" />
             <div className="space-y-10">
                 <NavLink to="/client/profile/item">
