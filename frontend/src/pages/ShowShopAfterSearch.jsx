@@ -14,8 +14,10 @@ const Aftersearch = () => {
     gridTemplateColumns: 'repeat(auto-fit,432px)',
   }
   return (
-    <div>
+    <div className='relative'>
+      {/* Navbar */}
       <Navbar/>
+
       {/* Display search query */}
       <p className='text-4xl font-bold pl-10 pt-8 pb-8'>Result for "{searchResult}"</p>
 
@@ -23,7 +25,7 @@ const Aftersearch = () => {
       <Filterbar/>
 
       {/* Placing cards  */}
-      <div style={centerdiv} className="justify-center"> {/*432px per 1 card, responsive by setting width 1728 = 4 cards*/}
+      <div style={centerdiv} className="justify-center w-[90vw] m-auto z-1">
         <Shopcard previewImage="https://i.imgur.com/SjjJVdY.png"
         shopProfile="https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg"
         shopName="Hinoshii is cool"
