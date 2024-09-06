@@ -30,16 +30,31 @@ const loginUser = async (userData) => {
 }
 
 const registerUser = async (userData) => {
-    const { first_name, last_name, email, password } = userData;
+    const { first_name, last_name, email, password, gender, dob, id_card, phone, address, role, user_name } = userData;
 
-    if (!(email && password && first_name && last_name)) {
+    if (!(email && password && first_name && last_name && gender && dob && id_card && phone && address && role && user_name)) {
         throw new Error("All input is required");
     }
 
-    const oldUser = await User.findOne({ email });
+    const oldEmail = await User.findOne({ email });
+    const oldID = await User.findOne({ id_card });
+    const oldPhone = await User.findOne({ phone });
+    const oldName = await User.findOne({ user_name });
 
-    if (oldUser) {
-        throw new Error("User already exists. Please login");
+    if (oldEmail) {
+        throw new Error("This Email is already used");
+    }
+    
+    if (oldID) {
+        throw new Error("This ID card is already used");
+    }
+
+    if (oldPhone) {
+        throw new Error("This phone number is already used");
+    }
+
+    if (oldName) {
+        throw new Error("This username is already used");
     }
 
     const encryptedPassword = await bcrypt.hash(password, 10);
@@ -48,7 +63,14 @@ const registerUser = async (userData) => {
         first_name,
         last_name,
         email: email.toLowerCase(),
-        password: encryptedPassword
+        password: encryptedPassword,
+        gender,
+        dob,
+        id_card,
+        phone,
+        address,
+        role,
+        user_name
     });
 
     const token = jwt.sign(

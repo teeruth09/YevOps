@@ -22,7 +22,8 @@ const register = async (req, res) => {
         if (err.message === "All input is required") {
             return res.status(400).send(err.message);
         }
-        if (err.message === "User already exists. Please login") {
+        if (err.message === "This Email is already used" || err.message === "This ID card is already used" 
+            || err.message === "This phone number is already used" || err.message === "This username is already used") {
             return res.status(409).send(err.message);
         }
         console.error(err);

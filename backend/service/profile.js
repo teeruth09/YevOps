@@ -16,7 +16,12 @@ const fetchProfile = async (req) => {
         const profile = {
             first_name: user.first_name,
             last_name: user.last_name,
-            email: user.email
+            gender: user.gender,
+            dob: user.dob, 
+            phone: user.phone,
+            address: user.address,
+            user_name: user.user_name,
+            sizes: user.sizes
         }
 
         return profile
@@ -30,10 +35,10 @@ const fetchProfile = async (req) => {
 
 const updateProfile = async (req) => {
 
+    const { first_name, last_name, gender, dob, phone, address, sizes} = req.body;
+
     if(
-        !req.body.first_name ||
-        !req.body.last_name ||
-        !req.body.email
+        !(first_name && last_name && gender && dob && phone && address && sizes) 
     ) {
         throw new Error("Send all required fields")
     }
@@ -48,7 +53,12 @@ const updateProfile = async (req) => {
         const profile = {
             first_name: user.first_name,
             last_name: user.last_name,
-            email: user.email
+            gender: user.gender,
+            dob: user.dob, 
+            phone: user.phone,
+            address: user.address,
+            user_name: user.user_name,
+            sizes: user.sizes
         }
 
         return profile
