@@ -15,11 +15,11 @@ const DropdownForFilterBar = ({ options, placeHolder }) => {
   };
 
   return (
-    <div className="relative inline-block text-left">
+    <div className="relative inline-block text-left w-full h-full">
       {/* Dropdown Button */}
       <button 
         onClick={toggleDropdown}
-        className='flex flex row h-1/2 w-[350px] border-b border-red-300 text-left text-2xl font-bold'
+        className='flex flex row h-1/2 w-full border-b border-red-300 text-left text-2xl font-bold'
       >
         {selectedOption || placeHolder}
         <img className='w-[15px] ml-4 absolute top-2.5 right-1' src="https://cdn-icons-png.flaticon.com/128/32/32195.png" alt="" />
@@ -27,7 +27,7 @@ const DropdownForFilterBar = ({ options, placeHolder }) => {
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-[200px] rounded-md shadow-lg bg-white">
+        <div className="absolute right-0 mt-2 w-full rounded-md shadow-lg bg-white">
           <div className='py-1'>
             {/* Options List */}
             {currentOptions.map((option, index) => (
