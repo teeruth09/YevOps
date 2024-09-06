@@ -1,11 +1,13 @@
 import React  from 'react'
 
-const OrderCard = ({ orderInfo }) => {
+const PostOrderCard = ({ orderInfo }) => {
 
     const getStatusColor = (status) => {
         switch (status) {
-            case 'Pending':
+            case 'Waiting':
                 return 'text-gray-500';
+            case 'New Request':
+                return 'text-sky-500';
             case 'Payment':
                 return 'text-indigo-500';
             case 'In Progress':
@@ -15,8 +17,6 @@ const OrderCard = ({ orderInfo }) => {
             case 'Sending':
                 return 'text-yellow-500';
             case 'Due Dated':
-                return 'text-red-500';
-            case 'Rejected':
                 return 'text-red-500';
             case 'Complete':
                 return 'text-green-500';
@@ -33,16 +33,16 @@ const OrderCard = ({ orderInfo }) => {
             <img src={orderInfo.order_picture} alt="ชุดสูท" className='w-52 h-52 mr-3' />
             <div>
                 <div className='flex py-3'>
-                    <img src={orderInfo.shop_profile} alt="รูปโปรไฟล์ร้าน" className='rounded-full w-12 h-12' />
+                    <img src={orderInfo.client_profile} alt="รูปโปรไฟล์ลูกค้า" className='rounded-full w-12 h-12' />
                     <div>
 
                         <div className='flex px-2' >
-                            <p className='font-bold flex-auto'>{orderInfo.shop_name}</p>
+                            <p className='font-bold flex-auto'>{orderInfo.client_name}</p>
                             <p className={`font-bold ${getStatusColor(orderInfo.order_status)}`}>{orderInfo.order_status}</p>
 
                         </div>
                         <div className='flex px-2 '>
-                            <p className='text-sm flex-auto pr-3'>{orderInfo.order_date}</p>
+                            <p className='text-sm flex-auto pr-3'>{orderInfo.post_date}</p>
                             <p className='text-sm flex-auto'>Due {orderInfo.due_date}</p>
                             <p className='text-sm ml-20'>{orderInfo.price}</p>
 
@@ -51,7 +51,6 @@ const OrderCard = ({ orderInfo }) => {
 
                 </div>
                 <hr className="border-t-2  border-gray-300 py-1" />
-                <p >{orderInfo.type_order}</p>
                 <p className='w-80'>{orderInfo.order_detail}</p>
             </div>
       </div>
@@ -59,4 +58,4 @@ const OrderCard = ({ orderInfo }) => {
     )
 }
 
-export default OrderCard
+export default PostOrderCard

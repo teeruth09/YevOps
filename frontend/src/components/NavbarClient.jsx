@@ -83,14 +83,14 @@ const NavbarClient = () => {
                                 ViewShop
                                 </NavLink>
                                 <NavLink
-                                to="/about"
+                                to="/post"
                                 className={({ isActive }) =>
                                     isActive
                                     ? "rounded-md bg-white px-5 py-2 text-sm font-medium text-black"
                                     : "rounded-md px-5 py-2 text-sm font-medium text-white hover:text-black"
                                 }
                                 >
-                                About Us
+                                Create Post
                                 </NavLink>
                                 <NavLink
                                 to="/applyshop"

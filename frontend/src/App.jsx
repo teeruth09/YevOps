@@ -8,7 +8,9 @@ import ClientProfileChangePsPage from "./pages/ClientProfileChangePSpage"
 import LoginPage from './pages/Loginpage'
 import RegisterPage from './pages/Register'
 import ViewOrderPage from "./pages/ViewOrderPage"
-
+import ShowShopAfterSearch from './pages/ShowShopAfterSearch'
+import ClientProfileBankPage from "./pages/ClientProfileBankPage"
+import ClientProfilePostPage from "./pages/ClientProfilePostPage"
 function App() {
   return (
       <Routes>
@@ -22,6 +24,10 @@ function App() {
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/viewshop' element={<Viewshoppage />} />
         <Route path='/order/1' element={<ViewOrderPage />} />
+        <Route path="/search" element={<ShowShopAfterSearch />} />
+        <Route path="/client/profile/bank" element={<ClientProfileBankPage/>} />
+        <Route path="/client/profile/post" element={<ClientProfilePostPage/>} />
+
       </Routes>
    
   )

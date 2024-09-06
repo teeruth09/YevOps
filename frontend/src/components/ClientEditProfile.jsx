@@ -137,7 +137,7 @@ const ClientEditProfile = () => {
     
     return (
         <div className="px-5 lg:px-20">
-            <div className="text-2xl py-3">Profile</div>
+            <div className="py-3 text-3xl font-semibold mb-4">Profile</div>
             <div className="w-full lg:w-auto h-full bg-white shadow-xl p-5 lg:p-10">
                 <div className="Profiledetail">
                     <div className="flex flex-col lg:flex-row">
