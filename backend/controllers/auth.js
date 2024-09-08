@@ -5,10 +5,10 @@ const login = async (req,res) => {
         const user = await  loginUser(req.body);
         res.status(200).send({token : user.token});
     } catch (err) {
-        if (err.message === "User not Found") {
-            return res.status(404).send(err.message);
+        if (err.message === "All input is required") {
+            return res.status(400).send(err.message);
         }
-        if (err.message === "Incorrect Password") {
+        if (err.message === "Incorrect Email or Password") {
             return res.status(401).send(err.message);
         }
         console.error(err);
