@@ -7,6 +7,13 @@ import ClientProfileHistoryPage from "./pages/ClientProfileHistorypage"
 import ClientProfileChangePsPage from "./pages/ClientProfileChangePSpage"
 import LoginPage from './pages/Loginpage'
 import RegisterPage from './pages/Register'
+import ViewOrderPage from "./pages/ViewOrderPage"
+import ShowShopAfterSearch from './pages/ShowShopAfterSearch'
+import ClientProfileBankPage from "./pages/ClientProfileBankPage"
+import ClientProfilePostPage from "./pages/ClientProfilePostPage"
+import ShopProfileEditPage from "./pages/ShopProfileEditPage"
+import ShopProfileOrderHistoryPage from "./pages/ShopProfileOrderHistoryPage"
+import ShopProfileChangePsPage from "./pages/ShopProfileChangePSpage"
 
 function App() {
   return (
@@ -20,6 +27,14 @@ function App() {
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/viewshop' element={<Viewshoppage />} />
+        <Route path='/order/1' element={<ViewOrderPage />} />
+        <Route path="/search" element={<ShowShopAfterSearch />} />
+        <Route path="/client/profile/bank" element={<ClientProfileBankPage/>} />
+        <Route path="/client/profile/post" element={<ClientProfilePostPage/>} />
+        <Route path="/shop/profile" element={<ShopProfileEditPage/>} />
+        <Route path="/shop/profile/order" element={<ShopProfileOrderHistoryPage/>} />
+        <Route path="/shop/profile/password" element={<ShopProfileChangePsPage/>} />
+
 
       </Routes>
    

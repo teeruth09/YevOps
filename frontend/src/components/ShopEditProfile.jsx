@@ -10,7 +10,7 @@ import {
 import { MdModeEdit } from "react-icons/md";
 
 
-const ClientEditProfile = () => {
+const ShopEditProfile = () => {
 
     // State to manage SelectItems
     const [selectItems, setSelectItems] = useState([
@@ -150,7 +150,7 @@ const ClientEditProfile = () => {
                             <div className="text-2xl font-bold">{userInfo.username}</div>
                             <div className="flex flex-col lg:flex-row">
                                 <div className="name">
-                                    <p>Firstname</p>
+                                    <p>Shop Name</p>
                                     <input
                                         name="username"
                                         type="text"
@@ -160,17 +160,7 @@ const ClientEditProfile = () => {
                                         disabled={!isEditing}
                                     />
                                 </div>
-                                <div className="lg:pl-10">
-                                    <p>Lastname</p>
-                                    <input
-                                        name="lastname"
-                                        type="text"
-                                        value={userInfo.lastname}
-                                        className="border border-gray-300 rounded-xl h-10 px-5"
-                                        onChange={handleChange}
-                                        disabled={!isEditing}
-                                    />
-                                </div>
+                                
                             </div>
                             <div className="flex flex-col lg:flex-row pt-3">
                                 <div className="mb-4 lg:mb-0">
@@ -502,4 +492,4 @@ const ClientEditProfile = () => {
     );
 };
 
-export default ClientEditProfile;
+export default ShopEditProfile;
