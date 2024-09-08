@@ -3,10 +3,13 @@ const { loginUser ,registerUser } = require('../service/auth');
 const login = async (req,res) => {
     try {
         const user = await  loginUser(req.body);
-        res.status(200).send(user.token);
+        res.status(200).send({token : user.token});
     } catch (err) {
         if (err.message === "User not Found") {
             return res.status(404).send(err.message);
+        }
+        if (err.message === "Incorrect Password") {
+            return res.status(401).send(err.message);
         }
         console.error(err);
         res.status(500).send("Internal Server Error");

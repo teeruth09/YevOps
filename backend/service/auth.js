@@ -27,39 +27,47 @@ const loginUser = async (userData) => {
         return user;
     }
 
+    else{
+        throw new Error("Incorrect Password");
+    }
+
 }
 
 const registerUser = async (userData) => {
-    const { first_name, last_name, email, password, gender, dob, id_card, phone, address, role, user_name } = userData;
+    const { first_name, last_name, email, password, gender, dob, id_card, phone, address, role, name } = userData;
 
-    if (!(email && password && first_name && last_name && gender && dob && id_card && phone && address && role && user_name)) {
+    if (!(email && password && first_name && last_name && gender && dob && id_card && phone && address && role && name)) {
         throw new Error("All input is required");
     }
 
-    const oldEmail = await User.findOne({ email });
-    const oldID = await User.findOne({ id_card });
-    const oldPhone = await User.findOne({ phone });
-    const oldName = await User.findOne({ user_name });
+    const userCheck = [
+        { key: 'email', value: email },
+        { key: 'id_card', value: id_card },
+        { key: 'phone', value: phone },
+        { key: 'name', value: name }
+    ];
 
-    if (oldEmail) {
-        throw new Error("This Email is already used");
-    }
-    
-    if (oldID) {
-        throw new Error("This ID card is already used");
-    }
-
-    if (oldPhone) {
-        throw new Error("This phone number is already used");
-    }
-
-    if (oldName) {
-        throw new Error("This username is already used");
+    for (const check of userCheck) {
+        const existingUser = await User.findOne({ [check.key]: check.value });
+        if (existingUser) {
+            switch (check.key) {
+                case 'email':
+                    throw new Error("This Email is already used");
+                case 'id_card':
+                    throw new Error("This ID card is already used");
+                case 'phone':
+                    throw new Error("This phone number is already used");
+                case 'name':
+                    throw new Error("This username is already used");
+                default:
+                    throw new Error("Unknown field error");
+            }
+        }
     }
 
     const encryptedPassword = await bcrypt.hash(password, 10);
 
-    const user = await User.create({
+    const newUser = {
         first_name,
         last_name,
         email: email.toLowerCase(),
@@ -70,8 +78,14 @@ const registerUser = async (userData) => {
         phone,
         address,
         role,
-        user_name
-    });
+        name,
+    };
+
+    if (role === "online shop") {
+        newUser.shop_name = name;
+    }
+
+    const user = await User.create(newUser);
 
     const token = jwt.sign(
         { user_id: user._id, email },

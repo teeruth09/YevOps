@@ -21,9 +21,6 @@ const putProfile = async (req,res) => {
         if (err.message === "User not Found") {
             return res.status(404).send(err.message);
         }
-        if (err.message === "Send all required fields") {
-            return res.status(404).send(err.message);
-        }
         console.error(err);
         res.status(500).send("Internal Server Error");
     }

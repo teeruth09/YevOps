@@ -14,14 +14,32 @@ const fetchProfile = async (req) => {
     if (user) {
 
         const profile = {
-            first_name: user.first_name,
-            last_name: user.last_name,
-            gender: user.gender,
-            dob: user.dob, 
             phone: user.phone,
             address: user.address,
-            user_name: user.user_name,
-            sizes: user.sizes
+        };
+
+        if (user.role == "user") {
+
+            Object.assign(profile, {
+                first_name: user.first_name,
+                last_name: user.last_name,
+                gender: user.gender,
+                dob: user.dob,
+                name: user.name,
+                sizes: user.sizes
+            });
+
+        }
+
+        else if (user.role == "online shop") {
+
+            Object.assign(profile, {
+                shop_name: user.shop_name,
+                name: user.name,
+                shop_desc: user.shop_desc,
+                shop_loca: user.shop_loca
+            });
+
         }
 
         return profile
@@ -35,30 +53,40 @@ const fetchProfile = async (req) => {
 
 const updateProfile = async (req) => {
 
-    const { first_name, last_name, gender, dob, phone, address, sizes} = req.body;
-
-    if(
-        !(first_name && last_name && gender && dob && phone && address && sizes) 
-    ) {
-        throw new Error("Send all required fields")
-    }
-
     const token = req.body.token || req.query.token || req.headers['x-acess-token'];
     const { user_id } = jwt.verify(token, config.TOKEN_KEY);
 
     const user = await User.findByIdAndUpdate(user_id, req.body, { new: true });
 
     if (user) {
-
+        
         const profile = {
-            first_name: user.first_name,
-            last_name: user.last_name,
-            gender: user.gender,
-            dob: user.dob, 
             phone: user.phone,
             address: user.address,
-            user_name: user.user_name,
-            sizes: user.sizes
+        };
+
+        if (user.role == "user") {
+
+            Object.assign(profile, {
+                first_name: user.first_name,
+                last_name: user.last_name,
+                gender: user.gender,
+                dob: user.dob,
+                name: user.name,
+                sizes: user.sizes
+            });
+
+        }
+
+        else if (user.role == "online shop") {
+
+            Object.assign(profile, {
+                shop_name: user.shop_name,
+                name: user.name,
+                shop_desc: user.shop_desc,
+                shop_loca: user.shop_loca
+            });
+
         }
 
         return profile
