@@ -1,40 +1,36 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../models/user'); 
-
+const User = require('../models/user');
+const UserDetail = require('../models/userDetail');
+const ShopDetail = require('../models/shopDetail');
+const UserSize = require('../models/userSize'); 
 
 const loginUser = async (userData) => {
+    const { email, password } = userData;
 
-    const {email, password} = userData;
-    
     if (!(email && password)) {
-        throw new Error("User not Found")
+        throw new Error("All input is required");
     }
 
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }).populate('userDetails shopDetails');
 
     if (user && (await bcrypt.compare(password, user.password))) {
-        
         const token = jwt.sign(
             { user_id: user._id, email },
             process.env.TOKEN_KEY,
-            {
-                expiresIn: "1h"
-            }
-        )
+            { expiresIn: "1h" }
+        );
+
         user.token = token;
-        
+
         return user;
+    } else {
+        throw new Error("Incorrect Email or Password");
     }
-
-    else{
-        throw new Error("Incorrect Password");
-    }
-
-}
+};
 
 const registerUser = async (userData) => {
-    const { first_name, last_name, email, password, gender, dob, id_card, phone, address, role, name } = userData;
+    const { first_name, last_name, email, password, gender, dob, id_card, phone, address, role, name, shop_desc, shop_loca } = userData;
 
     if (!(email && password && first_name && last_name && gender && dob && id_card && phone && address && role && name)) {
         throw new Error("All input is required");
@@ -72,17 +68,27 @@ const registerUser = async (userData) => {
         last_name,
         email: email.toLowerCase(),
         password: encryptedPassword,
-        gender,
-        dob,
-        id_card,
-        phone,
-        address,
         role,
-        name,
+        address,
+        name
     };
 
-    if (role === "online shop") {
-        newUser.shop_name = name;
+    if (role === 'user') {
+        const userDetails = await UserDetail.create({
+            gender,
+            dob,
+            id_card,
+            phone,
+        });
+
+        newUser.userDetails = userDetails._id; 
+    } else if (role === 'online shop') {
+        const shopDetails = await ShopDetail.create({
+            shop_name: name,
+            phone,
+        });
+
+        newUser.shopDetails = shopDetails._id; 
     }
 
     const user = await User.create(newUser);
