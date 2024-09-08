@@ -5,6 +5,7 @@ import NavbarShop from '../components/NavbarShop'
 import NavbarAdmin from '../components/NavbarAdmin'
 import Filterbar from '@/components/FilterBar'
 import Shopcard from '@/components/ShopCard'
+import myImage from '../../public/website_picture.png'; // Assuming your component is in src/components
 
 const HomePage = () => {
   const centerdiv = {
@@ -18,7 +19,8 @@ const HomePage = () => {
 
       <div className='flex flex-col items-center'>
         {/* Landing pic */}
-        <img className='w-[75vw] h-[40vw] my-10' src="https://images8.alphacoders.com/111/1112780.jpg" alt="" />
+        <img className='w-auto h-auto my-10' src={myImage} alt="" />
+        
 
         {/* Filterbar */}
         <Filterbar/>

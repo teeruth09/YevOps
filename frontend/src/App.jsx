@@ -11,6 +11,10 @@ import ViewOrderPage from "./pages/ViewOrderPage"
 import ShowShopAfterSearch from './pages/ShowShopAfterSearch'
 import ClientProfileBankPage from "./pages/ClientProfileBankPage"
 import ClientProfilePostPage from "./pages/ClientProfilePostPage"
+import ShopProfileEditPage from "./pages/ShopProfileEditPage"
+import ShopProfileOrderHistoryPage from "./pages/ShopProfileOrderHistoryPage"
+import ShopProfileChangePsPage from "./pages/ShopProfileChangePSpage"
+
 function App() {
   return (
       <Routes>
@@ -27,6 +31,10 @@ function App() {
         <Route path="/search" element={<ShowShopAfterSearch />} />
         <Route path="/client/profile/bank" element={<ClientProfileBankPage/>} />
         <Route path="/client/profile/post" element={<ClientProfilePostPage/>} />
+        <Route path="/shop/profile" element={<ShopProfileEditPage/>} />
+        <Route path="/shop/profile/order" element={<ShopProfileOrderHistoryPage/>} />
+        <Route path="/shop/profile/password" element={<ShopProfileChangePsPage/>} />
+
 
       </Routes>
    
