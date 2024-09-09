@@ -51,6 +51,7 @@ const RequestOrderCard = ({ orderInfo }) => {
 
                 </div>
                 <hr className="border-t-2  border-gray-300 py-1" />
+                <p >{orderInfo.type_order}</p>
                 <p className='w-80'>{orderInfo.order_detail}</p>
             </div>
       </div>

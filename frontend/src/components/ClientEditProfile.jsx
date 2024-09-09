@@ -24,6 +24,7 @@ const ClientEditProfile = () => {
 
     const [userInfo, setUserInfo] = useState({
         username: "Teeruth",
+        client_profile: "https://th.bing.com/th/id/OIP.6Vkv1Oyc641507Z8PhZrRgHaHX?w=900&h=895&rs=1&pid=ImgDetMain",
         firstname: "Teeruth",
         lastname: "Ieowsakulrat",
         date_of_birth: "2-Feb-2000",
@@ -142,7 +143,7 @@ const ClientEditProfile = () => {
                 <div className="Profiledetail">
                     <div className="flex flex-col lg:flex-row">
                         <img
-                            src="https://th.bing.com/th/id/OIP.6Vkv1Oyc641507Z8PhZrRgHaHX?w=900&h=895&rs=1&pid=ImgDetMain"
+                            src={userInfo.client_profile}
                             alt="profile.jpg"
                             className="w-32 h-32 lg:w-48 lg:h-48"
                         />

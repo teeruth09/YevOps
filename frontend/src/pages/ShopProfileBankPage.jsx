@@ -1,18 +1,18 @@
 import React from 'react'
 import NavbarShop from '@/components/NavbarShop'
 import ShopSidebar from '@/components/ShopSidebarProfile'
-import ShopReview from '@/components/ShopReview'
+import ClientBankProfile from '@/components/ClientBankProfile'
 
-const ShopProfileReviewHistoryPage = () => {
+const ShopProfileBankPage = () => {
   return (
     <div>
         <NavbarShop/>
         <div className='flex pl-5 pt-5'>
             <ShopSidebar/>
-            <ShopReview/>
-        </div>
+            <ClientBankProfile/>
+        </div>        
     </div>
   )
 }
 
-export default ShopProfileReviewHistoryPage
+export default ShopProfileBankPage

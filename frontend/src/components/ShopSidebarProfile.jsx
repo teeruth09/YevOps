@@ -30,7 +30,7 @@ const ShopSidebar = () => {
             <h2 className="text-xl font-semibold mb-6 font-bold">{userInfo.username}</h2>
             <hr className="border-t border-gray-300" />
             <div className="space-y-10">
-                <NavLink to="/client/profile/post">
+                <NavLink to="/shop/profile/post">
                     <div className="flex items-center space-x-3 py-4">
                         <FaFolder className="text-gray-600" size={20} />
                         <span className="text-gray-700">My Preview</span>
