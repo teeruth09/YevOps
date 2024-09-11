@@ -3,7 +3,7 @@ import { FaFolder, FaHeart, FaHistory, FaEdit, FaLock, FaSignOutAlt } from 'reac
 import { BsBank2 } from "react-icons/bs";
 import { NavLink } from 'react-router-dom';
 
-const ClientSidebar = () => {
+const ShopSidebar = () => {
 
     const [userInfo, setUserInfo] = useState({
         username: "Teeruth",
@@ -30,38 +30,38 @@ const ClientSidebar = () => {
             <h2 className="text-xl font-semibold mb-6 font-bold">{userInfo.username}</h2>
             <hr className="border-t border-gray-300" />
             <div className="space-y-10">
-                <NavLink to="/client/profile/post">
+                <NavLink to="/shop/profile/post">
                     <div className="flex items-center space-x-3 py-4">
                         <FaFolder className="text-gray-600" size={20} />
-                        <span className="text-gray-700">My Post</span>
+                        <span className="text-gray-700">My Preview</span>
                     </div>
                 </NavLink>
-                <NavLink to="/client/profile/favorites">
+                <NavLink to="/shop/profile/reviews">
                     <div className="flex items-center space-x-3 py-4">
                         <FaHeart className="text-gray-600" size={20} />
-                        <span className="text-gray-700">My Favorite Shop</span>
+                        <span className="text-gray-700">Review History</span>
                     </div>
                 </NavLink>
-                <NavLink to="/client/profile/history">
+                <NavLink to="/shop/profile/order">
                     <div className="flex items-center space-x-3 py-4">
                         <FaHistory className="text-gray-600" size={20} />
-                        <span className="text-gray-700">Purchase History</span>
+                        <span className="text-gray-700">Order History</span>
                     </div>
                 </NavLink>
                 <hr className="border-t border-gray-300" />
-                <NavLink to="/client/profile">
+                <NavLink to="/shop/profile">
                     <div className="flex items-center space-x-3 py-4">
                         <FaEdit className="text-gray-600" size={20} />
                         <span className="text-gray-700">Edit Profile</span>
                     </div>
                 </NavLink>
-                <NavLink to="/client/profile/bank">
+                <NavLink to="/shop/profile/bank">
                     <div className="flex items-center space-x-3 py-4">
                         <BsBank2 className="text-gray-600" size={20} />
                         <span className="text-gray-700">Bank Account</span>
                     </div>
                 </NavLink>
-                <NavLink to="/client/profile/password">
+                <NavLink to="/shop/profile/password">
                     <div className="flex items-center space-x-3 py-4">
                         <FaLock className="text-gray-600" size={20} />
                         <span className="text-gray-700">Change Password</span>
@@ -79,4 +79,4 @@ const ClientSidebar = () => {
     );
 }
 
-export default ClientSidebar;
+export default ShopSidebar;

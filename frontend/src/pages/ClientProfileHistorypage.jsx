@@ -9,7 +9,9 @@ const ClientProfileHistoryPage = () => {
       <NavbarClient/>
       <div className='flex pl-5 pt-5'>
         <ClientSidebar/>
-        <ClientPurchaseHistory/>
+        <div className='px-5 lg:px-20'>
+          <ClientPurchaseHistory/>
+        </div>
       </div>
     </div>
   )
