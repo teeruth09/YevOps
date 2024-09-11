@@ -10,12 +10,20 @@ const ClientSidebar = () => {
     });
     useEffect(() => {
         async function fetchUserData() {
+            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjZlMTM0ODIzZGRmOWVlMzUyMzIwNWExIiwiZW1haWwiOiJqYW5lLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTcyNjA3MzM2MCwiZXhwIjoxNzI2MDc2OTYwfQ.mRCEdi9kfkfOHalBCXoihbBA0O-O1DttQ6gRF6_t0g4"
+
             try {
-                const response = await fetch('/api/user'); // Replace with your API endpoint
+                const response = await fetch('http://localhost:5555/profile',{
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-access-token':token
+                    }
+                }); // Replace with your API endpoint
                 const data = await response.json();
                 setUserInfo({
                     ...userInfo,
-                    username: data.username,                  
+                    username: data.name,                  
                 });
             } catch (error) {
                 console.error("Failed to fetch user data:", error);
