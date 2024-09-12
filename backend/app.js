@@ -19,8 +19,9 @@ app.get('/', (req, res) => res.send('Hello!'))
 
 app.post('/register', auth.register);
 
-
 app.post("/login", auth.login);
+
+app.post("/logout", auth.logout);
 
 app.post('/welcome', midauth, (req, res) => {
     res.status(200).send("Welcome HACKER");

@@ -18,12 +18,13 @@ const loginUser = async (userData) => {
         const token = jwt.sign(
             { user_id: user._id, email },
             process.env.TOKEN_KEY,
-            { expiresIn: "1h" }
+            { expiresIn: "3h" }
         );
 
-        user.token = token;
-
-        return user;
+        return {
+            role: user.role,  // Use the role property from the user object
+            token: token,
+        };
     } else {
         throw new Error("Incorrect Email or Password");
     }

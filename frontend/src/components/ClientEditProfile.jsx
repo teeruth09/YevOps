@@ -53,7 +53,7 @@ const ClientEditProfile = () => {
 
     useEffect(() => {
         async function fetchUserData() {
-            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjZlMTM0ODIzZGRmOWVlMzUyMzIwNWExIiwiZW1haWwiOiJqYW5lLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTcyNjA3MzM2MCwiZXhwIjoxNzI2MDc2OTYwfQ.mRCEdi9kfkfOHalBCXoihbBA0O-O1DttQ6gRF6_t0g4"
+            const token = localStorage.getItem("x-access-token");
             try {
                 const response = await fetch('http://localhost:5555/profile',{
                     method: 'GET',
@@ -101,13 +101,20 @@ const ClientEditProfile = () => {
 
 
     const updateUserInfo = async () => {
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjZlMTM0ODIzZGRmOWVlMzUyMzIwNWExIiwiZW1haWwiOiJqYW5lLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTcyNjA3MzM2MCwiZXhwIjoxNzI2MDc2OTYwfQ.mRCEdi9kfkfOHalBCXoihbBA0O-O1DttQ6gRF6_t0g4"
+        const token = localStorage.getItem("x-access-token");
+        console.log("token",token)
+
+        if (!token) {
+            console.error("Token is missing in local storage.");
+            return;
+        }
+
         try {
             const response = await fetch("http://localhost:5555/profile", {
                 method: "PUT",
                 headers: {
                 "Content-Type": "application/json",
-                'x-access-token':token
+                "x-access-token":token
                 },
                 body: JSON.stringify(userInfo), // Pass userInfo as the updated data
             });
@@ -123,7 +130,7 @@ const ClientEditProfile = () => {
       };
 
     const handleChange = (e) => {
-        console.log("Field changed:", e.target.name, "New value:", e.target.value);
+        // console.log("Field changed:", e.target.name, "New value:", e.target.value);
         setUserInfo({
             ...userInfo,
             [e.target.name]: e.target.value,

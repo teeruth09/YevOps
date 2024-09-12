@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState ,useEffect } from 'react';
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { FaUserCircle } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
 import { IoIosLogOut } from "react-icons/io";
@@ -14,9 +14,14 @@ const NavbarClient = () => {
     const [userInfo, setUserInfo] = useState({
         username: "Teeruth",
     });
+
+    const navigate = useNavigate();
+
     useEffect(() => {
         async function fetchUserData() {
-            const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjZlMTM0ODIzZGRmOWVlMzUyMzIwNWExIiwiZW1haWwiOiJqYW5lLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTcyNjA3MzM2MCwiZXhwIjoxNzI2MDc2OTYwfQ.mRCEdi9kfkfOHalBCXoihbBA0O-O1DttQ6gRF6_t0g4"
+            // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjZlMTM0ODIzZGRmOWVlMzUyMzIwNWExIiwiZW1haWwiOiJqYW5lLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTcyNjExMTk5NywiZXhwIjoxNzI2MTE1NTk3fQ.ekWV-nzlzRb8Tqhs1vVfY0o7vdk43sxif4mqNvfHfuQ"
+            const token = localStorage.getItem("x-access-token");
+
             try {
                 const response = await fetch('http://localhost:5555/profile',{
                     method: 'GET',
@@ -37,6 +42,35 @@ const NavbarClient = () => {
     
         fetchUserData();
     }, []);
+
+    const handleLogout = async () => {
+        const token = localStorage.getItem("x-access-token");
+        try {
+        const response = await fetch('http://localhost:5555/logout', {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            'x-access-token': token
+            },
+        });
+    
+        if (response.ok) {
+            localStorage.removeItem('x-access-token'); // Clear token from localStorage
+            console.log("Logout successfull");
+            navigate('/',{replace: true});
+            // Force reload if on the home page
+            if (window.location.pathname === '/') {
+                window.location.reload();
+            }
+        } else {
+            console.error('Logout failed');
+        }
+        } catch (error) {
+        console.error('Logout error:', error);
+        }
+    };
+  
+
 
     return (
         <nav className="bg-red-800">
@@ -128,7 +162,11 @@ const NavbarClient = () => {
                                         <IoEyeOutline size={30} />
                                         <div className='text-base px-10'>Profile</div>
                                     </NavLink>
-                                    <NavLink to="/" className="block px-4 py-2 text-sm text-gray-700 flex items-center">
+                                    <NavLink 
+                                        to="/" 
+                                        className="block px-4 py-2 text-sm text-gray-700 flex items-center"
+                                        onClick={handleLogout}
+                                    >
                                         <IoIosLogOut size={30}/>
                                         <div className='text-base px-10'>Logout</div>
                                     </NavLink>
