@@ -7,33 +7,40 @@ const ShopEditProfile = () => {
     const [userInfo, setUserInfo] = useState({
         username: "The Sewing Shop",
         shop_profile: "https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
-        shopname: "The Sewing Shop",
-        phone_number: "xxxxxxxxxx",
+        shop_name: "The Sewing Shop",
+        phone: "xxxxxxxxxx",
         address: "911/2 Ladkrabang",
         province: "Bangkok",
         district: "Ladkrabang",
         zip_code: "10520",
-        shop_description:"รับตัดชุดสูท ชุด Cosplay การันตีสินค้าคุณภาพ",
-        shop_location: "https://www.bing.com/maps/geoplat/REST/v1/Imagery/Map/RoadVibrant/13.723014,100.749996/13?ms=648,345&heid=7862906125874626561,707070&fpp=13.723013877868652,100.74999618530273;178&ml=Basemap,LandCover,Landmarks,OsmBuildings&key=AnTcaqBi2ypp0xI-OZNi4W_ik2KhjgpqioTAtXLC8GzkMBQRMlyxvxyTnd5b73im&c=en-US&fmt=jpeg&od=1&shading=hill&logo=n&da=ro",
+        shop_desc:"รับตัดชุดสูท ชุด Cosplay การันตีสินค้าคุณภาพ",
+        shop_loca: "https://www.bing.com/maps/geoplat/REST/v1/Imagery/Map/RoadVibrant/13.723014,100.749996/13?ms=648,345&heid=7862906125874626561,707070&fpp=13.723013877868652,100.74999618530273;178&ml=Basemap,LandCover,Landmarks,OsmBuildings&key=AnTcaqBi2ypp0xI-OZNi4W_ik2KhjgpqioTAtXLC8GzkMBQRMlyxvxyTnd5b73im&c=en-US&fmt=jpeg&od=1&shading=hill&logo=n&da=ro",
     });
     const [isEditing, setIsEditing] = useState(false);
 
     useEffect(() => {
         async function fetchUserData() {
+            const token = localStorage.getItem("x-access-token");
             try {
-                const response = await fetch('/api/user'); // Replace with your API endpoint
+                const response = await fetch('http://localhost:5555/profile',{
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-access-token':token
+                    }
+                }); // Replace with your API endpoint               
                 const data = await response.json();
                 setUserInfo({
                     ...userInfo,
-                    username: data.username,
-                    shopname: data.shopname,
-                    phone_number: data.phone_number,
+                    username: data.name,
+                    shop_name: data.shop_name,
+                    phone: data.phone,
                     address: data.address,
                     province: data.province,
                     district: data.district,
                     zip_code: data.zip_code,
-                    shop_description: data.shop_description,
-                    shop_location: data.shop_location,
+                    shop_desc: data.shop_desc,
+                    shop_loca: data.shop_loca,
                                  
                 });
             } catch (error) {
@@ -43,6 +50,29 @@ const ShopEditProfile = () => {
     
         fetchUserData();
     }, []);
+
+    const updateUserInfo = async () => {
+        const token = localStorage.getItem("x-access-token");
+        try {
+            const response = await fetch("http://localhost:5555/profile", {
+                method: "PUT",
+                headers: {
+                "Content-Type": "application/json",
+                'x-access-token':token
+                },
+                body: JSON.stringify(userInfo), // Pass userInfo as the updated data
+            });
+            const data = await response.json();
+            if (response.ok) {
+                console.log("Updated user info:", data);
+            } else {
+                console.error("Failed to update user info:", data);
+            }
+            } catch (error) {
+            console.error("Error updating user info:", error);
+        }
+      };
+
 
     const handleChange = (e) => {
         setUserInfo({
@@ -61,6 +91,10 @@ const ShopEditProfile = () => {
     };
     const handleSaveClick = () => {
         //update profile
+        if (isEditing) {
+            updateUserInfo();
+            setIsEditing(false); // Disable editing mode after saving
+        }  
     };
  
     return (
@@ -80,9 +114,9 @@ const ShopEditProfile = () => {
                                 <div className="name">
                                     <p>Shop Name</p>
                                     <input
-                                        name="username"
+                                        name="shop_name"
                                         type="text"
-                                        value={userInfo.shopname}
+                                        value={userInfo.shop_name}
                                         className="border border-gray-300 rounded-xl h-10 px-5 mb-4 lg:mb-0"
                                         onChange={handleChange}
                                         disabled={!isEditing}
@@ -94,9 +128,9 @@ const ShopEditProfile = () => {
                                 <div className="mb-4 lg:mb-0">
                                     <p>Phone Number</p>
                                     <input
-                                        name="phonenumber"
+                                        name="phone"
                                         type="text"
-                                        value={userInfo.phone_number}
+                                        value={userInfo.phone}
                                         className="border border-gray-300 rounded-xl h-10 px-5"
                                         onChange={handleChange}
                                         disabled={!isEditing}
@@ -112,6 +146,8 @@ const ShopEditProfile = () => {
                             type="text"
                             value={userInfo.address}
                             className="border border-gray-300 rounded-xl h-10 w-full px-5"
+                            onChange={handleChange}
+                            disabled={!isEditing}
                         />
                         <div className="flex flex-col lg:flex-row pt-3">
                             <div className="w-full mb-4 lg:mb-0">
@@ -153,8 +189,8 @@ const ShopEditProfile = () => {
                         <p>Shop Description</p>
                         
                         <textarea
-                            name="shop_description"
-                            value={userInfo.shop_description}
+                            name="shop_desc"
+                            value={userInfo.shop_desc}
                             className="border border-gray-300 rounded-xl h-20 w-full pb-9 px-2 "
                             onChange={handleChange}
                             disabled={!isEditing}
@@ -166,7 +202,8 @@ const ShopEditProfile = () => {
 
                                 <p>Shop Location</p>
                                 <img
-                                    src={userInfo.shop_location}
+                                
+                                    src={userInfo.shop_loca}
                                     alt="location.jpg"
                                     className="w-full h-full"
                                 />

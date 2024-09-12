@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import TextField from '../components/hook-form/rhf-textfield'
 import useLogin from '../react-query/hooks/useLogin'
@@ -23,11 +23,15 @@ const LoginPage = () => {
 
   const { mutateAsync } = useLogin()
 
+  const navigate = useNavigate();
+
   const onSubmit = async (data) => {
     console.log(`data = ${JSON.stringify(data)}`)
 
     try {
       await mutateAsync(data)
+      console.log('Login successful, token stored in localStorage')
+      navigate('/', { replace: true });
     } catch (error) {
       console.log(`error = ${JSON.stringify(error)}`)
     }
