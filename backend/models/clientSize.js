@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const clientSizeSchema = new mongoose.Schema({
-    uniqueID: { type: String, required: true },
     clientId: { type: mongoose.Schema.Types.ObjectId, ref: 'Client'}, 
     shirtLength: { type: Number },
     chestSize: { type: Number },
