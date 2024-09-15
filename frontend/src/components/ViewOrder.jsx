@@ -10,11 +10,11 @@ function ViewOrder(props) {
 
     return (
         <div className='flex justify-center'>
-            <div className='w-4/5 mt-2'>
+            <div className='mt-2 flex flex-col'>
                 <div className='mb-8'>
                     Order{' > '}{shop.name}
                 </div>
-                <div className='flex flex-col md:flex-row gap-x-10 justify-center'>
+                <div className='flex flex-col md:flex-row gap-x-10'>
                     <div className='flex flex-col w-auto md:w-3/5'>
                         <BillingInfoCard 
                             client_name={client.fullname}
