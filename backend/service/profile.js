@@ -1,8 +1,5 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/user');
-const UserDetail = require('../models/userDetail');
-const ShopDetail = require('../models/shopDetail'); 
-const UserSize = require('../models/userSize'); 
+const User = require('../models/client');
 const config = process.env;
 
 const fetchProfile = async (req) => {
