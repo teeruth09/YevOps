@@ -1,14 +1,23 @@
-const { type } = require('express/lib/response');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const orderSchema = new mongoose.Schema({
-    userid: { type: String},
-    store: { type: String},
-    price: {type: Number},
-    type_cloth: {type: String},
-    status: {type: String},
-    start: {type: Date},
-    end:{type:Date}
-})
+    uniqueID: { type: String},
+    shopId: { type: mongoose.Schema.Types.ObjectId, ref: 'Shop'}, 
+    clientId: { type: mongoose.Schema.Types.ObjectId, ref: 'Client'}, 
+    clientSize: { type: String },
+    orderType: { type: String},
+    packageType: { type: String },
+    status: { type: String, enum: ['rejected', 'accepted', 'pending'] },
+    userRequestDescription: { type: mongoose.Schema.Types.ObjectId, ref: 'UserRequestDescription' },
+    billingInfo: { type: String },
+    customerInfo: { type: String },
+    deadline: { type: Date },
+    total: { type: Number},
+    code: { type: String },
+    discount: { type: Number },
+    serviceFee: { type: Number },
+    pay: { type: Boolean},
+    paymentMethod: { type: String }
+});
 
-module.exports = mongoose.model('order', orderSchema);
+module.exports = mongoose.model('Order', orderSchema);
