@@ -14,6 +14,9 @@ import ClientProfilePostPage from "./pages/ClientProfilePostPage"
 import ShopProfileEditPage from "./pages/ShopProfileEditPage"
 import ShopProfileOrderHistoryPage from "./pages/ShopProfileOrderHistoryPage"
 import ShopProfileChangePsPage from "./pages/ShopProfileChangePSpage"
+import ShopProfileBankPage from "./pages/ShopProfileBankPage"
+import ShopProfileReviewHistoryPage from "./pages/ShopProfileReviewHistoryPage"
+import Verifyshop from "./pages/VerifyShopPage" 
 
 function App() {
   return (
@@ -34,7 +37,9 @@ function App() {
         <Route path="/shop/profile" element={<ShopProfileEditPage/>} />
         <Route path="/shop/profile/order" element={<ShopProfileOrderHistoryPage/>} />
         <Route path="/shop/profile/password" element={<ShopProfileChangePsPage/>} />
-
+        <Route path="/shop/profile/bank" element={<ShopProfileBankPage/>} />
+        <Route path="/shop/profile/reviews" element={<ShopProfileReviewHistoryPage/>} />
+        <Route path="/verifyshop" element={<Verifyshop/>} />
 
       </Routes>
    

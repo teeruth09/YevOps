@@ -16,6 +16,7 @@ const ShopOrderRequestHistory = () => {
       due_date: "20 Aug 2024",
       order_status: "Waiting",
       price: "100.00 THB",
+      type_order: "Basic",
       order_detail: "หาร้านตัดชุดสูทสำหรับงานราตรี",
     },
     {
@@ -27,6 +28,7 @@ const ShopOrderRequestHistory = () => {
       due_date: "20 Aug 2024",
       order_status: "Payment",
       price: "100.00 THB",
+      type_order: "Basic",
       order_detail: "ตามหาร้านตัดชุดแต่งงาน",
     },
     {
@@ -38,6 +40,7 @@ const ShopOrderRequestHistory = () => {
       due_date: "20 Aug 2024",
       order_status: "In Progress",
       price: "100.00 THB",
+      type_order: "Basic",
       order_detail: "ตามหาร้านตัดชุดราชการ",
     },
     {
@@ -49,6 +52,7 @@ const ShopOrderRequestHistory = () => {
       due_date: "20 Aug 2024",
       order_status: "Canceled",
       price: "100.00 THB",
+      type_order: "Basic",
       order_detail: "ตามหาร้านตัดชุดครุยสำหรับงานวันรับปริญญา",
     },
     {
@@ -60,6 +64,7 @@ const ShopOrderRequestHistory = () => {
       due_date: "20 Aug 2024",
       order_status: "Sending",
       price: "100.00 THB",
+      type_order: "Basic",
       order_detail: "ตามหาร้านตัดเสื้อช็อป",
     },
     {
@@ -71,6 +76,7 @@ const ShopOrderRequestHistory = () => {
       due_date: "20 Aug 2024",
       order_status: "Due Dated",
       price: "100.00 THB",
+      type_order: "Basic",
       order_detail: "ตามหาร้านตัดชุดสูทสำหรับออกงานทางการ",
     },
     {
@@ -82,6 +88,7 @@ const ShopOrderRequestHistory = () => {
       due_date: "20 Aug 2024",
       order_status: "Complete",
       price: "100.00 THB",
+      type_order: "Basic",
       order_detail: "ตามหาร้านตัดชุดไทยประยุกต์",
     },
     {
@@ -93,6 +100,7 @@ const ShopOrderRequestHistory = () => {
       due_date: "20 Aug 2024",
       order_status: "Delivered",
       price: "100.00 THB",
+      type_order: "Basic",
       order_detail: "ตามหาร้านตัดชุดราชปะแตน",
     },
     {
@@ -104,6 +112,7 @@ const ShopOrderRequestHistory = () => {
       due_date: "20 Aug 2024",
       order_status: "New Request",
       price: "1000.00 THB",
+      type_order: "Basic",
       order_detail: "ตามหาร้านตัดชุด Demon Slayer",
     },
   ]); // Array to store fetched orders
