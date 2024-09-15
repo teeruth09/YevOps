@@ -19,7 +19,7 @@ function ReportPage() {
         order_detail: "รับตัดชุทสูททุกชนิด",
     });
 
-    const [rating, setRating] = useState(null);
+    const [rating, setRating] = useState(0);
 
     const handleRatingChange = (event) => {
         setRating(event.target.value);
@@ -44,18 +44,13 @@ function ReportPage() {
                         <div className='mb-8'>
                             <div className='flex gap-x-10 items-center mb-5'>
                                 <h2 className='font-semibold text-lg'>Product Quality</h2>
-                                <div className="rating rating-lg rating-half">
-                                    <input type="radio" name="rating-10" className="rating-hidden" value={0} onChange={handleRatingChange} />
-                                    <input type="radio" name="rating-10" className="mask mask-star-2 mask-half-1 bg-yellow-400" value={0.5} onChange={handleRatingChange} />
-                                    <input type="radio" name="rating-10" className="mask mask-star-2 mask-half-2 bg-yellow-400" value={1} onChange={handleRatingChange} />
-                                    <input type="radio" name="rating-10" className="mask mask-star-2 mask-half-1 bg-yellow-400" value={1.5} onChange={handleRatingChange} />
-                                    <input type="radio" name="rating-10" className="mask mask-star-2 mask-half-2 bg-yellow-400" value={2} onChange={handleRatingChange} />
-                                    <input type="radio" name="rating-10" className="mask mask-star-2 mask-half-1 bg-yellow-400" value={2.5} onChange={handleRatingChange} />
-                                    <input type="radio" name="rating-10" className="mask mask-star-2 mask-half-2 bg-yellow-400" value={3} onChange={handleRatingChange} />
-                                    <input type="radio" name="rating-10" className="mask mask-star-2 mask-half-1 bg-yellow-400" value={3.5} onChange={handleRatingChange} />
-                                    <input type="radio" name="rating-10" className="mask mask-star-2 mask-half-2 bg-yellow-400" value={4} onChange={handleRatingChange} />
-                                    <input type="radio" name="rating-10" className="mask mask-star-2 mask-half-1 bg-yellow-400" value={4.5} onChange={handleRatingChange} />
-                                    <input type="radio" name="rating-10" className="mask mask-star-2 mask-half-2 bg-yellow-400" value={5} onChange={handleRatingChange} />
+                                <div className="rating rating-lg">
+                                    <input type="radio" name="rating-9" className="rating-hidden" value={0} onChange={handleRatingChange} defaultChecked />
+                                    <input type="radio" name="rating-9" className="mask mask-star-2 bg-yellow-400" value={1} onChange={handleRatingChange} />
+                                    <input type="radio" name="rating-9" className="mask mask-star-2 bg-yellow-400" value={2} onChange={handleRatingChange} />
+                                    <input type="radio" name="rating-9" className="mask mask-star-2 bg-yellow-400" value={3} onChange={handleRatingChange} />
+                                    <input type="radio" name="rating-9" className="mask mask-star-2 bg-yellow-400" value={4} onChange={handleRatingChange} />
+                                    <input type="radio" name="rating-9" className="mask mask-star-2 bg-yellow-400" value={5} onChange={handleRatingChange} />
                                 </div>
                             </div>
                             <ReportReviewForm />

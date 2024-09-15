@@ -4,7 +4,8 @@ import ViewOrder from '@/components/ViewOrder';
 
 const ViewOrderPage = () => {
     const [order, setOrder] = useState({
-      status: "Pending",
+      status: "Complete-Not Review",
+      orderType: "Basic",
       code: "9ARMS",
       total: 500,
       discount: 100,
@@ -21,13 +22,21 @@ const ViewOrderPage = () => {
       fullname: "นายสมศักดิ์ รัตนเกียรติภูมิชัยกุล",
       phone: "08x-123-4567",
       address: "123/342 ศรีนครินทร์ 43 ประเวศ ประเวศ กรุงเทพ 10250",
-      size: "ขนาดตัวของ สมชาย"
+      size: "ขนาดตัวของ สมชาย",
+      payment: ["VISA Kasikornbank [Default] *5199", "VISA Kasikornbank [Default] *4321"]
     });
+
+    const handleOrderChage = (e) => {
+      setOrder({
+          ...order,
+          [e.target.name]: e.target.value,
+      });
+    };
 
   return (
     <div className='w-screen'>
         <NavbarClient/>
-        <ViewOrder shop={shop} client={client} order={order} />
+        <ViewOrder shop={shop} client={client} order={order} onCodeChage={handleOrderChage} />
     </div>
   );
 }
