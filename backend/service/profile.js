@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/user');
+const User = require('../models/client');
 const config = process.env;
 
 const fetchProfile = async (req) => {
