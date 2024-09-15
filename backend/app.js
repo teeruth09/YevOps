@@ -4,6 +4,8 @@ require('./configs/database').connect()
 
 const express = require('express')
 const auth = require('./controllers/auth');
+const profile = require('./controllers/profile');
+const order = require('./controllers/order');
 const midauth = require('./middlewares/auth')
 const cors = require('cors');
 
