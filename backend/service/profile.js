@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/client');
+const Client = require('../models/client');
+const ClientSize = require('../models/clientSize');
+const Shop = require('../models/shop');
 const config = process.env;
 
 const fetchProfile = async (req) => {
@@ -10,40 +12,42 @@ const fetchProfile = async (req) => {
         }
 
         const { user_id } = jwt.verify(token, config.TOKEN_KEY);
-        const user = await User.findById(user_id)
-            .populate('userDetails shopDetails')
-            .populate({
-                path: 'userDetails.sizes', 
-                model: 'UserSize' 
-            });
+
+        let user = await Client.findById(user_id);
+        let userSizes = await ClientSize.find({ clientId: user_id });
+
+        if (!user) {
+            user = await Shop.findById(user_id);
+        }
 
         if (!user) {
             throw new Error("User not Found");
         }
 
         const profile = {
-            name: user.name,
+            username: user.username,
             address: user.address,
         };
 
-        if (user.role === "user" && user.userDetails) {
+        if (user.role === "client") {
             Object.assign(profile, {
-                first_name: user.first_name,
-                last_name: user.last_name,
-                gender: user.userDetails.gender,
-                dob: user.userDetails.dob,
-                phone: user.userDetails.phone,
-                sizes: user.userDetails.sizes
+                firstname: user.firstname,
+                lastname: user.lastname,
+                gender: user.gender,
+                birthdate: user.birthdate,
+                phone: user.phone,
+                userSizes: userSizes
             });
-        } else if (user.role === "online shop" && user.shopDetails) {
+
+
+        } else if (user.role === "shop") {
             Object.assign(profile, {
-                shop_name: user.shopDetails.shop_name,
-                shop_desc: user.shopDetails.shop_desc,
-                shop_loca: user.shopDetails.shop_loca,
-                phone: user.shopDetails.phone,
+                shopName: user.shopName,
+                shopDescription: user.shopDescription,
+                location: user.location,
+                phone: user.phone,
             });
         }
-
         return profile;
     } catch (err) {
         throw new Error(err.message || "Error fetching profile");
@@ -58,7 +62,13 @@ const updateProfile = async (req) => {
         }
 
         const { user_id } = jwt.verify(token, config.TOKEN_KEY);
-        const user = await User.findById(user_id).populate('userDetails shopDetails');
+
+        let user = await Client.findById(user_id);
+        let userSizes = await ClientSize.find({ clientId: user_id });
+
+        if (!user) {
+            user = await Shop.findById(user_id);
+        }
 
         if (!user) {
             throw new Error("User not Found");
@@ -68,24 +78,50 @@ const updateProfile = async (req) => {
             address: req.body.address 
         };
 
-        if (user.role === "user" && user.userDetails) {
+        if (user.role === "client") {
             await user.updateOne({
-                first_name: req.body.first_name,
-                last_name: req.body.last_name 
-            });
-            await user.userDetails.updateOne({
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
                 phone: req.body.phone,
                 gender: req.body.gender ,
-                dob: req.body.dob ,
-                sizes: req.body.sizes 
+                birthdate: req.body.birthdate ,
             });
-        } else if (user.role === "online shop" && user.shopDetails) {
-            await user.shopDetails.updateOne({
-                shop_name: req.body.shop_name ,
-                shop_desc: req.body.shop_desc ,
-                shop_loca: req.body.shop_loca,
+
+            // const clientSizeId = req.body.clientSizeId;
+            // if (!clientSizeId) {
+            //     throw new Error("ClientSize ID is required");
+            // }
+
+            // const clientSize = await ClientSize.findOne({ _id: clientSizeId, clientId: user_id });
+            // if (!clientSize) {
+            //     throw new Error("ClientSize not found");
+            // }
+
+            // await clientSize.updateOne({
+            //     shirtLength: req.body.shirtLength,
+            //     chestSize: req.body.chestSize,
+            //     waistline: req.body.waistline,
+            //     hip: req.body.hip,
+            //     waistShirt: req.body.waistShirt,
+            //     hipShirt: req.body.hipShirt,
+            //     thigh: req.body.thigh,
+            //     crotch: req.body.crotch,
+            //     shoulder: req.body.shoulder,
+            //     armLength: req.body.armLength,
+            //     calf: req.body.calf,
+            //     tipLeg: req.body.tipLeg,
+            //     legLength: req.body.legLength,
+            //     upperArm: req.body.upperArm
+            // });
+
+        } else if (user.role === "shop") {
+            await user.updateOne({
+                shopName: req.body.shopName ,
+                shopDescription: req.body.shopDescription ,
+                location: req.body.location,
                 phone: req.body.phone
             });
+            
         }
 
         await user.updateOne(updatedFields);

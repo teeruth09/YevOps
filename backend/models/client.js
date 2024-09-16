@@ -14,7 +14,6 @@ const clientSchema = new mongoose.Schema({
     address: { type: String },
     role: { 
         type: String, 
-        enum: ['client', 'shop'], 
     },
     imageProfile: {type: String},
     favouriteShop: [

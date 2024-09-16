@@ -1,4 +1,4 @@
-const { loginUser ,registerUser, registerShop } = require('../service/auth');
+const { loginUser ,registerClient, registerShop } = require('../service/auth');
 
 const login = async (req,res) => {
     try {
@@ -19,7 +19,7 @@ const login = async (req,res) => {
 
 const register = async (req, res) => {
     try {
-        const user = await registerUser(req.body);
+        const user = await registerClient(req.body);
         res.status(201).json(user);
     } catch (err) {
         if (err.message === "All input is required") {

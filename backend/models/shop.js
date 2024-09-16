@@ -3,7 +3,6 @@ const mongoose = require('mongoose')
 const shopSchema = new mongoose.Schema({
     role: { 
         type: String, 
-        enum: ['client', 'shop'], 
     },
     email: { 
         type: String, 
@@ -24,7 +23,14 @@ const shopSchema = new mongoose.Schema({
     orderTypeIds: [{
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'OrderType' 
-    }]
+    }],
+    phone: {type: Number},
+    address: {type: String},
+    gender: {type: String},
+    idCardNumber: {type: Number},
+    birthdate: {type: Date},
+    firstname: {type: String},
+    lastname: {type: String},
 });
 
 module.exports = mongoose.model('Shop', shopSchema);
