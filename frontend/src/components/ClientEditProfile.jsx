@@ -23,14 +23,14 @@ const ClientEditProfile = () => {
     const [newItemLabel, setNewItemLabel] = useState('');
 
     const [userInfo, setUserInfo] = useState({
-        username: "",
+        username: "Teeruth",
         client_profile: "https://th.bing.com/th/id/OIP.6Vkv1Oyc641507Z8PhZrRgHaHX?w=900&h=895&rs=1&pid=ImgDetMain",
-        first_name: "",
-        last_name: "",
-        dob: "",
-        phone: "",
-        gender: "",
-        address: "",
+        firstname: "Teeruth",
+        lastname: "Ieowsakulrat",
+        date_of_birth: "2-Feb-2000",
+        phone_number: "xxxxxxxxxx",
+        gender: "Other",
+        address: "911/2 Ladkrabang",
         province: "Bangkok",
         district: "Ladkrabang",
         zip_code: "10520",
@@ -53,24 +53,16 @@ const ClientEditProfile = () => {
 
     useEffect(() => {
         async function fetchUserData() {
-            const token = localStorage.getItem("x-access-token");
             try {
-                const response = await fetch('http://localhost:5555/profile',{
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'x-access-token':token
-                    }
-                }); // Replace with your API endpoint
-                // Log raw response text
+                const response = await fetch('/api/user'); // Replace with your API endpoint
                 const data = await response.json();
                 setUserInfo({
                     ...userInfo,
-                    username: data.name,
-                    first_name: data.first_name,
-                    last_name: data.last_name,
-                    dob: data.dob,
-                    phone: data.phone,
+                    username: data.username,
+                    firstname: data.firstname,
+                    lastname: data.lastname,
+                    date_of_birth: data.lastname,
+                    phone_number: data.phone_number,
                     gender: data.gender,
                     address: data.address,
                     province: data.province,
@@ -90,7 +82,6 @@ const ClientEditProfile = () => {
                     calf: data.calf,
                     tip_of_leg: data.tip_of_leg,                   
                 });
-                console.log(data)
             } catch (error) {
                 console.error("Failed to fetch user data:", error);
             }
@@ -99,38 +90,7 @@ const ClientEditProfile = () => {
         fetchUserData();
     }, []);
 
-
-    const updateUserInfo = async () => {
-        const token = localStorage.getItem("x-access-token");
-        console.log("token",token)
-
-        if (!token) {
-            console.error("Token is missing in local storage.");
-            return;
-        }
-
-        try {
-            const response = await fetch("http://localhost:5555/profile", {
-                method: "PUT",
-                headers: {
-                "Content-Type": "application/json",
-                "x-access-token":token
-                },
-                body: JSON.stringify(userInfo), // Pass userInfo as the updated data
-            });
-            const data = await response.json();
-            if (response.ok) {
-                console.log("Updated user info:", data);
-            } else {
-                console.error("Failed to update user info:", data);
-            }
-            } catch (error) {
-            console.error("Error updating user info:", error);
-        }
-      };
-
     const handleChange = (e) => {
-        // console.log("Field changed:", e.target.name, "New value:", e.target.value);
         setUserInfo({
             ...userInfo,
             [e.target.name]: e.target.value,
@@ -147,12 +107,7 @@ const ClientEditProfile = () => {
     };
     const handleSaveClick = () => {
         //update profile
-        if (isEditing) {
-            updateUserInfo();
-            setIsEditing(false); // Disable editing mode after saving
-        }  
     };
-
 
     const handleAddSize = () => {
         // Add a new item
@@ -198,21 +153,20 @@ const ClientEditProfile = () => {
                                 <div className="name">
                                     <p>Firstname</p>
                                     <input
-                                        name="first_name"
+                                        name="username"
                                         type="text"
-                                        value={userInfo.first_name}
+                                        value={userInfo.firstname}
                                         className="border border-gray-300 rounded-xl h-10 px-5 mb-4 lg:mb-0"
                                         onChange={handleChange}
                                         disabled={!isEditing}
                                     />
-                                
                                 </div>
                                 <div className="lg:pl-10">
                                     <p>Lastname</p>
                                     <input
-                                        name="last_name"
+                                        name="lastname"
                                         type="text"
-                                        value={userInfo.last_name}
+                                        value={userInfo.lastname}
                                         className="border border-gray-300 rounded-xl h-10 px-5"
                                         onChange={handleChange}
                                         disabled={!isEditing}
@@ -225,7 +179,7 @@ const ClientEditProfile = () => {
                                     <input
                                         name="dob"
                                         type="text"
-                                        value={userInfo.dob}
+                                        value={userInfo.date_of_birth}
                                         className="border border-gray-300 rounded-xl h-10 px-5"
                                         onChange={handleChange}
                                         disabled={!isEditing}
@@ -234,9 +188,9 @@ const ClientEditProfile = () => {
                                 <div className="lg:pl-10 mb-4 lg:mb-0">
                                     <p>Phone Number</p>
                                     <input
-                                        name="phone"
+                                        name="phonenumber"
                                         type="text"
-                                        value={userInfo.phone}
+                                        value={userInfo.phone_number}
                                         className="border border-gray-300 rounded-xl h-10 px-5"
                                         onChange={handleChange}
                                         disabled={!isEditing}
@@ -263,8 +217,6 @@ const ClientEditProfile = () => {
                             type="text"
                             value={userInfo.address}
                             className="border border-gray-300 rounded-xl h-10 w-full px-5"
-                            onChange={handleChange}
-                            disabled={!isEditing}
                         />
                         <div className="flex flex-col lg:flex-row pt-3">
                             <div className="w-full mb-4 lg:mb-0">

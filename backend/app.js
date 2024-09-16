@@ -7,15 +7,14 @@ const auth = require('./controllers/auth');
 const profile = require('./controllers/profile');
 const order = require('./controllers/order');
 const midauth = require('./middlewares/auth')
-const cors = require('cors');
 
 
 const app = express()
-app.use(cors());
 
 app.use(express.json())
 
 app.get('/', (req, res) => res.send('Hello!'))
+
 
 app.post('/register', auth.register);
 
@@ -33,5 +32,9 @@ app.post("/createOrder", midauth, order.order);
 
 app.post("/updateStatus", midauth, order.statusOrder);
 
+
+app.post('/welcome', midauth, (req, res) => {
+    res.status(200).send("Welcome HACKER");
+})
 
 module.exports = app
