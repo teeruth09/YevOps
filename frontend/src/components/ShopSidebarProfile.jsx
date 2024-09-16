@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { FaFolder, FaHeart, FaHistory, FaEdit, FaLock, FaSignOutAlt } from 'react-icons/fa';
+import { FaFolder, FaHeart, FaHistory, FaEdit, FaLock, FaSignOutAlt, FaEye } from 'react-icons/fa';
 import { BsBank2 } from "react-icons/bs";
 import { NavLink } from 'react-router-dom';
 
@@ -58,14 +58,14 @@ const ShopSidebar = () => {
     };
 
     return (
-        <div className="w-64 h-full bg-white shadow-lg p-5">
+        <div className="w-64 h-full bg-white shadow-lg p-5 fixed z-10">
             <h2 className="text-xl font-semibold mb-6 font-bold">{userInfo.username}</h2>
             <hr className="border-t border-gray-300" />
             <div className="space-y-10">
                 <NavLink to="/shop/profile/post">
                     <div className="flex items-center space-x-3 py-4">
-                        <FaFolder className="text-gray-600" size={20} />
-                        <span className="text-gray-700">My Preview</span>
+                        <FaEdit className="text-gray-600" size={20} />
+                        <span className="text-gray-700">Edit Shop</span>
                     </div>
                 </NavLink>
                 <NavLink to="/shop/profile/reviews">

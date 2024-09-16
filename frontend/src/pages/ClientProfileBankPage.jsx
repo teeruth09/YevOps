@@ -9,7 +9,9 @@ const ClientProfileBankPage = () => {
         <NavbarClient/>
         <div className='flex pl-5 pt-5'>
             <ClientSidebar/>
-            <ClientBankProfile/>
+            <div className='pl-[300px]'>
+              <ClientBankProfile/>
+            </div>
         </div>        
     </div>
   )

@@ -12,9 +12,8 @@ const ClientProfileFavoritePage = () => {
       <NavbarClient/>
       <div className='flex pl-5 pt-5'>
         <ClientSidebar/>
-        <div className='px-5 lg:px-20'>
+        <div className='pl-[300px]'>
           <ClientFavoriteShop/>
-
         </div>
       </div>
     </div>

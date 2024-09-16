@@ -9,7 +9,9 @@ const ShopProfileReviewHistoryPage = () => {
         <NavbarShop/>
         <div className='flex pl-5 pt-5'>
             <ShopSidebar/>
-            <ShopReview/>
+            <div className='pl-[300px]'>
+              <ShopReview/>
+            </div>
         </div>
     </div>
   )

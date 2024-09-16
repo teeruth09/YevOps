@@ -72,6 +72,50 @@ const HomePage = () => {
       shopDescription: "ขายไก่ทอดมา 37 ปี ปีนี้ปีท้ายละ เบื่อ อยากไปนอนแล้วอย่ามาสั่งจะได้มั้ย",
       startBudget: "100000",
       stopBudget: "600000",
+    },{
+      id: 6, // Add an ID for easier identification
+      verifyStatus: "Y",
+      previewImage: "https://animetv-jp.net/wp-content/uploads/2024/06/%E3%80%90%E3%83%AD%E3%82%B7%E3%83%87%E3%83%AC%E3%80%91%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BCPV-%E3%83%9E%E3%83%BC%E3%82%B7%E3%83%A3ver.%EF%BD%9C2024%E5%B9%B47%E6%9C%883%E6%97%A5%E6%B0%B4%E6%94%BE%E9%80%81%E9%96%8B%E5%A7%8B-YouTube-0-0-18.jpeg",
+      shopProfile: "https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg",
+      shopName: "TakdanaiKaitod",
+      shopRating: "4.9",
+      reviewCount: "946672",
+      shopDescription: "ขายไก่ทอดมา 37 ปี ปีนี้ปีท้ายละ เบื่อ อยากไปนอนแล้วอย่ามาสั่งจะได้มั้ย",
+      startBudget: "100000",
+      stopBudget: "600000",
+    },{
+      id: 7, // Add an ID for easier identification
+      verifyStatus: "Y",
+      previewImage: "https://animetv-jp.net/wp-content/uploads/2024/06/%E3%80%90%E3%83%AD%E3%82%B7%E3%83%87%E3%83%AC%E3%80%91%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BCPV-%E3%83%9E%E3%83%BC%E3%82%B7%E3%83%A3ver.%EF%BD%9C2024%E5%B9%B47%E6%9C%883%E6%97%A5%E6%B0%B4%E6%94%BE%E9%80%81%E9%96%8B%E5%A7%8B-YouTube-0-0-18.jpeg",
+      shopProfile: "https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg",
+      shopName: "TakdanaiKaitod",
+      shopRating: "4.9",
+      reviewCount: "946672",
+      shopDescription: "ขายไก่ทอดมา 37 ปี ปีนี้ปีท้ายละ เบื่อ อยากไปนอนแล้วอย่ามาสั่งจะได้มั้ย",
+      startBudget: "100000",
+      stopBudget: "600000",
+    },{
+      id: 8, // Add an ID for easier identification
+      verifyStatus: "Y",
+      previewImage: "https://animetv-jp.net/wp-content/uploads/2024/06/%E3%80%90%E3%83%AD%E3%82%B7%E3%83%87%E3%83%AC%E3%80%91%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BCPV-%E3%83%9E%E3%83%BC%E3%82%B7%E3%83%A3ver.%EF%BD%9C2024%E5%B9%B47%E6%9C%883%E6%97%A5%E6%B0%B4%E6%94%BE%E9%80%81%E9%96%8B%E5%A7%8B-YouTube-0-0-18.jpeg",
+      shopProfile: "https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg",
+      shopName: "TakdanaiKaitod",
+      shopRating: "4.9",
+      reviewCount: "946672",
+      shopDescription: "ขายไก่ทอดมา 37 ปี ปีนี้ปีท้ายละ เบื่อ อยากไปนอนแล้วอย่ามาสั่งจะได้มั้ย",
+      startBudget: "100000",
+      stopBudget: "600000",
+    },{
+      id: 9, // Add an ID for easier identification
+      verifyStatus: "Y",
+      previewImage: "https://animetv-jp.net/wp-content/uploads/2024/06/%E3%80%90%E3%83%AD%E3%82%B7%E3%83%87%E3%83%AC%E3%80%91%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BCPV-%E3%83%9E%E3%83%BC%E3%82%B7%E3%83%A3ver.%EF%BD%9C2024%E5%B9%B47%E6%9C%883%E6%97%A5%E6%B0%B4%E6%94%BE%E9%80%81%E9%96%8B%E5%A7%8B-YouTube-0-0-18.jpeg",
+      shopProfile: "https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg",
+      shopName: "TakdanaiKaitod",
+      shopRating: "4.9",
+      reviewCount: "946672",
+      shopDescription: "ขายไก่ทอดมา 37 ปี ปีนี้ปีท้ายละ เบื่อ อยากไปนอนแล้วอย่ามาสั่งจะได้มั้ย",
+      startBudget: "100000",
+      stopBudget: "600000",
     },
   ]);
 

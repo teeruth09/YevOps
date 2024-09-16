@@ -4,7 +4,7 @@ import { FaUserCircle } from "react-icons/fa";
 
 const NavbarAdmin = () => {
   return (
-    <nav className="bg-red-800">
+    <nav className="bg-red-800 sticky top-0 z-10">
         <div className='mx-1 w-full px-2 sm:px-6 lg:px-8 '>
             <div className="relative flex h-16 items-center justify-between">
                 <div className="font-medium text-2xl text-white">
