@@ -9,7 +9,9 @@ const ClientProfileEditPage = () => {
       <NavbarClient/>
       <div className='flex pl-5 pt-5'>
         <ClientSidebar/>
-        <ClientEditProfile/>
+        <div className='pl-[300px]'>
+          <ClientEditProfile/>
+        </div>
       </div>
     </div>
   )

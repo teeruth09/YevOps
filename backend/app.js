@@ -17,6 +17,7 @@ app.use(express.json())
 
 app.get('/', (req, res) => res.send('Hello!'))
 
+
 app.post('/register', auth.register);
 
 app.post('/applyShop', auth.applyShop);
@@ -33,5 +34,9 @@ app.post("/createOrder", midauth, order.order);
 
 app.post("/updateStatus", midauth, order.statusOrder);
 
+
+app.post('/welcome', midauth, (req, res) => {
+    res.status(200).send("Welcome HACKER");
+})
 
 module.exports = app

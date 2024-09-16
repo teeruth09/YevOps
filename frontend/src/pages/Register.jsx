@@ -3,6 +3,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import axios, { endpoints } from '../util/axios'
 
+import { useNavigate } from 'react-router-dom'
+
 import {
   Select,
   SelectContent,
@@ -12,19 +14,24 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import TextField from '../components/hook-form/rhf-textfield'
+import SelectRow from '@/components/register/SelectRow'
 
 const RegisterPage = () => {
+  const navigate = useNavigate()
+
   const RegisterSchema = z
     .object({
       firstname: z.string().min(1, { message: 'Firstname is required' }),
       lastname: z.string().min(1, { message: 'Lastname is required' }),
       email: z.string().email({ message: 'Invalid email address' }),
+      // TODO: make regex for password
       password: z
         .string()
         .min(8, { message: 'Password must be at least 8 characters long' }),
       confirmPassword: z.string().min(8, {
         message: 'Confirm Password must be at least 8 characters long',
       }),
+      gender: z.string().min(1, { message: 'Gender is required' }),
       idCardNumber: z
         .string()
         .length(13, { message: 'ID Card Number must be 13 characters' })
@@ -37,8 +44,12 @@ const RegisterPage = () => {
         .min(9, { message: 'Phone number must be at least 9 digits' })
         .max(10, { message: 'Phone number must be at most 10 digits' })
         .refine((phone) => /^0\d{8,9}$/.test(phone), 'Invalid phone number'),
-      userType: z.string().min(1, { message: 'User type is required' }),
+      address: z.string().min(1, { message: 'Address is required' }),
       username: z.string().min(1, { message: 'Username is required' }),
+      date: z.string().min(1, { message: 'Date is required' }),
+      month: z.string().min(1, { message: 'Month is required' }),
+      year: z.string().min(1, { message: 'Year is required' }),
+      userType: z.string().default('User'),
     })
     .refine((data) => data.password === data.confirmPassword, {
       message: 'Passwords do not match',
@@ -47,6 +58,7 @@ const RegisterPage = () => {
 
   const {
     register,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm({
@@ -59,6 +71,8 @@ const RegisterPage = () => {
     try {
       const response = await axios.post(endpoints.auth.register, data)
       console.log(`response = ${JSON.stringify(response)}`)
+
+      navigate('/login')
     } catch (error) {
       console.log(`error = ${JSON.stringify(error)}`)
     }
@@ -122,65 +136,7 @@ const RegisterPage = () => {
           </div>
         </div>
 
-        <div className='w-full grid grid-cols-5 gap-2'>
-          <Select>
-            <SelectTrigger className='w-full col-span-2'>
-              <SelectValue placeholder='Gender' />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value='Male'>Male</SelectItem>
-                <SelectItem value='Female'>Female</SelectItem>
-                <SelectItem value='Other'>Other</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-
-          <Select>
-            <SelectTrigger className='w-full'>
-              <SelectValue placeholder='Date' />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {Array.from({ length: 31 }, (_, i) => (
-                  <SelectItem key={i + 1} value={(i + 1).toString()}>
-                    {i + 1}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-
-          <Select>
-            <SelectTrigger className='w-full'>
-              <SelectValue placeholder='Month' />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {Array.from({ length: 12 }, (_, i) => (
-                  <SelectItem key={i + 1} value={(i + 1).toString()}>
-                    {i + 1}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-
-          <Select>
-            <SelectTrigger className='w-full'>
-              <SelectValue placeholder='Year' />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {Array.from({ length: 124 }, (_, i) => (
-                  <SelectItem key={i} value={(i + 1).toString()}>
-                    {i + 1901}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
+        <SelectRow setValue={setValue} />
 
         <div className='w-full flex gap-2'>
           <div className='w-1/2 flex flex-col gap-2'>
@@ -202,26 +158,40 @@ const RegisterPage = () => {
           </div>
         </div>
 
-        <textarea placeholder='Address' className='border rounded px-4 py-2' />
+        <div className='w-full'>
+          <textarea
+            placeholder='Address'
+            className='w-full border rounded px-4 py-2'
+            {...register('address')}
+          />
+          {errors.address && (
+            <p className='text-red-400 text-sm mt-1'>
+              * {errors.address.message}
+            </p>
+          )}
+        </div>
 
         <div className='w-full flex items-center gap-2'>
-          <p className='w-1/3'>Create As : </p>
+          <p className='w-1/3'>Create As :</p>
 
-          <Select>
+          <Select
+            defaultValue='User'
+            onValueChange={(userType) => setValue('userType', userType)}
+          >
             <SelectTrigger className='w-full'>
               <SelectValue placeholder='User' />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem value="User">User</SelectItem>
-                <SelectItem value="Shop">Shop</SelectItem>
+                <SelectItem value='User'>User</SelectItem>
+                <SelectItem value='Shop'>Online Shop</SelectItem>
               </SelectGroup>
             </SelectContent>
           </Select>
         </div>
 
         <div className='w-full flex items-center gap-2'>
-          <p className='w-1/3'>Name : </p>
+          <p className='w-1/3'>Name :</p>
           <TextField
             placeholder='Username'
             name='username'
@@ -230,7 +200,10 @@ const RegisterPage = () => {
           />
         </div>
 
-        <button className='mt-4 bg-red-500 py-4 rounded-lg font-bold'>
+        <button
+          type='submit'
+          className='mt-4 bg-red-500 py-4 rounded-lg font-bold'
+        >
           REGISTER
         </button>
       </form>

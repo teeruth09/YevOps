@@ -2,14 +2,10 @@ import React from 'react'
 import NavbarShop from '@/components/NavbarShop'
 import { Link } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
-import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
 const Verifyshop = () => {
-    const bottomShadowStyle = {
-        boxShadow: '0 8px 16px rgba(255, 68, 67, 0.65)',
-      };
   return (
     <div>
         <NavbarShop/>
@@ -24,7 +20,7 @@ const Verifyshop = () => {
                 
                 {/* Shop Address */}
                 <div className='flex flex-col items-center'>
-                    <div style={bottomShadowStyle} className='w-[1200px] h-[400px] flex flex-col justify-center items-center'>
+                    <div className='shadow-xl w-[1200px] h-[400px] flex flex-col justify-center items-center'>
                         <div className='w-[90%] h-1/5 flex justify-start items-center border-b'>
                             <p className='text-2xl font-semibold'>
                                 Shop Address
@@ -60,7 +56,7 @@ const Verifyshop = () => {
 
                 {/* Owner Information */}
                 <div className='flex flex-col items-center mt-12'>
-                    <div style={bottomShadowStyle} className='w-[1200px] h-[400px] flex flex-col justify-center items-center'>
+                    <div className='shadow-xl w-[1200px] h-[400px] flex flex-col justify-center items-center'>
                         <div className='w-[90%] h-1/5 flex justify-start items-center border-b'>
                             <p className='text-2xl font-semibold'>
                                 Owner Information
@@ -90,7 +86,7 @@ const Verifyshop = () => {
 
                 {/* Product Detail */}
                 <div className='flex flex-col items-center mt-12'>
-                    <div style={bottomShadowStyle} className='w-[1200px] h-[400px] flex flex-col justify-center items-center'>
+                    <div className='shadow-xl w-[1200px] h-[400px] flex flex-col justify-center items-center'>
                         <div className='w-[90%] h-1/5 flex justify-start items-center border-b'>
                             <p className='text-2xl font-semibold'>
                                 Product Detail

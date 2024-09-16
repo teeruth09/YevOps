@@ -23,7 +23,7 @@ const ShopSidebar = () => {
                 const data = await response.json();
                 setUserInfo({
                     ...userInfo,
-                    username: data.name,                  
+                    username: data.username,                  
                 });
             } catch (error) {
                 console.error("Failed to fetch user data:", error);
@@ -58,14 +58,14 @@ const ShopSidebar = () => {
     };
 
     return (
-        <div className="w-64 h-full bg-white shadow-lg p-5">
+        <div className="w-64 h-full bg-white shadow-lg p-5 fixed z-10">
             <h2 className="text-xl font-semibold mb-6 font-bold">{userInfo.username}</h2>
             <hr className="border-t border-gray-300" />
             <div className="space-y-10">
                 <NavLink to="/shop/profile/post">
                     <div className="flex items-center space-x-3 py-4">
-                        <FaFolder className="text-gray-600" size={20} />
-                        <span className="text-gray-700">My Preview</span>
+                        <FaEdit className="text-gray-600" size={20} />
+                        <span className="text-gray-700">Edit Shop</span>
                     </div>
                 </NavLink>
                 <NavLink to="/shop/profile/reviews">

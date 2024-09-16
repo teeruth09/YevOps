@@ -24,7 +24,7 @@ const ClientSidebar = () => {
                 const data = await response.json();
                 setUserInfo({
                     ...userInfo,
-                    username: data.name,                  
+                    username: data.username,                  
                 });
             } catch (error) {
                 console.error("Failed to fetch user data:", error);
@@ -59,7 +59,7 @@ const ClientSidebar = () => {
     };
 
     return (
-        <div className="w-64 h-full bg-white shadow-lg p-5">
+        <div className="w-64 h-full bg-white shadow-lg p-5 fixed z-10">
             <h2 className="text-xl font-semibold mb-6 font-bold">{userInfo.username}</h2>
             <hr className="border-t border-gray-300" />
             <div className="space-y-10">
