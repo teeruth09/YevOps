@@ -9,7 +9,9 @@ const ShopProfileBankPage = () => {
         <NavbarShop/>
         <div className='flex pl-5 pt-5'>
             <ShopSidebar/>
-            <ClientBankProfile/>
+            <div className='pl-[300px]'>
+              <ClientBankProfile/>
+            </div>
         </div>        
     </div>
   )

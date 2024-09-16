@@ -10,7 +10,7 @@ const Filterbar = () => {
     };
   
   return (
-    <div style={bottomShadowStyle} className='w-[100vw] h-[120px] mb-12 sticky top-0 z-10 bg-white'>
+    <div style={bottomShadowStyle} className='w-[100vw] h-[120px] mb-12 sticky top-[60px] z-10 bg-white'>
       <div className='w-[90vw] h-full flex justify-around items-center m-auto'>
         <div className='w-[200px] h-3/5'>
           <p className='text-lg font-medium h-1/2 flex items-center'>Shop Verified</p>

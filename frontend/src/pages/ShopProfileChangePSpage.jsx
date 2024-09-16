@@ -8,7 +8,9 @@ const ShopProfileChangePsPage = () => {
         <NavbarShop/>
         <div className='flex pl-5 pt-5'>
             <ShopSidebar/>
-            <ChangePassword/>
+            <div className='pl-[300px]'>
+              <ChangePassword/>
+            </div>
         </div>
     </div>
   )

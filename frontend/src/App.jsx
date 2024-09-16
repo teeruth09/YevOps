@@ -18,6 +18,8 @@ import ShopProfileBankPage from "./pages/ShopProfileBankPage"
 import ShopProfileReviewHistoryPage from "./pages/ShopProfileReviewHistoryPage"
 import ReportPage from "./pages/ReportPage"
 import ReviewPage from "./pages/ReviewPage"
+import ShopProfilePreviewPage from "./pages/ShopProfilePreviewpage"
+import Verifyshop from "./pages/VerifyShopPage" 
 
 function App() {
   return (
@@ -42,6 +44,9 @@ function App() {
         <Route path="/shop/profile/reviews" element={<ShopProfileReviewHistoryPage/>} />
         <Route path="/order/1/report" element={<ReportPage/>} />
         <Route path="/order/1/review" element={<ReviewPage/>} />
+        <Route path="/shop/profile/post" element={<ShopProfilePreviewPage/>} />
+        <Route path="/verifyshop" element={<Verifyshop/>} />
+
       </Routes>
    
   )

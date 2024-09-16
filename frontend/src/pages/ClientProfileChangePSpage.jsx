@@ -8,7 +8,9 @@ const ClientProfileChangePsPage = () => {
       <NavbarClient/>
       <div className='flex pl-5 pt-5'>
         <ClientSidebar/>
-        <ChangePassword/>
+        <div className='pl-[300px]'>
+          <ChangePassword/>
+        </div>
       </div>
     </div>
   )
