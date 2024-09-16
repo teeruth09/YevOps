@@ -162,10 +162,10 @@ const HomePage = () => {
 
   let NavbarComponent;
   if (isAuthenticated) {
-    if (role === "user"){
+    if (role === "client"){
       NavbarComponent = NavbarClient;
     }
-    else if (role === "online shop"){
+    else if (role === "shop"){
       NavbarComponent = NavbarShop;
     }
   } else {

@@ -7,9 +7,11 @@ const auth = require('./controllers/auth');
 const profile = require('./controllers/profile');
 const order = require('./controllers/order');
 const midauth = require('./middlewares/auth')
+const cors = require('cors');
 
 
 const app = express()
+app.use(cors());
 
 app.use(express.json())
 

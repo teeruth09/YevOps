@@ -6,10 +6,10 @@ const verifyRequestSchema = new mongoose.Schema({
     ket: { type: String },
     kwang: { type: String },
     province: { type: String },
-    postalNumber: { type: Number },
+    postalNumber: { type: String },
     ownerName: { type: String},
-    ownerPhone: { type: Number},
-    ownerIdCardNumber: { type: Number},
+    ownerPhone: { type: String},
+    ownerIdCardNumber: { type: String},
     genre: [{type: String}],
     productDescription: { type: String }
 });

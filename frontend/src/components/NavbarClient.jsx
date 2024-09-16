@@ -33,7 +33,7 @@ const NavbarClient = () => {
                 const data = await response.json();
                 setUserInfo({
                     ...userInfo,
-                    username: data.name,                  
+                    username: data.username,                  
                 });
             } catch (error) {
                 console.error("Failed to fetch user data:", error);

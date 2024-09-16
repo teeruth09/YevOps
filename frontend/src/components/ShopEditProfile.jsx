@@ -6,15 +6,12 @@ const ShopEditProfile = () => {
 
     const [userInfo, setUserInfo] = useState({
         username: "The Sewing Shop",
-        shop_profile: "https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
-        shop_name: "The Sewing Shop",
+        imageProfile: "https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
+        shopName: "The Sewing Shop",
         phone: "xxxxxxxxxx",
         address: "911/2 Ladkrabang",
-        province: "Bangkok",
-        district: "Ladkrabang",
-        zip_code: "10520",
-        shop_desc:"รับตัดชุดสูท ชุด Cosplay การันตีสินค้าคุณภาพ",
-        shop_loca: "https://www.bing.com/maps/geoplat/REST/v1/Imagery/Map/RoadVibrant/13.723014,100.749996/13?ms=648,345&heid=7862906125874626561,707070&fpp=13.723013877868652,100.74999618530273;178&ml=Basemap,LandCover,Landmarks,OsmBuildings&key=AnTcaqBi2ypp0xI-OZNi4W_ik2KhjgpqioTAtXLC8GzkMBQRMlyxvxyTnd5b73im&c=en-US&fmt=jpeg&od=1&shading=hill&logo=n&da=ro",
+        shopDescription:"รับตัดชุดสูท ชุด Cosplay การันตีสินค้าคุณภาพ",
+        location: "https://www.bing.com/maps/geoplat/REST/v1/Imagery/Map/RoadVibrant/13.723014,100.749996/13?ms=648,345&heid=7862906125874626561,707070&fpp=13.723013877868652,100.74999618530273;178&ml=Basemap,LandCover,Landmarks,OsmBuildings&key=AnTcaqBi2ypp0xI-OZNi4W_ik2KhjgpqioTAtXLC8GzkMBQRMlyxvxyTnd5b73im&c=en-US&fmt=jpeg&od=1&shading=hill&logo=n&da=ro",
     });
     const [isEditing, setIsEditing] = useState(false);
 
@@ -32,16 +29,13 @@ const ShopEditProfile = () => {
                 const data = await response.json();
                 setUserInfo({
                     ...userInfo,
-                    username: data.name,
-                    shop_name: data.shop_name,
+                    username: data.username,
+                    shopName: data.shopName,
                     phone: data.phone,
                     address: data.address,
-                    province: data.province,
-                    district: data.district,
-                    zip_code: data.zip_code,
-                    shop_desc: data.shop_desc,
-                    shop_loca: data.shop_loca,
-                                 
+                    shopDescription: data.shopDescription,
+                    location: data.location,
+                    imageProfile: data.imageProfile,     
                 });
             } catch (error) {
                 console.error("Failed to fetch user data:", error);
@@ -104,7 +98,7 @@ const ShopEditProfile = () => {
                 <div className="Profiledetail">
                     <div className="flex flex-col lg:flex-row">
                         <img
-                            src={userInfo.shop_profile}
+                            src={userInfo.imageProfile}
                             alt="profile.jpg"
                             className="w-32 h-32 lg:w-48 lg:h-48"
                         />
@@ -114,9 +108,9 @@ const ShopEditProfile = () => {
                                 <div className="name">
                                     <p>Shop Name</p>
                                     <input
-                                        name="shop_name"
+                                        name="shopName"
                                         type="text"
-                                        value={userInfo.shop_name}
+                                        value={userInfo.shopName}
                                         className="border border-gray-300 rounded-xl h-10 px-5 mb-4 lg:mb-0"
                                         onChange={handleChange}
                                         disabled={!isEditing}
@@ -149,48 +143,14 @@ const ShopEditProfile = () => {
                             onChange={handleChange}
                             disabled={!isEditing}
                         />
-                        <div className="flex flex-col lg:flex-row pt-3">
-                            <div className="w-full mb-4 lg:mb-0">
-                                <p>Province</p>
-                                <input
-                                    name="province"
-                                    type="text"
-                                    value={userInfo.province}
-                                    className="border border-gray-300 rounded-xl h-10 w-full px-5"
-                                    onChange={handleChange}
-                                    disabled={!isEditing}
-                                />
-                            </div>
-                            <div className="lg:pl-10 w-full mb-4 lg:mb-0">
-                                <p>District</p>
-                                <input
-                                    name="district"
-                                    type="text"
-                                    value={userInfo.district}
-                                    className="border border-gray-300 rounded-xl h-10 w-full px-5"
-                                    onChange={handleChange}
-                                    disabled={!isEditing}
-                                />
-                            </div>
-                            <div className="lg:pl-10 w-full">
-                                <p>Zip Code</p>
-                                <input
-                                    name="zipcode"
-                                    type="text"
-                                    value={userInfo.zip_code}
-                                    className="border border-gray-300 rounded-xl h-10 w-full px-5"
-                                    onChange={handleChange}
-                                    disabled={!isEditing}
-                                />
-                            </div>
-                        </div>
+
                     </div>
                     <div className="pt-4">
                         <p>Shop Description</p>
                         
                         <textarea
-                            name="shop_desc"
-                            value={userInfo.shop_desc}
+                            name="shopDescription"
+                            value={userInfo.shopDescription}
                             className="border border-gray-300 rounded-xl h-20 w-full pb-9 px-2 "
                             onChange={handleChange}
                             disabled={!isEditing}
@@ -202,14 +162,15 @@ const ShopEditProfile = () => {
 
                                 <p>Shop Location</p>
                                 <img
-                                
-                                    src={userInfo.shop_loca}
+
+                                    src={userInfo.location}
                                     alt="location.jpg"
                                     className="w-full h-full"
+                                    
                                 />
                             </div>
 
-                        ):(
+                        ):( 
                             <div>
                             <div className='flex items-center'>
                                 <p>Shop Location</p>
@@ -223,7 +184,7 @@ const ShopEditProfile = () => {
                             </div>
 
                                 <img
-                                    src={userInfo.shop_location}
+                                    src={userInfo.location}
                                     alt="location.jpg"
                                     className="w-full h-full"
                                 />
