@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Navbar from '../components/Navbar'
 import NavbarClient from '../components/NavbarClient'
 import NavbarShop from '../components/NavbarShop'
@@ -6,14 +6,6 @@ import NavbarAdmin from '../components/NavbarAdmin'
 import Filterbar from '@/components/FilterBar'
 import Shopcard from '@/components/ShopCard'
 import myImage from '../../public/website_picture.png'; // Assuming your component is in src/components
-<<<<<<< HEAD
-
-const HomePage = () => {
-  const centerdiv = {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit,432px)',
-  }
-=======
 import { jwtDecode } from "jwt-decode";
 import { Link } from 'react-router-dom';
 
@@ -138,7 +130,6 @@ const HomePage = () => {
     gridTemplateColumns: 'repeat(auto-fit,432px)',
   }
   
->>>>>>> origin/Ruth
   return (
     <div>
       {/* Navbar */}

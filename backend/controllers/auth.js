@@ -30,9 +30,6 @@ const register = async (req, res) => {
     }
 };
 
-<<<<<<< HEAD
-module.exports = { login,register };
-=======
 const applyShop = async (req, res) => {
     try {
         const user = await registerShop(req.body);
@@ -74,4 +71,3 @@ const logout = async (req, res) => {
 
 
 module.exports = { login,register,applyShop,logout };
->>>>>>> origin/Ruth

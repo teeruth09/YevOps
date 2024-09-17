@@ -18,14 +18,6 @@ app.get('/', (req, res) => res.send('Hello!'))
 
 app.post('/register', auth.register);
 
-<<<<<<< HEAD
-
-app.post("/login", auth.login);
-
-app.post('/welcome', midauth, (req, res) => {
-    res.status(200).send("Welcome HACKER");
-})
-=======
 app.post('/applyShop', auth.applyShop);
 
 app.post("/login", auth.login);
@@ -40,6 +32,5 @@ app.post("/createOrder", midauth, order.order);
 
 app.post("/updateStatus", midauth, order.statusOrder);
 
->>>>>>> origin/Ruth
 
 module.exports = app

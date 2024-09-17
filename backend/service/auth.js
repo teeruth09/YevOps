@@ -1,13 +1,8 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-<<<<<<< HEAD
-const User = require('../models/user'); 
-
-=======
 const User = require('../models/client');
 const UserDetail = require('../models/userDetail');
 const ShopDetail = require('../models/shop');
->>>>>>> origin/Ruth
 
 const loginUser = async (userData) => {
 
@@ -36,11 +31,7 @@ const loginUser = async (userData) => {
 }
 
 const registerUser = async (userData) => {
-<<<<<<< HEAD
-    const { first_name, last_name, email, password } = userData;
-=======
     const { first_name, last_name, email, password, gender, dob, id_card, phone, address, role, name} = userData;
->>>>>>> origin/Ruth
 
     if (!(email && password && first_name && last_name)) {
         throw new Error("All input is required");
@@ -54,19 +45,15 @@ const registerUser = async (userData) => {
 
     const encryptedPassword = await bcrypt.hash(password, 10);
 
-    const user = await User.create({
+    const newUser = await User.create({
         first_name,
         last_name,
         email: email.toLowerCase(),
-<<<<<<< HEAD
-        password: encryptedPassword
-    });
-=======
         password: encryptedPassword,
         role,
         address,
         name
-    };
+    });
 
 
     const userDetails = await UserDetail.create({
@@ -80,7 +67,6 @@ const registerUser = async (userData) => {
 
 
     const user = await User.create(newUser);
->>>>>>> origin/Ruth
 
     const token = jwt.sign(
         { user_id: user._id, email },
@@ -92,9 +78,6 @@ const registerUser = async (userData) => {
     return user;
 };
 
-<<<<<<< HEAD
-module.exports = { loginUser, registerUser };
-=======
 const registerShop = async (userData) => {
     const { first_name, last_name, email, password, gender, dob, id_card, phone, address, role, name, shop_desc, shop_loca } = userData;
 
@@ -163,4 +146,3 @@ const registerShop = async (userData) => {
 };
 
 module.exports = { loginUser, registerUser, registerShop };
->>>>>>> origin/Ruth
