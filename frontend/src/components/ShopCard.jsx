@@ -1,8 +1,6 @@
 import React from 'react'
-import Rating from '@mui/material/Rating';
-import Stack from '@mui/material/Stack';
 
-const Shopcard = ({shopId,previewImage,verifyStatus,shopProfile,shopName,shopRating,reviewCount,shopDescription,startBudget,stopBudget}) => {
+const Shopcard = ({previewImage,shopProfile,shopName,shopRating,reviewCount,shopDescription,startBudget,stopBudget}) => {
   const max3lines = {
     display: '-webkit-box',
     WebkitLineClamp: 3,
@@ -11,7 +9,7 @@ const Shopcard = ({shopId,previewImage,verifyStatus,shopProfile,shopName,shopRat
     textOverflow: 'ellipsis',
   };
   return (
-    <div onClick={() => alert("shopID is : " + shopId)} className='flex flex-col items-center m-4 w-[400px] h-[470px] rounded-sm border-[4px]'> 
+    <div className='flex flex-col items-center m-4 w-[400px] h-[470px] rounded-sm border-[4px]'> 
       {/* Shop preview picture */}
       <img className='mt-4 w-[368px] h-[200px] rounded-md'src={previewImage} alt="cum" />
       {/* Shop pfp, name, rating */}
@@ -20,14 +18,14 @@ const Shopcard = ({shopId,previewImage,verifyStatus,shopProfile,shopName,shopRat
         <div className='flex flex-col ml-4 w-60 h-100'>
           <div className='flex justify-start items-center h-[30px]'>
             <p className='text-2xl font-bold'>{shopName}</p>
-            {
-              verifyStatus == "Y" && <img className='w-[28px] h-[28px] ml-2' src="https://cdn-icons-png.flaticon.com/128/11412/11412145.png" alt="" />
-            }
+            <img className='w-[28px] h-[28px] ml-2' src="https://cdn-icons-png.flaticon.com/128/11412/11412145.png" alt="" />
           </div>
           <div className='flex justify-start items-center h-[30px]'>
-            <Stack spacing={1}>
-              <Rating defaultValue={shopRating} precision={0.1} readOnly />
-            </Stack>
+            <img className='w-[20px] h-[20px]' src="https://cdn-icons-png.flaticon.com/128/2893/2893811.png" alt="" />
+            <img className='w-[20px] h-[20px]' src="https://cdn-icons-png.flaticon.com/128/2893/2893811.png" alt="" />
+            <img className='w-[20px] h-[20px]' src="https://cdn-icons-png.flaticon.com/128/2893/2893811.png" alt="" />
+            <img className='w-[20px] h-[20px]' src="https://cdn-icons-png.flaticon.com/128/2893/2893811.png" alt="" />
+            <img className='w-[20px] h-[20px]' src="https://cdn-icons-png.flaticon.com/128/2893/2893811.png" alt="" />
             <p className='text-sm font-medium ml-1 mt-0.5 text-gray-400'>{shopRating} ({reviewCount})</p>
           </div>
         </div>

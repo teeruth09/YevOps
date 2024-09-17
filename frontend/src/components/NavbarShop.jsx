@@ -33,7 +33,7 @@ const NavbarShop = () => {
                 const data = await response.json();
                 setUserInfo({
                     ...userInfo,
-                    username: data.name,                  
+                    username: data.username,                  
                 });
             } catch (error) {
                 console.error("Failed to fetch user data:", error);
@@ -71,7 +71,7 @@ const NavbarShop = () => {
     };
 
     return (
-        <nav className="bg-red-800">
+        <nav className="bg-red-800 sticky top-0 z-10">
             <div className='mx-1 w-full px-2 sm:px-6 lg:px-8 '>
                 <div className="relative flex h-16 items-center justify-between">
                     <div className="font-medium text-2xl text-white">

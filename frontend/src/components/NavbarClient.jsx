@@ -33,7 +33,7 @@ const NavbarClient = () => {
                 const data = await response.json();
                 setUserInfo({
                     ...userInfo,
-                    username: data.name,                  
+                    username: data.username,                  
                 });
             } catch (error) {
                 console.error("Failed to fetch user data:", error);
@@ -71,9 +71,8 @@ const NavbarClient = () => {
     };
   
 
-
     return (
-        <nav className="bg-red-800">
+        <nav className="bg-red-800 sticky top-0 z-10">
             <div className='mx-1 w-full px-2 sm:px-6 lg:px-8 '>
                 <div className="relative flex h-16 items-center justify-between">
                     <div className="font-medium text-2xl text-white">
@@ -156,23 +155,23 @@ const NavbarClient = () => {
 
                             {isDropdownOpen && (
 
-                                    <div className="absolute right-0 z-10  mt-36 w-56 origin-top-right shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                    <div className="py-1">
-                                    <NavLink to="/client/profile" className="block px-4 py-2 text-sm text-gray-700 flex items-center">
-                                        <IoEyeOutline size={30} />
-                                        <div className='text-base px-10'>Profile</div>
-                                    </NavLink>
-                                    <NavLink 
-                                        to="/" 
-                                        className="block px-4 py-2 text-sm text-gray-700 flex items-center"
-                                        onClick={handleLogout}
-                                    >
-                                        <IoIosLogOut size={30}/>
-                                        <div className='text-base px-10'>Logout</div>
-                                    </NavLink>
-                                    
-                                    </div>
-                                    </div>
+                            <div className="absolute right-0 z-10  mt-36 w-56 origin-top-right shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <div className="py-1">
+                            <NavLink to="/client/profile" className="block px-4 py-2 text-sm text-gray-700 flex items-center">
+                                <IoEyeOutline size={30} />
+                                <div className='text-base px-10'>Profile</div>
+                            </NavLink>
+                            <NavLink 
+                                to="/" 
+                                className="block px-4 py-2 text-sm text-gray-700 flex items-center"
+                                onClick={handleLogout}
+                            >
+                                <IoIosLogOut size={30}/>
+                                <div className='text-base px-10'>Logout</div>
+                            </NavLink>
+
+                            </div>
+                            </div>
                             )}
                     
                         </div>

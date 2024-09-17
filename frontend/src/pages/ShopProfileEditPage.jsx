@@ -9,7 +9,9 @@ const ShopProfileEditPage = () => {
         <NavbarShop/>
         <div className='flex pl-5 pt-5'>
             <ShopSidebar/>
-            <ShopEditProfile/>
+            <div className='pl-[300px]'> 
+              <ShopEditProfile/>
+            </div>
         </div>
     </div>
   )

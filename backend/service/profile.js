@@ -36,7 +36,8 @@ const fetchProfile = async (req) => {
                 gender: user.gender,
                 birthdate: user.birthdate,
                 phone: user.phone,
-                userSizes: userSizes
+                userSizes: userSizes,
+                imageProfile : user.imageProfile
             });
 
 
@@ -46,6 +47,7 @@ const fetchProfile = async (req) => {
                 shopDescription: user.shopDescription,
                 location: user.location,
                 phone: user.phone,
+                imageProfile: user.imageProfile
             });
         }
         return profile;

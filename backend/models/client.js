@@ -9,13 +9,13 @@ const clientSchema = new mongoose.Schema({
     lastname: { type: String},
     gender: {type: String},
     birthdate: {type: Date},
-    idCardNumber: {type: Number},
-    phone:{type: Number},
+    idCardNumber: {type: String},
+    phone:{type: String},
     address: { type: String },
     role: { 
         type: String, 
     },
-    imageProfile: {type: String},
+    imageProfile: {type: String, default: 'https://th.bing.com/th/id/OIP.6Vkv1Oyc641507Z8PhZrRgHaHX?w=900&h=895&rs=1&pid=ImgDetMain'},
     favouriteShop: [
         {
             type: mongoose.Schema.Types.ObjectId, 

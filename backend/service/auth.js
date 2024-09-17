@@ -34,7 +34,7 @@ const loginUser = async (userData) => {
 };
 
 const registerClient = async (userData) => {
-    const { firstname, lastname, email, password, gender, birthdate, idCardNumber, phone, address, role, username} = userData;
+    const { firstname, lastname, email, password, gender, birthdate, idCardNumber, phone, address, role, username, imageProfile} = userData;
 
     if (!(email && password && firstname && lastname && gender && birthdate && idCardNumber && phone && address && role && username)) {
         throw new Error("All input is required");
@@ -79,6 +79,7 @@ const registerClient = async (userData) => {
         birthdate,
         idCardNumber,
         phone,
+        imageProfile,
     };
 
 
@@ -95,7 +96,7 @@ const registerClient = async (userData) => {
 };
 
 const registerShop = async (userData) => {
-    const { firstname, lastname, email, password, gender, birthdate, idCardNumber, phone, address, role, username, shopDescription, location } = userData;
+    const { firstname, lastname, email, password, gender, birthdate, idCardNumber, phone, address, role, username, shopDescription, location, imageProfile } = userData;
 
     if (!(email && password && firstname && lastname && gender && birthdate && idCardNumber && phone && address && role && username && shopDescription && location)) {
         throw new Error("All input is required");
@@ -142,7 +143,8 @@ const registerShop = async (userData) => {
         phone,
         gender,
         birthdate,
-        idCardNumber
+        idCardNumber,
+        imageProfile,
     };
 
 
