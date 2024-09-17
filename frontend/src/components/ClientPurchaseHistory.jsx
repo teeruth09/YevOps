@@ -12,10 +12,10 @@ const ClientPurchaseHistory = () => {
       order_picture: "https://th.bing.com/th/id/OIP.VgTfsglMSIRrHk1ZlW1LbwHaIc?w=570&h=650&rs=1&pid=ImgDetMain",
       shop_profile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
       order_date: "15 Aug 2024",
-      due_date: "20 Aug 2024",
-      order_status: "Pending",
+      deadline: "20 Aug 2024",
+      status: "Pending",
       price: "100.00 THB",
-      type_order: "Basic",
+      orderType: "Basic",
       order_detail: "รับตัดชุทสูททุกชนิด",
     },
     {
@@ -24,10 +24,10 @@ const ClientPurchaseHistory = () => {
       order_picture: "https://th.bing.com/th/id/OIP.VgTfsglMSIRrHk1ZlW1LbwHaIc?w=570&h=650&rs=1&pid=ImgDetMain",
       shop_profile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
       order_date: "15 Aug 2024",
-      due_date: "20 Aug 2024",
-      order_status: "Payment",
+      deadline: "20 Aug 2024",
+      status: "Payment",
       price: "100.00 THB",
-      type_order: "Basic",
+      orderType: "Basic",
       order_detail: "รับตัดชุทสูททุกชนิด",
     },
     {
@@ -36,10 +36,10 @@ const ClientPurchaseHistory = () => {
       order_picture: "https://th.bing.com/th/id/OIP.VgTfsglMSIRrHk1ZlW1LbwHaIc?w=570&h=650&rs=1&pid=ImgDetMain",
       shop_profile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
       order_date: "15 Aug 2024",
-      due_date: "20 Aug 2024",
-      order_status: "In Progress",
+      deadline: "20 Aug 2024",
+      status: "In Progress",
       price: "100.00 THB",
-      type_order: "Basic",
+      orderType: "Basic",
       order_detail: "รับตัดชุทสูททุกชนิด",
     },
     {
@@ -48,10 +48,10 @@ const ClientPurchaseHistory = () => {
       order_picture: "https://th.bing.com/th/id/OIP.VgTfsglMSIRrHk1ZlW1LbwHaIc?w=570&h=650&rs=1&pid=ImgDetMain",
       shop_profile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
       order_date: "15 Aug 2024",
-      due_date: "20 Aug 2024",
-      order_status: "Canceled",
+      deadline: "20 Aug 2024",
+      status: "Canceled",
       price: "100.00 THB",
-      type_order: "Basic",
+      orderType: "Basic",
       order_detail: "รับตัดชุทสูททุกชนิด",
     },
     {
@@ -60,10 +60,10 @@ const ClientPurchaseHistory = () => {
       order_picture: "https://th.bing.com/th/id/OIP.VgTfsglMSIRrHk1ZlW1LbwHaIc?w=570&h=650&rs=1&pid=ImgDetMain",
       shop_profile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
       order_date: "15 Aug 2024",
-      due_date: "20 Aug 2024",
-      order_status: "Sending",
+      deadline: "20 Aug 2024",
+      status: "Sending",
       price: "100.00 THB",
-      type_order: "Basic",
+      orderType: "Basic",
       order_detail: "รับตัดชุทสูททุกชนิด",
     },
     {
@@ -72,10 +72,10 @@ const ClientPurchaseHistory = () => {
       order_picture: "https://th.bing.com/th/id/OIP.VgTfsglMSIRrHk1ZlW1LbwHaIc?w=570&h=650&rs=1&pid=ImgDetMain",
       shop_profile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
       order_date: "15 Aug 2024",
-      due_date: "20 Aug 2024",
-      order_status: "Due Dated",
+      deadline: "20 Aug 2024",
+      status: "Due Dated",
       price: "100.00 THB",
-      type_order: "Basic",
+      orderType: "Basic",
       order_detail: "รับตัดชุทสูททุกชนิด",
     },
     {
@@ -84,10 +84,10 @@ const ClientPurchaseHistory = () => {
       order_picture: "https://th.bing.com/th/id/OIP.VgTfsglMSIRrHk1ZlW1LbwHaIc?w=570&h=650&rs=1&pid=ImgDetMain",
       shop_profile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
       order_date: "15 Aug 2024",
-      due_date: "20 Aug 2024",
-      order_status: "Complete",
+      deadline: "20 Aug 2024",
+      status: "Complete-Not Review",
       price: "100.00 THB",
-      type_order: "Basic",
+      orderType: "Basic",
       order_detail: "รับตัดชุทสูททุกชนิด",
     },
     {
@@ -96,10 +96,10 @@ const ClientPurchaseHistory = () => {
       order_picture: "https://th.bing.com/th/id/OIP.VgTfsglMSIRrHk1ZlW1LbwHaIc?w=570&h=650&rs=1&pid=ImgDetMain",
       shop_profile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
       order_date: "15 Aug 2024",
-      due_date: "20 Aug 2024",
-      order_status: "Rejected",
+      deadline: "20 Aug 2024",
+      status: "Rejected",
       price: "100.00 THB",
-      type_order: "Basic",
+      orderType: "Basic",
       order_detail: "รับตัดชุทสูททุกชนิด",
     },
     {
@@ -108,10 +108,10 @@ const ClientPurchaseHistory = () => {
       order_picture: "https://th.bing.com/th/id/OIP.VgTfsglMSIRrHk1ZlW1LbwHaIc?w=570&h=650&rs=1&pid=ImgDetMain",
       shop_profile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
       order_date: "15 Aug 2024",
-      due_date: "20 Aug 2024",
-      order_status: "Delivered",
+      deadline: "20 Aug 2024",
+      status: "Delivered",
       price: "100.00 THB",
-      type_order: "Basic",
+      orderType: "Basic",
       order_detail: "รับตัดชุทสูททุกชนิด",
     },
   ]); // Array to store fetched orders
@@ -134,13 +134,13 @@ const ClientPurchaseHistory = () => {
 
   const filteredOrders = activeTab === 'All' ? orders : orders.filter((order) => {
     if (activeTab === 'In Progress'){
-      return order.order_status === 'In Progress' || order.order_status === 'Sending';
+      return order.status === 'In Progress' || order.status === 'Sending';
     }else if(activeTab === 'Success'){
-      return order.order_status === 'Complete' || order.order_status === 'Delivered';
+      return order.status === 'Complete-Not Review'|| order.status === 'Complete-Review' || order.status === 'Complete' || order.status === 'Delivered';
     }else if(activeTab === 'Failed'){
-      return order.order_status === 'Due Dated' || order.order_status === 'Rejected' || order.order_status === 'Canceled';
+      return order.status === 'Due Dated' || order.status === 'Rejected' || order.status === 'Canceled';
     }else{
-      return order.order_status === 'Pending' || order.order_status === 'Payment';
+      return order.status === 'Pending' || order.status === 'Payment';
     }
     });
 
@@ -167,7 +167,7 @@ const ClientPurchaseHistory = () => {
       </div>
       <div className='pt-1'>
         {filteredOrders.map((order) => (
-          <Link key={order.id} to={`/order/${order.id}`}>
+          <Link key={order.id} to={`/order/${order.id}`} state={{order}}>
             <OrderCard key={order.id} orderInfo={order} /> 
           </Link>
         ))}

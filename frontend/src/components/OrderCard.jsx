@@ -20,6 +20,10 @@ const OrderCard = ({ orderInfo }) => {
                 return 'text-red-500';
             case 'Complete':
                 return 'text-green-500';
+            case 'Complete-Review':
+                return 'text-green-500';
+            case 'Complete-Not Review':
+                return 'text-green-500';
             case 'Delivered':
                 return 'text-green-500';
             default:
@@ -38,12 +42,12 @@ const OrderCard = ({ orderInfo }) => {
 
                         <div className='flex px-2' >
                             <p className='font-bold flex-auto'>{orderInfo.shop_name}</p>
-                            <p className={`font-bold ${getStatusColor(orderInfo.order_status)}`}>{orderInfo.order_status}</p>
+                            <p className={`font-bold ${getStatusColor(orderInfo.status)}`}>{orderInfo.status}</p>
 
                         </div>
                         <div className='flex px-2 '>
                             <p className='text-sm flex-auto pr-3'>{orderInfo.order_date}</p>
-                            <p className='text-sm flex-auto'>Due {orderInfo.due_date}</p>
+                            <p className='text-sm flex-auto'>Due {orderInfo.deadline}</p>
                             <p className='text-sm ml-20'>{orderInfo.price}</p>
 
                         </div>
