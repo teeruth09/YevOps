@@ -4,6 +4,7 @@ require('./configs/database').connect()
 
 const express = require('express')
 const auth = require('./controllers/auth');
+const search = require('./controllers/search');
 const profile = require('./controllers/profile');
 const order = require('./controllers/order');
 const midauth = require('./middlewares/auth')
@@ -25,6 +26,8 @@ app.post('/applyShop', auth.applyShop);
 app.post("/login", auth.login);
 
 app.post("/logout", auth.logout);
+
+app.get("/search", search.search);
 
 app.get('/profile', midauth, profile.getProfile);
 

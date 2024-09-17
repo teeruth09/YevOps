@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const userRequestDescriptionSchema = new mongoose.Schema({
-    shopId: { type: mongoose.Schema.Types.ObjectId, ref: 'Shop'},
-    name: { type: String},
-    price: { type: Number},
-    detail: { type: String },
-    deadline: { type: Date }
+    clothType: { type: String},
+    budgetStart: { type: Number},
+    budgetStop: { type: Number},
+    deadline: { type: Date },
+    referenceImage: [{type: String}]
 });
 
 module.exports = mongoose.model('UserRequestDescription', userRequestDescriptionSchema);

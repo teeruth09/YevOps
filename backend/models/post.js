@@ -1,12 +1,16 @@
 const mongoose = require('mongoose')
 
 const postSchema = new mongoose.Schema({
-    shopId: {
+    clientId: {
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Shop' 
+        ref: 'Client' 
     },
-    reviewContent: {type: String},
-    rating: {type: Number},
+    title: {type: String},
+    genre: [{type: String}],
+    userRequestDescription: {
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'UserRequestDescription' 
+    },
     createdAt: {type: Date}
 })
 
