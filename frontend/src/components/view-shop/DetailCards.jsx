@@ -134,7 +134,7 @@ export const CommentCard = () => {
     <div className='mt-8 flex flex-col gap-2 border-2 p-6 rounded shadow'>
       <div className='flex items-center gap-2'>
         <img
-          src='profile.png'
+          src='../../../public/profile.png'
           alt='profile'
           className='h-12 w-12 rounded-full'
         />

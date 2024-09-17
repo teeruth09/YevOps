@@ -90,10 +90,10 @@ function OrderSideBar(props) {
     const onCodeChange = props.onCodeChange;
 
     const handleStatusColor = (orderStatus) => {
-        const reds = ["Cancel", "Due Dated", "Rejected"];
+        const reds = ["Canceled", "Due Dated", "Rejected"];
         if (reds.includes(orderStatus)) {
             return "text-red-500";
-        } else if (["Delivered", "Complete-Not Review", "Complete-Review"].includes(orderStatus)) {
+        } else if (["Delivered", "Complete-Not Review", "Complete-Review", "Complete"].includes(orderStatus)) {
             return "text-green-500";
         } else if (["Sending", "In Progress"].includes(orderStatus)) {
             return "text-orange-300"
@@ -120,9 +120,9 @@ function OrderSideBar(props) {
             <div className='mb-3'>
                 <h5 className='text-xl mb-2'>Description</h5>
                 <div className='flex text-base text-gray-400 mb-1'>
-                    <p className='mr-3'>{order.orderType}</p>
+                    <p className='mr-3'>{order.name}</p>
                 </div>
-                <p className='text-xs lg:text-sm'>{shop.description}</p>
+                <p className='text-xs lg:text-sm'>{order.detail}</p>
             </div>
             { !["Pending", "Rejected"].includes(order.status) && <ShowPrice order={order} onCodeChange={onCodeChange} /> }
             <div>

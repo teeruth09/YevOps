@@ -20,6 +20,8 @@ import ReportPage from "./pages/ReportPage"
 import ReviewPage from "./pages/ReviewPage"
 import ShopProfilePreviewPage from "./pages/ShopProfilePreviewpage"
 import Verifyshop from "./pages/VerifyShopPage" 
+import ChatPage from "./pages/ChatPage"
+import OrderInformationPage from "./pages/OrderInformationPage"
 
 function App() {
   return (
@@ -33,7 +35,7 @@ function App() {
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/viewshop' element={<Viewshoppage />} />
-        <Route path='/order/1' element={<ViewOrderPage />} />
+        <Route path='/order/:id' element={<ViewOrderPage />} />
         <Route path="/search" element={<ShowShopAfterSearch />} />
         <Route path="/client/profile/bank" element={<ClientProfileBankPage/>} />
         <Route path="/client/profile/post" element={<ClientProfilePostPage/>} />
@@ -46,6 +48,8 @@ function App() {
         <Route path="/order/1/review" element={<ReviewPage/>} />
         <Route path="/shop/profile/post" element={<ShopProfilePreviewPage/>} />
         <Route path="/verifyshop" element={<Verifyshop/>} />
+        <Route path="/chat" element={<ChatPage/>} />
+        <Route path="/order/information" element={<OrderInformationPage/>} />
 
       </Routes>
    
