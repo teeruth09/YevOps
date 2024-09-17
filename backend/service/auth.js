@@ -1,100 +1,55 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const User = require('../models/client');
-const UserDetail = require('../models/userDetail');
-const ShopDetail = require('../models/shop');
+const Client = require('../models/client');
+const Shop = require('../models/shop');
+
 
 const loginUser = async (userData) => {
+    const { email, password } = userData;
 
-    const {email, password} = userData;
-    
     if (!(email && password)) {
-        throw new Error("User not Found")
+        throw new Error("All input is required");
     }
 
-    const user = await User.findOne({ email });
+    let user = await Client.findOne({ email });
+
+    if (!user) {
+        user = await Shop.findOne({ email });
+    }
 
     if (user && (await bcrypt.compare(password, user.password))) {
-        
         const token = jwt.sign(
             { user_id: user._id, email },
             process.env.TOKEN_KEY,
-            {
-                expiresIn: "1h"
-            }
-        )
-        user.token = token;
-        
-        return user;
+            { expiresIn: "3h" }
+        );
+
+        return {
+            role: user.role,  // Use the role property from the user object
+            token: token,
+        };
+    } else {
+        throw new Error("Incorrect Email or Password");
     }
-
-}
-
-const registerUser = async (userData) => {
-    const { first_name, last_name, email, password, gender, dob, id_card, phone, address, role, name} = userData;
-
-    if (!(email && password && first_name && last_name)) {
-        throw new Error("All input is required");
-    }
-
-    const oldUser = await User.findOne({ email });
-
-    if (oldUser) {
-        throw new Error("User already exists. Please login");
-    }
-
-    const encryptedPassword = await bcrypt.hash(password, 10);
-
-    const newUser = await User.create({
-        first_name,
-        last_name,
-        email: email.toLowerCase(),
-        password: encryptedPassword,
-        role,
-        address,
-        name
-    });
-
-
-    const userDetails = await UserDetail.create({
-        gender,
-        dob,
-        id_card,
-        phone,
-    });
-
-    newUser.userDetails = userDetails._id; 
-
-
-    const user = await User.create(newUser);
-
-    const token = jwt.sign(
-        { user_id: user._id, email },
-        process.env.TOKEN_KEY,
-        { expiresIn: "2h" }
-    );
-
-    user.token = token;
-    return user;
 };
 
-const registerShop = async (userData) => {
-    const { first_name, last_name, email, password, gender, dob, id_card, phone, address, role, name, shop_desc, shop_loca } = userData;
+const registerClient = async (userData) => {
+    const { firstname, lastname, email, password, gender, birthdate, idCardNumber, phone, address, role, username, imageProfile} = userData;
 
-    if (!(email && password && first_name && last_name && gender && dob && id_card && phone && address && role && name && shop_desc && shop_loca)) {
+    if (!(email && password && firstname && lastname && gender && birthdate && idCardNumber && phone && address && role && username)) {
         throw new Error("All input is required");
     }
 
-    const userCheck = [
+    const clientCheck = [
         { key: 'email', value: email },
-        { key: 'id_card', value: id_card },
+        { key: 'id_card', value: idCardNumber },
         { key: 'phone', value: phone },
-        { key: 'name', value: name }
+        { key: 'name', value: username }
     ];
 
-    for (const check of userCheck) {
-        const existingUser = await User.findOne({ [check.key]: check.value });
-        if (existingUser) {
+    for (const check of clientCheck) {
+        const existingClient = await Client.findOne({ [check.key]: check.value });
+        if (existingClient) {
             switch (check.key) {
                 case 'email':
                     throw new Error("This Email is already used");
@@ -112,37 +67,97 @@ const registerShop = async (userData) => {
 
     const encryptedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = {
-        first_name,
-        last_name,
+    const newClient = {
+        firstname,
+        lastname,
         email: email.toLowerCase(),
         password: encryptedPassword,
         role,
         address,
-        name
+        username,
+        gender,
+        birthdate,
+        idCardNumber,
+        phone,
+        imageProfile,
     };
 
 
-    const shopDetails = await ShopDetail.create({
-        shop_name: name,
-        shop_desc,
-        shop_loca,
-        phone,
-    });
-
-    newUser.shopDetails = shopDetails._id; 
-
-
-    const user = await User.create(newUser);
+    const client = await Client.create(newClient);
 
     const token = jwt.sign(
-        { user_id: user._id, email },
+        { user_id: client._id, email },
         process.env.TOKEN_KEY,
         { expiresIn: "2h" }
     );
 
-    user.token = token;
-    return user;
+    client.token = token;
+    return client;
 };
 
-module.exports = { loginUser, registerUser, registerShop };
+const registerShop = async (userData) => {
+    const { firstname, lastname, email, password, gender, birthdate, idCardNumber, phone, address, role, username, shopDescription, location, imageProfile } = userData;
+
+    if (!(email && password && firstname && lastname && gender && birthdate && idCardNumber && phone && address && role && username && shopDescription && location)) {
+        throw new Error("All input is required");
+    }
+
+    const shopCheck = [
+        { key: 'email', value: email },
+        { key: 'id_card', value: idCardNumber },
+        { key: 'phone', value: phone },
+        { key: 'name', value: username }
+    ];
+
+    for (const check of shopCheck) {
+        const existingShop = await Shop.findOne({ [check.key]: check.value });
+        if (existingShop) {
+            switch (check.key) {
+                case 'email':
+                    throw new Error("This Email is already used");
+                case 'id_card':
+                    throw new Error("This ID card is already used");
+                case 'phone':
+                    throw new Error("This phone number is already used");
+                case 'name':
+                    throw new Error("This username is already used");
+                default:
+                    throw new Error("Unknown field error");
+            }
+        }
+    }
+
+    const encryptedPassword = await bcrypt.hash(password, 10);
+
+    const newShop = {
+        firstname,
+        lastname,
+        email: email.toLowerCase(),
+        password: encryptedPassword,
+        role,
+        address,
+        username,
+        shopName: username,
+        shopDescription,
+        location,
+        phone,
+        gender,
+        birthdate,
+        idCardNumber,
+        imageProfile,
+    };
+
+
+    const shop = await Shop.create(newShop);
+
+    const token = jwt.sign(
+        { user_id: shop._id, email },
+        process.env.TOKEN_KEY,
+        { expiresIn: "2h" }
+    );
+
+    shop.token = token;
+    return shop;
+};
+
+module.exports = { loginUser, registerClient, registerShop };

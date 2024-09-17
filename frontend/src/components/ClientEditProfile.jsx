@@ -22,66 +22,80 @@ const ClientEditProfile = () => {
     const [editingIndex, setEditingIndex] = useState(null);
     const [newItemLabel, setNewItemLabel] = useState('');
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const options = { day: 'numeric', month: 'short', year: 'numeric' };
+        return date.toLocaleDateString('en-GB', options);
+    };
+
     const [userInfo, setUserInfo] = useState({
-        username: "Teeruth",
-        client_profile: "https://th.bing.com/th/id/OIP.6Vkv1Oyc641507Z8PhZrRgHaHX?w=900&h=895&rs=1&pid=ImgDetMain",
-        firstname: "Teeruth",
-        lastname: "Ieowsakulrat",
-        date_of_birth: "2-Feb-2000",
-        phone_number: "xxxxxxxxxx",
-        gender: "Other",
-        address: "911/2 Ladkrabang",
-        province: "Bangkok",
-        district: "Ladkrabang",
-        zip_code: "10520",
+        username: "",
+        imageProfile: "https://th.bing.com/th/id/OIP.6Vkv1Oyc641507Z8PhZrRgHaHX?w=900&h=895&rs=1&pid=ImgDetMain",
+        firstname: "",
+        lastname: "",
+        birthdate: "",
+        phone: "",
+        gender: "",
+        address: "",
         whose_size: "ขนาดตัวของคุณ",
-        shirt_length: "45", //เสื้อยาว
-        chest_size:"45", //รอบอก
+        shirtLength: "45", //เสื้อยาว
+        chestSize:"45", //รอบอก
         waistline: "45", //รอบเอว
         hip: "45", //สะโพก
-        waist_shirt: "45", //เอวเสื้อ
-        hip_shirt: "45", //สะโพกเสื้อ
+        waistShirt: "45", //เอวเสื้อ
+        hipShirt: "45", //สะโพกเสื้อ
         thigh: "45", //ต้นขา
-        croth: "45", //เป้า
+        crotch: "45", //เป้า
         shoulder: "45", //ไหล่
-        arm_length: "45",//แขนยาว
+        armLength: "45",//แขนยาว
         calf: "45",//น่องขา
-        tip_of_leg: "45",//ปลายขา
+        tipLeg: "45",//ปลายขา
+        legLength: "45",
+        upperArm: "45",
 
     });
     const [isEditing, setIsEditing] = useState(false);
 
     useEffect(() => {
         async function fetchUserData() {
+            const token = localStorage.getItem("x-access-token");
             try {
-                const response = await fetch('/api/user'); // Replace with your API endpoint
+                const response = await fetch('http://localhost:5555/profile',{
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'x-access-token':token
+                    }
+                }); // Replace with your API endpoint
+                // Log raw response text
                 const data = await response.json();
                 setUserInfo({
                     ...userInfo,
                     username: data.username,
+                    imageProfile: data.imageProfile,
                     firstname: data.firstname,
                     lastname: data.lastname,
-                    date_of_birth: data.lastname,
-                    phone_number: data.phone_number,
+                    birthdate: formatDate(data.birthdate),
+                    phone: data.phone,
                     gender: data.gender,
                     address: data.address,
-                    province: data.province,
-                    district: data.district,
-                    zip_code: data.zip_code,
                     whose_size: data.whose_size,
-                    shirt_length: data.shirt_length,
-                    chest_size: data.chest_size,
-                    waistline: data.waistline,
+                    shirtLength: data.shirtLength,
+                    chestSize: data.chestSize,
+                    waistLine: data.waistline,
                     hip: data.hip,
-                    waist_shirt: data.waist_shirt,
-                    hip_shirt: data.hip_shirt,
+                    waistShirt: data.waistShirt,
+                    hipShirt: data.hipShirt,
                     thigh: data.thigh,
-                    croth: data.croth,
+                    crotch: data.crotch,
                     shoulder: data.shoulder,
-                    arm_length: data.arm_length,
+                    armLength: data.armLength,
                     calf: data.calf,
-                    tip_of_leg: data.tip_of_leg,                   
+                    tipLeg: data.tipLeg,
+                    legLength: data.legLength,
+                    upperArm: data.upperArm                   
                 });
+                console.log(data)
             } catch (error) {
                 console.error("Failed to fetch user data:", error);
             }
@@ -90,7 +104,38 @@ const ClientEditProfile = () => {
         fetchUserData();
     }, []);
 
+
+    const updateUserInfo = async () => {
+        const token = localStorage.getItem("x-access-token");
+        console.log("token",token)
+
+        if (!token) {
+            console.error("Token is missing in local storage.");
+            return;
+        }
+
+        try {
+            const response = await fetch("http://localhost:5555/profile", {
+                method: "PUT",
+                headers: {
+                "Content-Type": "application/json",
+                "x-access-token":token
+                },
+                body: JSON.stringify(userInfo), // Pass userInfo as the updated data
+            });
+            const data = await response.json();
+            if (response.ok) {
+                console.log("Updated user info:", data);
+            } else {
+                console.error("Failed to update user info:", data);
+            }
+            } catch (error) {
+            console.error("Error updating user info:", error);
+        }
+      };
+
     const handleChange = (e) => {
+        // console.log("Field changed:", e.target.name, "New value:", e.target.value);
         setUserInfo({
             ...userInfo,
             [e.target.name]: e.target.value,
@@ -107,7 +152,12 @@ const ClientEditProfile = () => {
     };
     const handleSaveClick = () => {
         //update profile
+        if (isEditing) {
+            updateUserInfo();
+            setIsEditing(false); // Disable editing mode after saving
+        }  
     };
+
 
     const handleAddSize = () => {
         // Add a new item
@@ -143,7 +193,7 @@ const ClientEditProfile = () => {
                 <div className="Profiledetail">
                     <div className="flex flex-col lg:flex-row">
                         <img
-                            src={userInfo.client_profile}
+                            src={userInfo.imageProfile}
                             alt="profile.jpg"
                             className="w-32 h-32 lg:w-48 lg:h-48"
                         />
@@ -153,13 +203,14 @@ const ClientEditProfile = () => {
                                 <div className="name">
                                     <p>Firstname</p>
                                     <input
-                                        name="username"
+                                        name="firstname"
                                         type="text"
                                         value={userInfo.firstname}
                                         className="border border-gray-300 rounded-xl h-10 px-5 mb-4 lg:mb-0"
                                         onChange={handleChange}
                                         disabled={!isEditing}
                                     />
+                                
                                 </div>
                                 <div className="lg:pl-10">
                                     <p>Lastname</p>
@@ -177,9 +228,9 @@ const ClientEditProfile = () => {
                                 <div className="mb-4 lg:mb-0">
                                     <p>Date of Birth</p>
                                     <input
-                                        name="dob"
+                                        name="birthdate"
                                         type="text"
-                                        value={userInfo.date_of_birth}
+                                        value={userInfo.birthdate}
                                         className="border border-gray-300 rounded-xl h-10 px-5"
                                         onChange={handleChange}
                                         disabled={!isEditing}
@@ -188,9 +239,9 @@ const ClientEditProfile = () => {
                                 <div className="lg:pl-10 mb-4 lg:mb-0">
                                     <p>Phone Number</p>
                                     <input
-                                        name="phonenumber"
+                                        name="phone"
                                         type="text"
-                                        value={userInfo.phone_number}
+                                        value={userInfo.phone}
                                         className="border border-gray-300 rounded-xl h-10 px-5"
                                         onChange={handleChange}
                                         disabled={!isEditing}
@@ -217,42 +268,9 @@ const ClientEditProfile = () => {
                             type="text"
                             value={userInfo.address}
                             className="border border-gray-300 rounded-xl h-10 w-full px-5"
+                            onChange={handleChange}
+                            disabled={!isEditing}
                         />
-                        <div className="flex flex-col lg:flex-row pt-3">
-                            <div className="w-full mb-4 lg:mb-0">
-                                <p>Province</p>
-                                <input
-                                    name="province"
-                                    type="text"
-                                    value={userInfo.province}
-                                    className="border border-gray-300 rounded-xl h-10 w-full px-5"
-                                    onChange={handleChange}
-                                    disabled={!isEditing}
-                                />
-                            </div>
-                            <div className="lg:pl-10 w-full mb-4 lg:mb-0">
-                                <p>District</p>
-                                <input
-                                    name="district"
-                                    type="text"
-                                    value={userInfo.district}
-                                    className="border border-gray-300 rounded-xl h-10 w-full px-5"
-                                    onChange={handleChange}
-                                    disabled={!isEditing}
-                                />
-                            </div>
-                            <div className="lg:pl-10 w-full">
-                                <p>Zip Code</p>
-                                <input
-                                    name="zipcode"
-                                    type="text"
-                                    value={userInfo.zip_code}
-                                    className="border border-gray-300 rounded-xl h-10 w-full px-5"
-                                    onChange={handleChange}
-                                    disabled={!isEditing}
-                                />
-                            </div>
-                        </div>
                     </div>
                     <div className="flex flex-col lg:flex-row pt-6 lg:pt-16 items-center">
                     {!isEditing ? (
@@ -337,9 +355,9 @@ const ClientEditProfile = () => {
                         <div className="mb-4 lg:mb-0">
                             <p>เสื้อยาว</p>
                             <input
-                                name="shirt_long"
+                                name="shirtLong"
                                 type="text"
-                                value={userInfo.shirt_length}
+                                value={userInfo.shirtLength}
                                 className="border border-gray-300 rounded-xl h-10 px-5"
                                 onChange={handleChange}
                                 disabled={!isEditing}
@@ -348,9 +366,9 @@ const ClientEditProfile = () => {
                         <div className="lg:pl-10 mb-4 lg:mb-0">
                             <p>รอบอก</p>
                             <input
-                                name="chest"
+                                name="chestSize"
                                 type="text"
-                                value={userInfo.chest_size}
+                                value={userInfo.chestSize}
                                 className="border border-gray-300 rounded-xl h-10 px-5"
                                 onChange={handleChange}
                                 disabled={!isEditing}
@@ -359,7 +377,7 @@ const ClientEditProfile = () => {
                         <div className="lg:pl-10 mb-4 lg:mb-0">
                             <p>รอบเอว</p>
                             <input
-                                name="waist"
+                                name="waistline"
                                 type="text"
                                 value={userInfo.waistline}
                                 className="border border-gray-300 rounded-xl h-10 px-5"
@@ -383,9 +401,9 @@ const ClientEditProfile = () => {
                         <div className="mb-4 lg:mb-0">
                             <p>เอวเสื้อ</p>
                             <input
-                                name="shirt_waist"
+                                name="waistShirt"
                                 type="text"
-                                value={userInfo.waist_shirt}
+                                value={userInfo.waistShirt}
                                 className="border border-gray-300 rounded-xl h-10 px-5"
                                 onChange={handleChange}
                                 disabled={!isEditing}
@@ -394,9 +412,9 @@ const ClientEditProfile = () => {
                         <div className="lg:pl-10 mb-4 lg:mb-0">
                             <p>สะโพกเสื้อ</p>
                             <input
-                                name="shirt_hip"
+                                name="hipShirt"
                                 type="text"
-                                value={userInfo.hip_shirt}
+                                value={userInfo.hipShirt}
                                 className="border border-gray-300 rounded-xl h-10 px-5"
                                 onChange={handleChange}
                                 disabled={!isEditing}
@@ -418,7 +436,7 @@ const ClientEditProfile = () => {
                             <input
                                 name="crotch"
                                 type="text"
-                                value={userInfo.croth}
+                                value={userInfo.crotch}
                                 className="border border-gray-300 rounded-xl h-10 px-5"
                                 onChange={handleChange}
                                 disabled={!isEditing}
@@ -440,9 +458,9 @@ const ClientEditProfile = () => {
                         <div className="lg:pl-10 mb-4 lg:mb-0">
                             <p>แขนยาว</p>
                             <input
-                                name="sleeve"
+                                name="armLength"
                                 type="text"
-                                value={userInfo.arm_length}
+                                value={userInfo.armLength}
                                 className="border border-gray-300 rounded-xl h-10 px-5"
                                 onChange={handleChange}
                                 disabled={!isEditing}
@@ -462,14 +480,39 @@ const ClientEditProfile = () => {
                         <div className="lg:pl-10">
                             <p>ปลายขา</p>
                             <input
-                                name="leg_opening"
+                                name="tipLeg"
                                 type="text"
-                                value={userInfo.tip_of_leg}
+                                value={userInfo.tipLeg}
                                 className="border border-gray-300 rounded-xl h-10 px-5"
                                 onChange={handleChange}
                                 disabled={!isEditing}
                             />
                         </div>
+                    </div>
+                    <div className="flex flex-col lg:flex-row pt-3">
+                        <div className="mb-4 lg:mb-0">
+                            <p>ต้นแขน</p>
+                            <input
+                                name="legLength"
+                                type="text"
+                                value={userInfo.legLength}
+                                className="border border-gray-300 rounded-xl h-10 px-5"
+                                onChange={handleChange}
+                                disabled={!isEditing}
+                            />
+                        </div>
+                        <div className="lg:pl-[300px] mb-4 lg:mb-0">
+                            <p>ความยาว</p>
+                            <input
+                                name="upperArm"
+                                type="text"
+                                value={userInfo.upperArm}
+                                className="border border-gray-300 rounded-xl h-10 px-5"
+                                onChange={handleChange}
+                                disabled={!isEditing}
+                            />
+                        </div>
+                       
                     </div>
                     <div className="flex flex-col lg:flex-row pt-10 items-center">
                         <div className='flex-1'></div>

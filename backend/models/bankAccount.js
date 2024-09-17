@@ -5,12 +5,12 @@ const bankAccountSchema = new mongoose.Schema({
     display: { type: String},
     bankName: { type: String},
     branchName: { type: String },
-    branchNumber: { type: Number },
+    branchNumber: { type: String },
     branchAddress: { type: String },
     streetAddress: { type: String },
     city: { type: String },
     region: { type: String },
-    postal: { type: Number},
+    postal: { type: String},
     country: { type: String }
 });
 

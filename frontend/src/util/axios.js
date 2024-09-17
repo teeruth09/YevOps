@@ -4,7 +4,13 @@ import { HOST_API } from '../global-config'
 
 // ----------------------------------------------------------------------
 
-const axiosInstance = axios.create({ baseURL: HOST_API })
+// const axiosInstance = axios.create({ baseURL: HOST_API })
+
+
+// Set http://localhost:5555/ as the default base URL
+const axiosInstance = axios.create({
+  baseURL: 'http://localhost:5555/',
+});
 
 axiosInstance.interceptors.response.use(
   (res) => res,
