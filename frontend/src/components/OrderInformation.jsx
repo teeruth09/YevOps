@@ -1,14 +1,39 @@
-import React from 'react'
+import React, {useState} from 'react'
 import OrderDetail from './OrderDetail';
 import DeliveryAddressInfoCard from './DeliveryAddressInfoCard';
 import CustomerSizeInfoCard from './CustomerSizeInfoCard';
 import OrderInfoSideBar from './OrderInfoSideBar';
 
 const OrderInformation = (props) => {
-    const order = props.order;
-    const shop = props.shop;
-    const client = props.client;
-    const onCodeChange = props.onCodeChange;
+    const { order: initialOrder, shop, client: initialClient, onCodeChange } = props;
+
+    const [order, setOrder] = useState(initialOrder);
+    const [client, setClient] = useState(initialClient);
+    const handleClientChange = (key, value) => {
+        setClient({
+          ...client,
+          [key]: value
+        });
+      };
+    
+      const handleOrderChange = (key, value) => {
+        setOrder({
+          ...order,
+          [key]: value
+        });
+      };
+    
+      const handleSubmit = () => {
+        // This is where you handle the submission (e.g., send data to an API)
+        const requestData = {
+          order,
+          client,
+          shop,
+        };
+    
+        console.log("Submitting data:", requestData);
+        // You can make an API call here
+      };
     return (
         <div className='flex justify-center'>
             <div className='mt-2 flex flex-col'>
@@ -22,14 +47,16 @@ const OrderInformation = (props) => {
                             client_name={client.fullname}
                             client_phone={client.phone}
                             client_address={client.address}
+                            onChange={handleClientChange}                        
                         />
                         <CustomerSizeInfoCard 
                             size={client.size}
+                            onChange={handleClientChange}       
                         />
                         <OrderDetail/> 
                     </div>
                     <div>
-                    <OrderInfoSideBar shop={shop} order={order} onCodeChange={onCodeChange}/>
+                    <OrderInfoSideBar shop={shop} order={order} onCodeChange={onCodeChange} onSendRequest={handleSubmit}/>
                     </div>
                 </div>
             </div>

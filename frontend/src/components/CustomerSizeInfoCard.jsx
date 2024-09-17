@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import {Select,SelectContent,SelectGroup,SelectItem,SelectTrigger,SelectValue,} from '@/components/ui/select'
 
-const CustomerSizeInfoCard= (props) =>{
+const CustomerSizeInfoCard= ({size, onChange}) =>{
 
     const [isSmallScreen, setIsSmallScreen] = useState(false);
-    const [selectedSize, setSelectedSize] = useState(props.size); 
+    // const [selectedSize, setSelectedSize] = useState(size); 
 
     useEffect(() => {
         const handleResize = () => {
@@ -29,9 +29,9 @@ const CustomerSizeInfoCard= (props) =>{
                 <p className="flex-auto lg:w-24">Size Profile</p>
                 <div className="select-user w-full lg:w-auto">
                     <div>
-                    <Select>
+                    <Select  onValueChange={(value) => onChange('size', value)}>
                         <SelectTrigger className='w-96 col-span-2'>
-                            <SelectValue placeholder={selectedSize || 'Select a size'} />
+                            <SelectValue placeholder={size} />
                         </SelectTrigger>
                         <SelectContent>
                         <SelectGroup>

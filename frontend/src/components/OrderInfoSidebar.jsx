@@ -1,9 +1,9 @@
 import React from 'react'
 import { FaClock } from 'react-icons/fa';
 
-const OrderInfoSideBar = (props) => {
-    const shop = props.shop;
-    const order = props.order;
+const OrderInfoSideBar = ({ shop, order, onSendRequest }) => {
+    // const shop = props.shop;
+    // const order = props.order;
 
     return (
         <div className='bg-white p-10 md:w-[480px] h-fit rounded-lg shadow-2xl'>
@@ -32,6 +32,7 @@ const OrderInfoSideBar = (props) => {
                 <div className='mb-3'>
                     <button 
                         className={'w-full bg-red-700 hover:bg-red-500 hover:text-white text-white border py-2 px-4 rounded mt-3 lg:mt-5'}
+                        onClick={onSendRequest} // Trigger the parent’s handleSubmit
                     >
                         Send request
                     </button>

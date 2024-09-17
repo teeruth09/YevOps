@@ -14,11 +14,7 @@ const OrderInformationPage = () => {
 
     const [shop, setShop] = useState({ 
       name: "Nai_mama dotshop", 
-      description: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen Lorem Ipsum is simply dummy text of the printing and typesetting industry.", 
       img: "https://th.bing.com/th/id/OIP.6Vkv1Oyc641507Z8PhZrRgHaHX?w=900&h=895&rs=1&pid=ImgDetMain",
-      tag: ["Basic", "Cosplay"],
-      confirmDeadline: "17 Sep 2024",
-      confirmPrice: 2000,
     });
 
     const [client, setClient] = useState({
@@ -26,7 +22,6 @@ const OrderInformationPage = () => {
       phone: "08x-123-4567",
       address: "123/342 ศรีนครินทร์ 43 ประเวศ ประเวศ กรุงเทพ 10250",
       size: "ขนาดตัวของ สมชาย",
-      payment: ["VISA Kasikornbank [Default] *5199", "VISA Kasikornbank [Default] *4321"]
     });
 
     const handleOrderChage = (e) => {
