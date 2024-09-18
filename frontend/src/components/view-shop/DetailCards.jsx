@@ -7,34 +7,49 @@ import { FaStar } from 'react-icons/fa6'
 import { FaStarHalfStroke } from 'react-icons/fa6'
 
 import { cn } from '@/lib/utils'
+import { Map, Marker } from '@vis.gl/react-google-maps'
 
 export const MainDetailCard = () => {
   return (
-    <div className='mt-8 flex flex-col gap-2 border-2 p-6 rounded shadow'>
-      <p className='text-2xl'>About us</p>
-      <div className='w-full h-0.5 bg-gray-300' />
-
-      <div className='grid grid-cols-3 gap-2'>
-        <div className='flex flex-col col-span-2 gap-2'>
-          <p>Address</p>
-          <p>เลขที่ 352/29 แขวง คลองต้นนุ่น เขตลาดกระบัง กรุงเทพมหานคร 10520</p>
-
-          <p>Contact us</p>
-          <p>0945552867</p>
-        </div>
-
-        <div className='flex flex-col gap-2'>
-          <p>Member since</p>
-          <p>กันยายน 2024</p>
-        </div>
+    <div className='mt-8 flex flex-col gap-2 border-2 rounded shadow overflow-hidden'>
+      <div className='h-[40vh]'>
+        <Map
+          defaultZoom={9}
+          defaultCenter={{ lat: 13, lng: 100 }}
+          disableDefaultUI
+        >
+          <Marker position={{ lat: 13, lng: 100 }} />
+        </Map>
       </div>
 
-      <p className='text-2xl mt-8'>Description</p>
-      <div className='w-full h-0.5 bg-gray-300' />
+      <div className='flex flex-col p-6 gap-2'>
+        <p className='text-2xl'>About us</p>
+        <div className='w-full h-0.5 bg-gray-300' />
 
-      <div className='grid grid-cols-3 gap-2'>
-        <div className='flex flex-col col-span-2'>
-          <p>สวัสดีครับพวกเรา Nai_mana_dotshop รับตัดชุด Cosplay ทุกชนิด</p>
+        <div className='grid grid-cols-3 gap-2'>
+          <div className='flex flex-col col-span-2 gap-2'>
+            <p>Address</p>
+            <p>
+              เลขที่ 352/29 แขวง คลองต้นนุ่น เขตลาดกระบัง กรุงเทพมหานคร 10520
+            </p>
+
+            <p>Contact us</p>
+            <p>0945552867</p>
+          </div>
+
+          <div className='flex flex-col gap-2'>
+            <p>Member since</p>
+            <p>กันยายน 2024</p>
+          </div>
+        </div>
+
+        <p className='text-2xl mt-8'>Description</p>
+        <div className='w-full h-0.5 bg-gray-300' />
+
+        <div className='grid grid-cols-3 gap-2'>
+          <div className='flex flex-col col-span-2'>
+            <p>สวัสดีครับพวกเรา Nai_mana_dotshop รับตัดชุด Cosplay ทุกชนิด</p>
+          </div>
         </div>
       </div>
     </div>
