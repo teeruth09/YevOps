@@ -32,7 +32,10 @@ app.put('/profile', midauth, profile.putProfile);
 
 app.post("/createOrder", midauth, order.order);
 
-app.post("/updateStatus", midauth, order.statusOrder);
+app.post("/requestsOrder", midauth, order.requests);
+
+app.patch("/manageOrder", midauth, order.manage);
+
 
 
 app.post('/welcome', midauth, (req, res) => {
