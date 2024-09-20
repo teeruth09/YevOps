@@ -1,27 +1,47 @@
 const Order = require('../models/order'); 
+const mongoose = require('mongoose');
 
 const createOrder = async (orderData, userid) => {
-    const { store, price, type_cloth, start, end} = orderData;
+    const { shopId, clientSize, orderType, userRequestDescription, billingInfo, customerInfo, deadline} = orderData;
 
-    const status = "pending";
+
+    // shopId: { type: mongoose.Schema.Types.ObjectId, ref: 'Shop'}, 
+    // clientId: { type: mongoose.Schema.Types.ObjectId, ref: 'Client'}, 
+    // clientSize: { type: String },
+    // orderType: { type: String},
+    // status: { type: String, enum: ['rejected', 'accepted', 'pending'] },
+    // userRequestDescription: { type: mongoose.Schema.Types.ObjectId, ref: 'UserRequestDescription' },
+    // billingInfo: { type: String },
+    // customerInfo: { type: String },
+    // deadline: { type: Date },
+    // total: { type: Number},
+    // code: { type: String },
+    // discount: { type: Number },
+    // serviceFee: { type: Number },
+    // pay: { type: Boolean},
+    // paymentMethod: { type: String }
+
     const order = await Order.create({
-        userid,
-        store,
-        price,
-        type_cloth,
-        status,
-        start,
-        end
+        shopId,
+        clientId:userid,
+        clientSize,
+        orderType,
+        status:"pending",
+        userRequestDescription,
+        billingInfo,
+        customerInfo,
+        deadline,
+        pay:false
     });
 
     return order
 }
 
-const manageOrder = async (requestData, orderid) => {
+const manageOrder = async (requestData) => {
     try {
-        const statusData = { status: requestData.status };
+        const statusData = requestData.status ;
 
-        const updatedOrder = await updateStatus(statusData, orderid);
+        const updatedOrder = await updateStatus(statusData, requestData.orderid);
 
         return updatedOrder;
     } catch (error) {
@@ -42,10 +62,10 @@ const pullRequestOrder = async (pullData) => {
 
 const updateStatus = async (statusData, orderid) => {
     try {
-        const order = await Order.findOne({ where: { orderId: orderid } });
-
+        const id = new mongoose.Types.ObjectId(orderid);
+        const order = await Order.findOne({_id: id });
         if (!order) {
-            throw new Error('Order not found for the given user ID');
+            throw new Error('Order not found for the given order ID');
         }
 
         order.status = statusData;

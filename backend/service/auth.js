@@ -36,9 +36,9 @@ const loginUser = async (userData) => {
 const registerClient = async (userData) => {
     const { firstname, lastname, email, password, gender, birthdate, idCardNumber, phone, address, role, username, imageProfile} = userData;
 
-    if (!(email && password && firstname && lastname && gender && birthdate && idCardNumber && phone && address && role && username)) {
-        throw new Error("All input is required");
-    }
+    // if (!(email && password && firstname && lastname && gender && birthdate && idCardNumber && phone && address && role && username)) {
+    //     throw new Error("All input is required");
+    // }
 
     const clientCheck = [
         { key: 'email', value: email },
@@ -98,9 +98,9 @@ const registerClient = async (userData) => {
 const registerShop = async (userData) => {
     const { firstname, lastname, email, password, gender, birthdate, idCardNumber, phone, address, role, username, shopDescription, location, imageProfile } = userData;
 
-    if (!(email && password && firstname && lastname && gender && birthdate && idCardNumber && phone && address && role && username && shopDescription && location)) {
-        throw new Error("All input is required");
-    }
+    // if (!(email && password && firstname && lastname && gender && birthdate && idCardNumber && phone && address && role && username && shopDescription && location)) {
+    //     throw new Error("All input is required");
+    // }
 
     const shopCheck = [
         { key: 'email', value: email },
