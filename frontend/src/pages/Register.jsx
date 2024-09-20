@@ -49,12 +49,25 @@ const RegisterPage = () => {
       date: z.string().min(1, { message: 'Date is required' }),
       month: z.string().min(1, { message: 'Month is required' }),
       year: z.string().min(1, { message: 'Year is required' }),
-      userType: z.string().default('User'),
+      role: z.string().default('client'),
+      
     })
     .refine((data) => data.password === data.confirmPassword, {
       message: 'Passwords do not match',
       path: ['confirmPassword'], // path of error
     })
+     // Create birthdate after validation of other fields
+    .refine((data) => {
+      const isValidDate = !isNaN(new Date(`${data.year}-${data.month}-${data.date}`).getTime());
+      return isValidDate;
+    }, {
+      message: 'Invalid birthdate',
+      path: ['date'], // where you want the error to show
+    })
+    .transform((data) => ({
+      ...data,
+      birthdate: `${data.year}-${data.month}-${data.date}`, // Concatenate to create birthdate
+    }));
 
   const {
     register,
@@ -66,13 +79,21 @@ const RegisterPage = () => {
   })
 
   const onSubmit = async (data) => {
-    console.log(`data = ${JSON.stringify(data)}`)
+    // console.log(`data = ${JSON.stringify(data)}`)
 
     try {
       const response = await axios.post(endpoints.auth.register, data)
       console.log(`response = ${JSON.stringify(response)}`)
+      if (response.status === 201) {
+        const {token, role}  = response.data;
+        // Save the token in localStorage
+        localStorage.setItem("x-access-token", token)
+        localStorage.setItem("role",role)
+        console.log("Token saved:", token);
+        console.log("Role save",role)
+      }
 
-      navigate('/login')
+      navigate('/')
     } catch (error) {
       console.log(`error = ${JSON.stringify(error)}`)
     }
@@ -175,16 +196,16 @@ const RegisterPage = () => {
           <p className='w-1/3'>Create As :</p>
 
           <Select
-            defaultValue='User'
-            onValueChange={(userType) => setValue('userType', userType)}
+            defaultValue='client'
+            onValueChange={(role) => setValue('role', role)}
           >
             <SelectTrigger className='w-full'>
               <SelectValue placeholder='User' />
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem value='User'>User</SelectItem>
-                <SelectItem value='Shop'>Online Shop</SelectItem>
+                <SelectItem value='client'>User</SelectItem>
+                {/* <SelectItem value='shop'>Online Shop</SelectItem> */}
               </SelectGroup>
             </SelectContent>
           </Select>

@@ -145,6 +145,7 @@ const registerShop = async (userData) => {
         birthdate,
         idCardNumber,
         imageProfile,
+        
     };
 
 

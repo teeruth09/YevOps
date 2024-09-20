@@ -18,7 +18,6 @@ app.use(express.json())
 
 app.get('/', (req, res) => res.send('Hello!'))
 
-
 app.post('/register', auth.register);
 
 app.post('/applyShop', auth.applyShop);
@@ -28,6 +27,8 @@ app.post("/login", auth.login);
 app.post("/logout", auth.logout);
 
 app.get("/search", search.search);
+
+app.get("/filter", search.filter);
 
 app.get('/profile', midauth, profile.getProfile);
 

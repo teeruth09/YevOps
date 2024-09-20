@@ -1,4 +1,4 @@
-const { searchName } = require('../service/search');
+const { searchName, searchFilter } = require('../service/search');
 
 const search = async (req,res) => {
     try {
@@ -16,5 +16,18 @@ const search = async (req,res) => {
     }
 }
 
+const filter = async (req,res) => {
+    try {
+        const result = await searchFilter(req);
+        res.status(200).send(result);
+    } catch (err) {
+        if (err.message === "No Shop Found") {
+            return res.status(404).send(err.message);
+        }
+        console.error(err);
+        res.status(500).send("Internal Server Error");
+    }
+}
 
-module.exports = { search };
+
+module.exports = { search, filter };
