@@ -35,6 +35,12 @@ app.put('/profile', midauth, profile.putProfile);
 
 app.post("/createOrder", midauth, order.order);
 
+app.post("/requestsOrder", midauth, order.requests);
+
+app.patch("/manageOrder", midauth, order.manage);
+
+app.patch("/createPayment", midauth , payment.create);
+
 app.get('/shop/shopdata', profile.getAllShops)
 
 app.get('/shop/shopdata/:id',profile.getShopProfile)
