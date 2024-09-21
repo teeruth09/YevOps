@@ -23,7 +23,7 @@ const requests = async (req, res) => {
 
 const manage = async (req, res) => {
     try {
-        const request = await  manageOrder(req.body,req.order.order_id);
+        const request = await  manageOrder(req.body);
         res.status(200).send(request._id);
     } catch (err) {
         console.error(err);
