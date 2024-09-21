@@ -2,9 +2,7 @@ const Order = require('../models/order');
 
 const createPayment = async (formData) => {
     try {
-        const statusData = { status: formData.status };
-
-        const updatedOrder = await updatePay(statusData, orderid);
+        const updatedOrder = await updatePay(formData.orderid);
 
         return updatedOrder;
     } catch (error) {
@@ -13,7 +11,7 @@ const createPayment = async (formData) => {
     }
 }
 
-const updatePay = async (statusData, orderid) => {
+const updatePay = async (orderid) => {
     try {
         const id = new mongoose.Types.ObjectId(orderid);
         const order = await Order.findOne({_id: id });
