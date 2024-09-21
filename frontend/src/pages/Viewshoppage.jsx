@@ -7,6 +7,8 @@ import {
   MainDetailCard,
   ReviewCard,
 } from '@/components/view-shop/DetailCards'
+import { useLocation } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
 const Viewshoppage = () => {
   const mockImages = [
@@ -16,7 +18,33 @@ const Viewshoppage = () => {
     'login-background.png',
     'profile.png',
   ]
+  const location = useLocation();
+  const {shopId} = location.state || {};
+  const [shopDetail, setShopDetail] = useState(null);
 
+  console.log("ShopId:",shopId)
+
+  useEffect(() =>{
+      const fetchShopProfile = async () =>{
+        try{
+          const response = await fetch(`http://localhost:5555/shop/shopdata/${shopId}`,{
+            method: "GET",
+          });
+          const data = await response.json();
+          if (response.ok){
+            console.log("Shop Profile:",data);
+            setShopDetail(data)
+          }else{
+            console.log("Fail to fetch shop",data)
+          }
+        }catch(error){
+          console.error("Error fetch shop info:", error); 
+        }
+      }
+      fetchShopProfile();
+  }, []);  
+
+  
   return (
     <div>
       <Navbar />

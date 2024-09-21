@@ -10,7 +10,6 @@ const order = require('./controllers/order');
 const midauth = require('./middlewares/auth')
 const cors = require('cors');
 
-
 const app = express()
 app.use(cors());
 
@@ -36,8 +35,9 @@ app.put('/profile', midauth, profile.putProfile);
 
 app.post("/createOrder", midauth, order.order);
 
-app.post("/updateStatus", midauth, order.statusOrder);
+app.get('/shop/shopdata', profile.getAllShops)
 
+app.get('/shop/shopdata/:id',profile.getShopProfile)
 
 app.post('/welcome', midauth, (req, res) => {
     res.status(200).send("Welcome HACKER");
