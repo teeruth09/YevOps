@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils'
 import { Map, Marker } from '@vis.gl/react-google-maps'
 import { MAP_API } from '@/global-config'
 
-export const MainDetailCard = () => {
+export const MainDetailCard = ({address,phone,registerDate,shopDescription}) => {
   return (
     <div className='mt-8 flex flex-col gap-2 border-2 rounded shadow overflow-hidden'>
       {MAP_API && (
@@ -33,16 +33,16 @@ export const MainDetailCard = () => {
           <div className='flex flex-col col-span-2 gap-2'>
             <p>Address</p>
             <p>
-              เลขที่ 352/29 แขวง คลองต้นนุ่น เขตลาดกระบัง กรุงเทพมหานคร 10520
+              {address}
             </p>
 
             <p>Contact us</p>
-            <p>0945552867</p>
+            <p>{phone}</p>
           </div>
 
           <div className='flex flex-col gap-2'>
             <p>Member since</p>
-            <p>กันยายน 2024</p>
+            <p>{registerDate}</p>
           </div>
         </div>
 
@@ -51,7 +51,7 @@ export const MainDetailCard = () => {
 
         <div className='grid grid-cols-3 gap-2'>
           <div className='flex flex-col col-span-2'>
-            <p>สวัสดีครับพวกเรา Nai_mana_dotshop รับตัดชุด Cosplay ทุกชนิด</p>
+            <p>{shopDescription}</p>
           </div>
         </div>
       </div>

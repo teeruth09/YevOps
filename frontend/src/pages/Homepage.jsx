@@ -29,30 +29,6 @@ const HomePage = () => {
       startBudget: "2100",
       stopBudget: "999999",
     },
-    {
-      id: 2, // Add an ID for easier identification
-      verifyStatus: "N",
-      previewImage: "https://i.imgur.com/SjjJVdY.png",
-      shopProfile: "https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg",
-      shopName: "Bunny4Eva",
-      shopRating: "3.8",
-      reviewCount: "12",
-      shopDescription: "I luv bnuy",
-      startBudget: "1300",
-      stopBudget: "4000",
-    },
-    {
-      id: 3, // Add an ID for easier identification
-      verifyStatus: "Y",
-      previewImage: "https://m.media-amazon.com/images/I/61ILcasnX7L._AC_UF894,1000_QL80_.jpg",
-      shopProfile: "https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg",
-      shopName: "A",
-      shopRating: "1.4",
-      reviewCount: "14",
-      shopDescription: "A quick brown",
-      startBudget: "10000",
-      stopBudget: "57000",
-    },
   ]);
 
   // Fetch Orders
