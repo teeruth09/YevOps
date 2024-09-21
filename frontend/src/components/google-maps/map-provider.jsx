@@ -4,7 +4,7 @@ import { MAP_API } from '@/global-config'
 import { APIProvider } from '@vis.gl/react-google-maps'
 
 const MapProvider = ({ children }) => {
-  if (!MAP_API) return <div>Missing Google Maps API key</div>
+  if (!MAP_API) return <>{children}</>
 
   return <APIProvider apiKey={MAP_API}>{children}</APIProvider>
 }

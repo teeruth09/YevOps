@@ -8,19 +8,22 @@ import { FaStarHalfStroke } from 'react-icons/fa6'
 
 import { cn } from '@/lib/utils'
 import { Map, Marker } from '@vis.gl/react-google-maps'
+import { MAP_API } from '@/global-config'
 
 export const MainDetailCard = () => {
   return (
     <div className='mt-8 flex flex-col gap-2 border-2 rounded shadow overflow-hidden'>
-      <div className='h-[40vh]'>
-        <Map
-          defaultZoom={9}
-          defaultCenter={{ lat: 13, lng: 100 }}
-          disableDefaultUI
-        >
-          <Marker position={{ lat: 13, lng: 100 }} />
-        </Map>
-      </div>
+      {MAP_API && (
+        <div className='h-[40vh]'>
+          <Map
+            defaultZoom={9}
+            defaultCenter={{ lat: 13, lng: 100 }}
+            disableDefaultUI
+          >
+            <Marker position={{ lat: 13, lng: 100 }} />
+          </Map>
+        </div>
+      )}
 
       <div className='flex flex-col p-6 gap-2'>
         <p className='text-2xl'>About us</p>
