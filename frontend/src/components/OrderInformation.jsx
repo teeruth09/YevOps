@@ -5,20 +5,20 @@ import CustomerSizeInfoCard from './CustomerSizeInfoCard';
 import OrderInfoSideBar from './OrderInfoSideBar';
 
 const OrderInformation = (props) => {
-    const { order: initialOrder, shop, client: initialClient, onCodeChange } = props;
+    const { order, shop, client, onCodeChange } = props;
 
-    const [order, setOrder] = useState(initialOrder);
-    const [client, setClient] = useState(initialClient);
+    const [orderInfo, setOrder] = useState(order);
+    const [clientInfo, setClient] = useState(client);
     const handleClientChange = (key, value) => {
         setClient({
-          ...client,
+          ...clientInfo,
           [key]: value
         });
       };
     
       const handleOrderChange = (key, value) => {
         setOrder({
-          ...order,
+          ...orderInfo,
           [key]: value
         });
       };
