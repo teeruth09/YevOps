@@ -22,6 +22,7 @@ import ShopProfilePreviewPage from "./pages/ShopProfilePreviewpage"
 import Verifyshop from "./pages/VerifyShopPage" 
 import ChatPage from "./pages/ChatPage"
 import OrderInformationPage from "./pages/OrderInformationPage"
+import ViewClients from "./pages/ViewClients"
 
 function App() {
   return (
@@ -50,7 +51,8 @@ function App() {
         <Route path="/verifyshop" element={<Verifyshop/>} />
         <Route path="/chat" element={<ChatPage/>} />
         <Route path="/order/information" element={<OrderInformationPage/>} />
-
+        <Route path="/admin/clients" element={<ViewClients/>} />
+        
       </Routes>
    
   )

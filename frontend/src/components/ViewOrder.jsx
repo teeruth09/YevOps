@@ -14,7 +14,7 @@ function ViewOrder(props) {
     console.log(order.status)
     return (
         <div className='flex justify-center'>
-            <div className='mt-2 flex flex-col'>
+            <div className='mt-2 flex flex-col w-1/2'>
                 <div className='mb-8'>
                     Order{' > '}{shop.name}
                 </div>
