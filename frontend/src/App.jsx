@@ -22,11 +22,8 @@ import ShopProfilePreviewPage from "./pages/ShopProfilePreviewpage"
 import Verifyshop from "./pages/VerifyShopPage" 
 import ChatPage from "./pages/ChatPage"
 import OrderInformationPage from "./pages/OrderInformationPage"
-<<<<<<< HEAD
 import ViewClients from "./pages/ViewClients"
-=======
 import ApplyShopPage from "./pages/ApplyShopPage"
->>>>>>> ea3c6cbf44b24cf0b88ff91b0a39e2adedacfb98
 
 function App() {
   return (
@@ -39,7 +36,7 @@ function App() {
         <Route path="/client/profile/password" element={<ClientProfileChangePsPage/>} />
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
-        <Route path='/viewshop' element={<Viewshoppage />} />
+        <Route path='/viewshop/:id' element={<Viewshoppage />} />
         <Route path='/order/:id' element={<ViewOrderPage />} />
         <Route path="/search" element={<ShowShopAfterSearch />} />
         <Route path="/client/profile/bank" element={<ClientProfileBankPage/>} />
@@ -55,8 +52,10 @@ function App() {
         <Route path="/verifyshop" element={<Verifyshop/>} />
         <Route path="/chat" element={<ChatPage/>} />
         <Route path="/order/information" element={<OrderInformationPage/>} />
+        <Route path="/applyshop" element={<ApplyShopPage/>} />
         <Route path="/admin/clients" element={<ViewClients/>} />
-        
+        <Route path="/admin/shop/1" element={<ViewClients/>} />
+
       </Routes>
    
   )
