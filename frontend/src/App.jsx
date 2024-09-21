@@ -22,7 +22,11 @@ import ShopProfilePreviewPage from "./pages/ShopProfilePreviewpage"
 import Verifyshop from "./pages/VerifyShopPage" 
 import ChatPage from "./pages/ChatPage"
 import OrderInformationPage from "./pages/OrderInformationPage"
+<<<<<<< HEAD
 import ViewClients from "./pages/ViewClients"
+=======
+import ApplyShopPage from "./pages/ApplyShopPage"
+>>>>>>> ea3c6cbf44b24cf0b88ff91b0a39e2adedacfb98
 
 function App() {
   return (

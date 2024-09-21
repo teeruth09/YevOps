@@ -1,34 +1,74 @@
 const Order = require('../models/order'); 
+const mongoose = require('mongoose');
 
 const createOrder = async (orderData, userid) => {
-    const { store, price, type_cloth, start, end} = orderData;
+    const { shopId, clientSize, orderType, userRequestDescription, billingInfo, customerInfo, deadline} = orderData;
 
-    const status = "pending";
+
+    // shopId: { type: mongoose.Schema.Types.ObjectId, ref: 'Shop'}, 
+    // clientId: { type: mongoose.Schema.Types.ObjectId, ref: 'Client'}, 
+    // clientSize: { type: String },
+    // orderType: { type: String},
+    // status: { type: String, enum: ['rejected', 'accepted', 'pending'] },
+    // userRequestDescription: { type: mongoose.Schema.Types.ObjectId, ref: 'UserRequestDescription' },
+    // billingInfo: { type: String },
+    // customerInfo: { type: String },
+    // deadline: { type: Date },
+    // total: { type: Number},
+    // code: { type: String },
+    // discount: { type: Number },
+    // serviceFee: { type: Number },
+    // pay: { type: Boolean},
+    // paymentMethod: { type: String }
+
     const order = await Order.create({
-        userid,
-        store,
-        price,
-        type_cloth,
-        status,
-        start,
-        end
+        shopId,
+        clientId:userid,
+        clientSize,
+        orderType,
+        status:"pending",
+        userRequestDescription,
+        billingInfo,
+        customerInfo,
+        deadline,
+        pay:false
     });
 
     return order
 }
 
-
-const updateStatus = async (statusData, userid) => {
-    const { status } = statusData;
-
+const manageOrder = async (requestData) => {
     try {
-        const order = await Order.findOne({ where: { userId: userid } });
+        const statusData = requestData.status ;
 
+        const updatedOrder = await updateStatus(statusData, requestData.orderid);
+
+        return updatedOrder;
+    } catch (error) {
+        console.error('Error in requestOrder:', error);
+        throw error;
+    }
+};
+
+const pullRequestOrder = async (pullData) => {
+    try {
+        const orders = await Order.find({ shopId: pullData.shopid });
+        return orders;
+    } catch (error) {
+        console.error("Error fetching orders:", error);
+        throw new Error("Could not fetch orders");
+    }
+}
+
+const updateStatus = async (statusData, orderid) => {
+    try {
+        const id = new mongoose.Types.ObjectId(orderid);
+        const order = await Order.findOne({_id: id });
         if (!order) {
-            throw new Error('Order not found for the given user ID');
+            throw new Error('Order not found for the given order ID');
         }
 
-        order.status = status;
+        order.status = statusData;
         await order.save();
 
         return order;
@@ -39,4 +79,5 @@ const updateStatus = async (statusData, userid) => {
 };
 
 
-module.exports = { createOrder, updateStatus};
+
+module.exports = { pullRequestOrder, manageOrder, createOrder};
