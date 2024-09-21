@@ -6,6 +6,7 @@ const express = require('express')
 const auth = require('./controllers/auth');
 const profile = require('./controllers/profile');
 const order = require('./controllers/order');
+const payment = require('./controllers/payment');
 const midauth = require('./middlewares/auth')
 const cors = require('cors');
 
@@ -35,6 +36,8 @@ app.post("/createOrder", midauth, order.order);
 app.post("/requestsOrder", midauth, order.requests);
 
 app.patch("/manageOrder", midauth, order.manage);
+
+app.patch("/createPayment", midauth , payment.create);
 
 
 
