@@ -7,6 +7,7 @@ const auth = require('./controllers/auth');
 const search = require('./controllers/search');
 const profile = require('./controllers/profile');
 const order = require('./controllers/order');
+const payment = require('./controllers/payment');
 const midauth = require('./middlewares/auth')
 const cors = require('cors');
 
