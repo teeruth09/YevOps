@@ -1,4 +1,4 @@
-const { createOrder, updateStatus } = require('../service/order');
+const { pullRequestOrder, manageOrder, createOrder } = require('../service/order');
 
 
 const order = async (req, res) => {
@@ -11,14 +11,26 @@ const order = async (req, res) => {
     }
 }
 
-const statusOrder = async (req, res) => {
+const requests = async (req, res) => {
     try {
-        const order = await  updateStatus(req.body,req.user.user_id);
-        res.status(200).send(order._id);
+        const orders = await  pullRequestOrder(req.body);
+        res.status(200).send(orders);
     } catch (err) {
         console.error(err);
         res.status(500).send("Internal Server Error");
     }
 }
 
-module.exports = { order, statusOrder };
+const manage = async (req, res) => {
+    try {
+        const request = await  manageOrder(req.body);
+        res.status(200).send(request._id);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Internal Server Error");
+    }
+}
+
+
+
+module.exports = { manage, requests, order };

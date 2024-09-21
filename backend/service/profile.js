@@ -135,4 +135,30 @@ const updateProfile = async (req) => {
     }
 };
 
-module.exports = { fetchProfile, updateProfile };
+const getAllShopProfile = async () =>{
+    try{
+        const shops = await Shop.find({shopDescription: {$ne:null}})
+        return shops
+    }catch(err){
+        throw new Error(err.message || 'Error retrieving users');
+    }
+}
+
+const getShopIdProfile = async (req) =>{
+    try{
+        let shop_id = req.params.id;
+        const shop = await Shop.findById(shop_id);
+
+        if (!shop) {
+            throw new Error("Shop not Found");
+        }
+        return shop;
+
+    }catch(err){
+        throw new Error(err.message || 'Error retrieving users');
+    }
+}
+
+
+
+module.exports = { fetchProfile, updateProfile, getAllShopProfile, getShopIdProfile };
