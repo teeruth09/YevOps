@@ -6,7 +6,7 @@ const GenreOption = ["Suits","Wedding","Formal Dress","Police","Cosplay","Others
 
 const Filterbar = () => {
     const bottomShadowStyle = {
-      boxShadow: '0 6px 16px rgba(255, 68, 67, 0.65)',
+      boxShadow: '0 8px 14px rgba(255, 68, 67, 0.15)',
     };
   
   return (
