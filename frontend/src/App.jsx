@@ -23,6 +23,7 @@ import Verifyshop from "./pages/VerifyShopPage"
 import ChatPage from "./pages/ChatPage"
 import OrderInformationPage from "./pages/OrderInformationPage"
 import ApplyShopPage from "./pages/ApplyShopPage"
+import ShopViewClientOrderPage from "./pages/ShopViewClientOrderPage"
 
 function App() {
   return (
@@ -48,6 +49,7 @@ function App() {
         <Route path="/order/1/report" element={<ReportPage/>} />
         <Route path="/order/1/review" element={<ReviewPage/>} />
         <Route path="/shop/profile/post" element={<ShopProfilePreviewPage/>} />
+        <Route path="/shop/viewrequest" element={<ShopViewClientOrderPage/>} />
         <Route path="/verifyshop" element={<Verifyshop/>} />
         <Route path="/chat" element={<ChatPage/>} />
         <Route path="/order/information" element={<OrderInformationPage/>} />
