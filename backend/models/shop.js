@@ -11,7 +11,7 @@ const shopSchema = new mongoose.Schema({
     password: { type: String},
     location: {type: String},
     idCardNumber: {type: String},
-    registerDate: {type: Date},
+    registerDate: {type: Date, default: Date.now},
     isVerified: {type: Boolean},
     shopName: {type: String},
     shopProfile: {type: String},
