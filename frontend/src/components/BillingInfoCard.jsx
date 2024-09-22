@@ -9,9 +9,6 @@ function BillingInfoCard(props) {
         <p className='font-bold'>{props.client_name}</p>
         <p>{props.client_phone}</p>
         <p>{props.client_address}</p>
-        <button className="w-full lg:w-40 bg-white hover:bg-red-500 hover:text-white text-red-500 border py-2 px-4 rounded mt-5">
-          Change
-        </button>
     </div>
   )
 }
