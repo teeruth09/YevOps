@@ -74,24 +74,23 @@ const Aftersearch = () => {
       {/* The filter bar */}
       <Filterbar/>
       {/* Placing cards  */}
-      <div style={centerdiv} className="justify-center w-[90vw] m-auto z-1">
-        <Shopcard previewImage="https://i.imgur.com/SjjJVdY.png"
-        shopProfile="https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg"
-        shopName="Hinoshii is cool"
-        shopRating="5.0"
-        reviewCount="1384"
-        shopDescription="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-        startBudget="2100"
-        stopBudget="999999"/>
+      <div style={displaycarditem} className="justify-center w-[90vw] m-auto z-1">
+        {searchResults.map((result) => (
+            <Link to={`/viewshop/${result.id}`}>
+              <Shopcard
+              shopId={result.id}
+              previewImage={result.previewImage}
+              verifyStatus={result.isVerified}
+              shopProfile={result.shopProfile}
+              shopName={result.shopName}
+              shopRating={result.shopRating} // Pull from Reviews then calc avg here
+              reviewCount={result.reviewCount} // Pull from Reviews then calc here
+              shopDescription={result.shopDescription}
+              startBudget={result.startBudget} // Pull from Ordertype then calc here
+              />
+            </Link>
+          ))}
 
-        <Shopcard previewImage="https://i.imgur.com/SjjJVdY.png"
-        shopProfile="https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg"
-        shopName="Read this is gay"
-        shopRating="5.0"
-        reviewCount="1384"
-        shopDescription="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-        startBudget="2100"
-        stopBudget="999999"/>
       </div>
 
       

@@ -28,6 +28,7 @@ const HomePage = () => {
       shopDescription: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
       startBudget: "2100",
       stopBudget: "999999",
+      genre: "Cosplay",
     },
   ]);
 
@@ -100,11 +101,12 @@ const HomePage = () => {
           <Shopcard previewImage="https://i.imgur.com/SjjJVdY.png"
           shopProfile="https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg"
           shopName="Hinoshii is cool"
-          shopRating="5.0"
+          shopRating="3.0"
           reviewCount="1384"
           shopDescription="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
           startBudget="2100"
-          stopBudget="999999"/>
+          stopBudget="999999"
+          genre="Wedding"/>
 
           <Shopcard previewImage="https://i.imgur.com/SjjJVdY.png"
           shopProfile="https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg"
@@ -113,7 +115,8 @@ const HomePage = () => {
           reviewCount="1384"
           shopDescription="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
           startBudget="2100"
-          stopBudget="999999"/>
+          stopBudget="999999"
+          genre="Cosplay"/>
 
           <Shopcard previewImage="https://i.imgur.com/SjjJVdY.png"
           shopProfile="https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg"
@@ -122,7 +125,8 @@ const HomePage = () => {
           reviewCount="1384"
           shopDescription="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
           startBudget="2100"
-          stopBudget="999999"/>
+          stopBudget="999999"
+          genre="Cosplay"/>
           
           
 
@@ -131,7 +135,7 @@ const HomePage = () => {
         <div style={centerdiv} className="justify-center w-[90vw] m-auto z-1">
 
           {allshop.length > 0 ? (
-          allshop.map((result, index) => {
+          allshop.map((result) => {
               // Check if any of the required fields are empty
               
               if (!result.shopName || !result.imageProfile || !result.shopDescription) {
@@ -139,8 +143,10 @@ const HomePage = () => {
               }
 
               return (
-                <Link key={index} to={`/viewshop/${index}`} state={{shopId: result._id}}> 
-                  <Shopcard key={index} previewImage={result.previewImage} 
+                <Link to={`/viewshop/${result.id}`} state={{shopId: result._id}}> 
+                  <Shopcard 
+                  previewImage={result.previewImage}
+                  verifyStatus={result.isVerified} 
                   shopProfile={result.imageProfile}
                   shopName={result.shopName}
                   shopRating={result.shopRating}
@@ -148,6 +154,7 @@ const HomePage = () => {
                   shopDescription={result.shopDescription}
                   startBudget={result.startBudget}
                   stopBudget={result.stopBudget}
+                  genre={result.genre}
                   />
                   <p>ShopId:{result._id}</p>
                 </Link>
