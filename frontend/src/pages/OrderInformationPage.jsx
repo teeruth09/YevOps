@@ -25,7 +25,7 @@ const OrderInformationPage = () => {
       fullname: "นายสมศักดิ์ รัตนเกียรติภูมิชัยกุล",
       phone: "08x-123-4567",
       address: "123/342 ศรีนครินทร์ 43 ประเวศ ประเวศ กรุงเทพ 10250",
-      size: "ขนาดตัวของ สมชาย",
+      size: [],
     });
 
 
@@ -46,7 +46,7 @@ const OrderInformationPage = () => {
             fullname: `${data.firstname} ${data.lastname}`,
             phone: data.phone,
             address: data.address,
-            size: data.size,
+            size: data.clientSize._id,
           })
           // console.log("ClientInfo",data)
         }catch(error){

@@ -10,6 +10,9 @@ import {
 import { useLocation } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import OrderType from '@/components/OrderType'
+import { jwtDecode } from "jwt-decode";
+import NavbarClient from '@/components/NavbarClient'
+
 
 const Viewshoppage = () => {
   const mockImages = [
@@ -72,10 +75,42 @@ const Viewshoppage = () => {
       fetchShopProfile();
   }, []);  
 
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  let token = localStorage.getItem("x-access-token");
+  let role = localStorage.getItem("role");
+
+  useEffect(() => {
+    if (token) {
+      const decoded = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+
+      if (decoded.exp < currentTime) {
+        setIsAuthenticated(false);
+      } else {
+        setIsAuthenticated(true);
+      }
+    }
+    else{
+      setIsAuthenticated(false);
+    }
+  }, [token]);
+
+  let NavbarComponent;
+  if (isAuthenticated) {
+    if (role === "client"){
+      NavbarComponent = NavbarClient;
+    }
+    else if (role === "shop"){
+      NavbarComponent = NavbarShop;
+    }
+  } else {
+    NavbarComponent = Navbar;
+  }
+
   
   return (
     <div>
-      <Navbar />
+      <NavbarComponent />
         <div className='flex flex-col w-full p-6 gap-4 '>
           
           <p className='text-sm ml-32'>View Shop &gt; Shop</p>

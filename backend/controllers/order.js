@@ -1,4 +1,4 @@
-const { pullRequestOrder, manageOrder, createOrder } = require('../service/order');
+const { pullRequestOrder, manageOrder, createOrder, getOrderHistory, getOrderDetail } = require('../service/order');
 
 
 const order = async (req, res) => {
@@ -32,5 +32,35 @@ const manage = async (req, res) => {
 }
 
 
+const getOrderHistoryController = async (req, res) => {
+    try {
+        // Call the service to get the order history
+        const result = await getOrderHistory(req);
 
-module.exports = { manage, requests, order };
+        if (result.status === 404) {
+            return res.status(404).send(result.message);
+        }
+
+        res.status(200).json(result.data); // Sending the orders back as JSON
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Internal Server Error");
+    }
+};
+
+
+const getOrderDetailController = async (req, res) =>{
+    try{
+        const result = await getOrderDetail(req.params.id);
+        if (result.status === 404) {
+            return res.status(404).send(result.message);
+        }
+        res.status(200).json(result); // Sending the orders back as JSON
+    }catch(error){
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+}
+
+
+module.exports = { manage, requests, order, getOrderHistoryController, getOrderDetailController };

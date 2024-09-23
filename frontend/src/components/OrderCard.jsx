@@ -30,24 +30,39 @@ const OrderCard = ({ orderInfo }) => {
                 return ''; // Or a fallback color if needed
         }
       };
+    
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const options = { day: "numeric", month: "short", year: "numeric" };
+        return date.toLocaleDateString("en-GB", options);
+    };
+    
+    
+    // Ensure orderInfo and shopId exist before rendering
+    if (!orderInfo || !orderInfo.shopId) {
+        return null; // or a loading spinner, or fallback UI
+    }
 
+    const createAt = formatDate(orderInfo.createAt)
+    const deadline = formatDate(orderInfo.deadline)
+    
     return (
     <div className='w-full lg:w-auto h-auto bg-white shadow-xl px-3 rounded-lg my-5'>
       <div className='flex'>
             <img src={orderInfo.order_picture} alt="ชุดสูท" className='w-52 h-52 mr-3' />
             <div>
                 <div className='flex py-3'>
-                    <img src={orderInfo.shop_profile} alt="รูปโปรไฟล์ร้าน" className='rounded-full w-12 h-12' />
+                    <img src={orderInfo.shopId.imageProfile} alt="รูปโปรไฟล์ร้าน" className='rounded-full w-12 h-12' />
                     <div>
 
                         <div className='flex px-2' >
-                            <p className='font-bold flex-auto'>{orderInfo.shop_name}</p>
+                            <p className='font-bold flex-auto'>{orderInfo.shopId.shopName}</p>
                             <p className={`font-bold ${getStatusColor(orderInfo.status)}`}>{orderInfo.status}</p>
 
                         </div>
                         <div className='flex px-2 '>
-                            <p className='text-sm flex-auto pr-3'>{orderInfo.order_date}</p>
-                            <p className='text-sm flex-auto'>Due {orderInfo.deadline}</p>
+                            <p className='text-sm flex-auto pr-3'>{createAt}</p>
+                            <p className='text-sm flex-auto'>Due {deadline}</p>
                             <p className='text-sm ml-20'>{orderInfo.price}</p>
 
                         </div>
@@ -55,8 +70,8 @@ const OrderCard = ({ orderInfo }) => {
 
                 </div>
                 <hr className="border-t-2  border-gray-300 py-1" />
-                <p >{orderInfo.type_order}</p>
-                <p className='w-80'>{orderInfo.order_detail}</p>
+                <p >{orderInfo.orderType}</p>
+                <p className='w-80'>{orderInfo.shopId.shopDescription}</p>
             </div>
       </div>
     </div>

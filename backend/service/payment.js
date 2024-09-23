@@ -1,4 +1,5 @@
 const Order = require('../models/order'); 
+const mongoose = require('mongoose');
 
 const createPayment = async (formData) => {
     try {
@@ -18,7 +19,7 @@ const updatePay = async (orderid) => {
         if (!order) {
             throw new Error('Order not found for the given order ID');
         }
-        if ( order.status === 'accepted' )  {
+        if ( order.status === 'Accepted' )  {
             order.pay = true;
         }
         else {

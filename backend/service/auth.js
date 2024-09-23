@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Client = require('../models/client');
 const Shop = require('../models/shop');
+const ClientSize = require('../models/clientSize')
 
 
 const loginUser = async (userData) => {
@@ -34,7 +35,7 @@ const loginUser = async (userData) => {
 };
 
 const registerClient = async (userData) => {
-    const { firstname, lastname, email, password, gender, birthdate, idCardNumber, phone, address, role, username, imageProfile} = userData;
+    const { firstname, lastname, email, password, gender, birthdate, idCardNumber, phone, address, role, username, imageProfile, clientSize} = userData;
 
     if (!(email && password && firstname && lastname && gender && birthdate && idCardNumber && phone && address && role && username)) {
         throw new Error("All input is required");
@@ -66,6 +67,8 @@ const registerClient = async (userData) => {
     }
 
     const encryptedPassword = await bcrypt.hash(password, 10);
+    const client_Size = await ClientSize.create({});
+
 
     const newClient = {
         firstname,
@@ -80,10 +83,12 @@ const registerClient = async (userData) => {
         idCardNumber,
         phone,
         imageProfile,
+        clientSize: client_Size._id,
     };
 
 
     const client = await Client.create(newClient);
+    // const client_Size = await ClientSize.create({clientId:client._id});
 
     const token = jwt.sign(
         { user_id: client._id, email },
@@ -96,7 +101,7 @@ const registerClient = async (userData) => {
 };
 
 const registerShop = async (userData) => {
-    const { firstname, lastname, email, password, gender, birthdate, idCardNumber, phone, address, role, username, shopDescription, location, imageProfile, registerDate } = userData;
+    const { firstname, lastname, email, password, gender, birthdate, idCardNumber, phone, address, role, username, shopDescription, location, imageProfile, registerDate, isVerified } = userData;
 
     if (!(email && password && firstname && lastname && gender && birthdate && idCardNumber && phone && address && role && username)) {
         throw new Error("All input is required");
@@ -146,6 +151,7 @@ const registerShop = async (userData) => {
         idCardNumber,
         imageProfile,
         registerDate,
+        isVerified: false,
         
     };
 
