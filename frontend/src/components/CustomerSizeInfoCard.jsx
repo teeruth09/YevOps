@@ -31,15 +31,15 @@ const CustomerSizeInfoCard= ({size, onChange}) =>{
                     <div>
                     <Select  onValueChange={(value) => onChange('size', value)}>
                         <SelectTrigger className='w-96 col-span-2'>
-                            <SelectValue placeholder={size} />
+                            <SelectValue placeholder="ขนาดตัวของคุณ"/>
                         </SelectTrigger>
-                        <SelectContent>
+                        {/* <SelectContent>
                         <SelectGroup>
                             <SelectItem value='A'>ขนาดตัวของนาย A</SelectItem> 
                             <SelectItem value='B'>ขนาดตัวของนาย B</SelectItem>
                             <SelectItem value='C'>ขนาดตัวของนาย C</SelectItem>
                         </SelectGroup>
-                        </SelectContent>
+                        </SelectContent> */}
                     </Select>
                     </div>
                 </div>

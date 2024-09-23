@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 function CustomerInfoCard(props) {
+    console.log("CustomerInforCard",props)
     const [isSmallScreen, setIsSmallScreen] = useState(false);
 
     useEffect(() => {
@@ -35,7 +36,7 @@ function CustomerInfoCard(props) {
             <p className='ml-1 text-lg'>Size Profile</p>
             <div className='flex gap-x-5 flex-col 2xl:flex-row'>
                 <div className="flex items-center border border-gray-300 rounded-xl w-full h-10 px-5 mb-4 lg:mb-0">
-                    <p>{props.size}</p>
+                    <p>ขนาดตัวของ {props.fullname}</p>
                 </div>
             </div>
         </div>

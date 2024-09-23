@@ -46,6 +46,10 @@ app.get('/shop/shopdata', profile.getAllShops)
 
 app.get('/shop/shopdata/:id',profile.getShopProfile)
 
+app.get('/order/history',midauth, order.getOrderHistoryController)
+
+app.get('/order/orderdetail/:id',order.getOrderDetailController)
+
 app.post('/welcome', midauth, (req, res) => {
     res.status(200).send("Welcome HACKER");
 })

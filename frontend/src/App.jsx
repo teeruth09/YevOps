@@ -22,6 +22,7 @@ import ShopProfilePreviewPage from "./pages/ShopProfilePreviewpage"
 import Verifyshop from "./pages/VerifyShopPage" 
 import ChatPage from "./pages/ChatPage"
 import OrderInformationPage from "./pages/OrderInformationPage"
+import ViewClients from "./pages/ViewClients"
 import ApplyShopPage from "./pages/ApplyShopPage"
 import ShopViewClientOrderPage from "./pages/ShopViewClientOrderPage"
 
@@ -54,6 +55,8 @@ function App() {
         <Route path="/chat" element={<ChatPage/>} />
         <Route path="/order/information" element={<OrderInformationPage/>} />
         <Route path="/applyshop" element={<ApplyShopPage/>} />
+        <Route path="/admin/clients" element={<ViewClients/>} />
+        <Route path="/admin/shop/1" element={<ViewClients/>} />
 
       </Routes>
    

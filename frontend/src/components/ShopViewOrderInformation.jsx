@@ -43,7 +43,10 @@ const ShopViewOrderInformation = (props) => {
   const [order, setOrder] = useState(initialOrder);
   const [client, setClient] = useState(initialClient);
   const [isEditing, setIsEditing] = useState(true);
-  const [replyText, setReplyText] = useState("");
+  const [replyText, setReplyText] = useState({
+    confirmDeadline: "deadline from client request",
+    confirmPrice: "start budget",
+  });
   const [isReplying, setIsReplying] = useState(false);
 
   const handleUserInfoChange = (e) => {
@@ -64,12 +67,19 @@ const ShopViewOrderInformation = (props) => {
     // You can make an API call here
   };
 
-  const handleReply = () => {
-    console.log("Replying with:", replyText);
+  const handleReply = (e) => {
     // Here you could send the reply to an API or handle it as needed
-    setReplyText(""); // Clear the reply input after sending
-    setIsReplying(false); // Exit reply mode
+    setReplyText({
+      ...replyText,
+      [e.target.name]: e.target.value,
+    }); // Clear the reply input after sending
+    // setIsReplying(false); // Exit reply mode
   };
+
+  const handleSaveReply = () =>{
+    console.log("Replying with:", replyText);
+    setIsReplying(false);
+  }
 
   const shirtFields = [
     { name: "shirtLength", label: "เสื้อยาว" },
@@ -103,13 +113,30 @@ const ShopViewOrderInformation = (props) => {
               <h3 className="font-bold text-2xl mb-8">Shop Reply</h3>
               <hr className="mb-8" />
               <div className="flex flex-col w-100 justify-center">
-                <textarea
+                <p>Confirm Deadline</p>
+                <input 
+                name="confirmDeadline" 
+                type="text" 
+                value={replyText.confirmDeadline} 
+                className="border border-gray-300 rounded-xl h-10 px-5 mb-4 lg:mb-0"
+                onChange={handleReply}
+                disabled={!isEditing}
+                />
+                <p>Confirm Price</p>
+                <input 
+                name="confirmPrice" 
+                type="text" 
+                value={replyText.confirmPrice} 
+                className="border border-gray-300 rounded-xl h-10 px-5 mb-4 lg:mb-0"
+                onChange={handleReply}
+                disabled={!isEditing}/>
+                {/* <textarea
                   value={replyText}
                   onChange={(e) => setReplyText(e.target.value)}
                   cols="48"
                   rows="10"
                   className="p-4 border-slate-200 border-[1px]"
-                ></textarea>
+                ></textarea> */}
                 {isReplying ? (
                   <>
                     <div className="flex flex-col lg:flex-row justify-end pt-10 items-center">
@@ -120,7 +147,7 @@ const ShopViewOrderInformation = (props) => {
                         Cancel
                       </button>
                       <button
-                        onClick={handleReply}
+                        onClick={handleSaveReply}
                         className="ml-3 w-full lg:w-40 bg-red-700 hover:bg-red-500 hover:text-white text-white border py-2 px-4 rounded"
                       >
                         Save
