@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import OrderDetail from "./OrderDetail";
+import React, { useEffect, useState } from "react";
 import DeliveryAddressInfoCard from "./DeliveryAddressInfoCard";
 import CustomerSizeInfoCard from "./CustomerSizeInfoCard";
 import ShopOrderInfoSidebar from "./ShopOrderInfoSidebar";
 import InputBox from "./InputBox";
-
+import UserRequestDetail from "./UserRequestDetail";
 const ShopViewOrderInformation = (props) => {
   const [userInfo, setUserInfo] = useState({
     username: "",
@@ -33,20 +32,22 @@ const ShopViewOrderInformation = (props) => {
     upperArm: "45",
   });
 
-  const {
-    order: initialOrder,
-    shop,
-    client: initialClient,
-    onCodeChange,
-  } = props;
+  const {order,shop,client,onCodeChange,userRequest,orderId} = props;
 
-  const [order, setOrder] = useState(initialOrder);
-  const [client, setClient] = useState(initialClient);
+  const [confirmDeadline, setConfirmDeadline] = useState(shop.confirmDeadline);
+  const [confirmPrice, setConfirmPrice] = useState(shop.confirmPrice);
+  useEffect(() => {
+    // Update state when shop prop changes
+    setConfirmDeadline(shop.confirmDeadline);
+    setConfirmPrice(shop.confirmPrice);
+  }, [shop]); // Add shop as a dependency to the effect
+
+  const [orderInfo, setOrder] = useState();
+  const [clientInfo, setClient] = useState();
   const [isEditing, setIsEditing] = useState(true);
-  const [replyText, setReplyText] = useState({
-    confirmDeadline: "deadline from client request",
-    confirmPrice: "start budget",
-  });
+  
+  const size = client.size
+  // console.log("ajfkeoakokgeokko",size)
   const [isReplying, setIsReplying] = useState(false);
 
   const handleUserInfoChange = (e) => {
@@ -62,22 +63,23 @@ const ShopViewOrderInformation = (props) => {
       order,
       client,
       shop,
+      userRequest,
     };
     console.log("Submitting data:", requestData);
     // You can make an API call here
   };
 
   const handleReply = (e) => {
-    // Here you could send the reply to an API or handle it as needed
-    setReplyText({
-      ...replyText,
-      [e.target.name]: e.target.value,
-    }); // Clear the reply input after sending
-    // setIsReplying(false); // Exit reply mode
+    const { name, value } = e.target;
+    if (name === "confirmDeadline") {
+        setConfirmDeadline(value);
+    } else if (name === "confirmPrice") {
+        setConfirmPrice(value);
+    }
   };
 
   const handleSaveReply = () =>{
-    console.log("Replying with:", replyText);
+    console.log("Replying with:",confirmDeadline,confirmPrice);
     setIsReplying(false);
   }
 
@@ -101,6 +103,48 @@ const ShopViewOrderInformation = (props) => {
     { name: "legLength", label: "ความยาวขา" },
   ];
 
+  useEffect(() =>{
+    const fetchSizeById = async () =>{
+      try {
+
+        if (!size) {
+          console.error("Size ID is missing");
+          return;
+        }
+
+        const response = await fetch(`http://localhost:5555/clientSize/${size}`,{
+          method: "GET",
+        });
+        if (!response.ok) {
+          throw new Error(`Server error: ${response.statusText}`);
+        }
+        const data = await response.json();
+          
+        // console.log("Size id info", data);
+        setUserInfo({
+          shirtLength: data.shirtLength,
+          chestSize: data.chestSize,
+          waistline: data.waistline,
+          hip: data.hip,
+          waistShirt: data.waistShirt,
+          hipShirt: data.hipShirt,
+          thigh: data.thigh,
+          crotch: data.crotch,
+          shoulder: data.shoulder,
+          armLength: data.armLength,
+          calf: data.calf,
+          tipLeg: data.tipLeg,
+          legLength: data.legLength,
+          upperArm: data.upperArm
+        })
+        
+      } catch (error) {
+        console.error("Fail to fetch SizeId",error);
+      }
+    }
+    fetchSizeById();
+  }, [size]);
+
   return (
     <div className="flex justify-center">
       <div className="mt-2 flex flex-col">
@@ -117,7 +161,7 @@ const ShopViewOrderInformation = (props) => {
                 <input 
                 name="confirmDeadline" 
                 type="text" 
-                value={replyText.confirmDeadline} 
+                value={confirmDeadline} 
                 className="border border-gray-300 rounded-xl h-10 px-5 mb-4 lg:mb-0"
                 onChange={handleReply}
                 disabled={!isEditing}
@@ -126,17 +170,11 @@ const ShopViewOrderInformation = (props) => {
                 <input 
                 name="confirmPrice" 
                 type="text" 
-                value={replyText.confirmPrice} 
+                value={confirmPrice} 
                 className="border border-gray-300 rounded-xl h-10 px-5 mb-4 lg:mb-0"
                 onChange={handleReply}
                 disabled={!isEditing}/>
-                {/* <textarea
-                  value={replyText}
-                  onChange={(e) => setReplyText(e.target.value)}
-                  cols="48"
-                  rows="10"
-                  className="p-4 border-slate-200 border-[1px]"
-                ></textarea> */}
+                
                 {isReplying ? (
                   <>
                     <div className="flex flex-col lg:flex-row justify-end pt-10 items-center">
@@ -213,7 +251,7 @@ const ShopViewOrderInformation = (props) => {
               </div>
             </div>
 
-            <OrderDetail />
+            <UserRequestDetail userRequest={userRequest} />
           </div>
 
           <div>
@@ -222,6 +260,7 @@ const ShopViewOrderInformation = (props) => {
               order={order}
               onCodeChange={onCodeChange}
               onSendRequest={handleSubmit}
+              orderId={orderId}
             />
           </div>
         </div>

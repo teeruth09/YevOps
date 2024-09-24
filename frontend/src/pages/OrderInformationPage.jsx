@@ -25,7 +25,15 @@ const OrderInformationPage = () => {
       fullname: "นายสมศักดิ์ รัตนเกียรติภูมิชัยกุล",
       phone: "08x-123-4567",
       address: "123/342 ศรีนครินทร์ 43 ประเวศ ประเวศ กรุงเทพ 10250",
-      size: [],
+      size: "",
+    });
+
+    const [userRequest, setUserRequest] = useState({
+      clothType: "",
+      budgetStart: '',
+      budgetStop: '',
+      deadline: '',
+      referenceImage: [],
     });
 
 
@@ -94,9 +102,13 @@ const OrderInformationPage = () => {
     return (
         <div>
             <NavbarClient/>
-            <OrderInformation shop={shop} client={client} order={order} onCodeChage={handleOrderChage}/>
-
-        
+            <OrderInformation 
+              shop={shop} 
+              client={client} 
+              order={order} 
+              userRequest={userRequest}
+              onCodeChage={handleOrderChage}
+            />
         </div>
     )
 }

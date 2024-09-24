@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 const Client = require('../models/client');
 const config = process.env;
+const Shop = require('../models/shop');
 
 const createOrder = async (orderData, userid) => {
     const { shopId, clientSize, orderType, userRequestDescription, billingInfo, customerInfo, deadline,shopReplyDescription,createAt,price} = orderData;
@@ -76,10 +77,33 @@ const manageOrder = async (requestData) => {
     }
 };
 
-const pullRequestOrder = async (pullData) => {
+const pullRequestOrder = async (req) => {
     try {
-        const orders = await Order.find({ shopId: pullData.shopid });
-        return orders;
+
+        const token = req.body.token || req.query.token || req.headers['x-access-token'];
+        if (!token) {
+            throw new Error('Token is required');
+        }
+        const { user_id } = jwt.verify(token, config.TOKEN_KEY);
+        let user = await Shop.findById(user_id);
+
+        if (!user) {
+            throw new Error("User not Found");
+        }
+        // console.log(user);
+        const orders = await Order.find({shopId: user._id})
+            .populate('shopId', 'shopName imageProfile previewImage shopDescription') // Populate shop details (only fetch shopName, imageProfile, and previewImage)
+            .populate('clientId', 'firstname lastname phone address imageProfile username') // Populate client details (only fetch relevant client info)
+            .populate('userRequestDescription', 'clothType budgetStart budgetStop referenceImage');
+        if (!orders || orders.length === 0) {
+            return { status: 404, message: "No orders found for this client." };
+        }
+
+        return { status: 200, data: orders }; // Returning the orders and status
+
+
+        // const orders = await Order.find({ shopId: pullData.shopid });
+        // return orders;
     } catch (error) {
         console.error("Error fetching orders:", error);
         throw new Error("Could not fetch orders");
@@ -122,7 +146,7 @@ const getOrderHistory = async (req) =>{
         // console.log(user);
         const orders = await Order.find({clientId: user._id})
             .populate('shopId', 'shopName imageProfile previewImage shopDescription') // Populate shop details (only fetch shopName, imageProfile, and previewImage)
-            .populate('clientId', 'firstName lastName phone address'); // Populate client details (only fetch relevant client info)
+            .populate('clientId', 'firstname lastname phone address username'); // Populate client details (only fetch relevant client info)
 
         if (!orders || orders.length === 0) {
             return { status: 404, message: "No orders found for this client." };
@@ -140,7 +164,8 @@ const getOrderDetail = async (orderid) =>{
     try{
         const order = await Order.findById(orderid)
             .populate('shopId', 'shopName imageProfile previewImage shopDescription') // Populate shop details (only fetch shopName, imageProfile, and previewImage)
-            .populate('clientId', 'firstname lastname phone address'); // Populate client details (only fetch relevant client info)
+            .populate('clientId', 'firstname lastname phone address clientSize imageProfile') // Populate client details (only fetch relevant client info)
+            .populate('userRequestDescription', 'clothType budgetStart budgetStop referenceImage');
 
         if (!order) {
             return res.status(404).send('Order not found.');
