@@ -24,6 +24,10 @@ const requests = async (req, res) => {
 const manage = async (req, res) => {
     try {
         const request = await  manageOrder(req.body);
+        if (request.status === 404) {
+            console.log("Message",request.message)
+            return res.status(404).send(request.message);
+        }
         res.status(200).send(request._id);
     } catch (err) {
         console.error(err);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 function CustomerInfoCard(props) {
-    console.log("CustomerInforCard",props)
+    // console.log("CustomerInforCard",props)
     const [isSmallScreen, setIsSmallScreen] = useState(false);
 
     useEffect(() => {

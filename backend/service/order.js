@@ -63,9 +63,11 @@ const createOrder = async (orderData, userid) => {
 
 const manageOrder = async (requestData) => {
     try {
+        console.log('Request Data:', requestData); // Log incoming request data
         const statusData = requestData.status ;
+        const orderid = requestData.orderid; // Make sure you have orderid from the requestData
 
-        const updatedOrder = await updateStatus(statusData, requestData.orderid);
+        const updatedOrder = await updateStatus(statusData, orderid);
 
         return updatedOrder;
     } catch (error) {
@@ -93,8 +95,9 @@ const updateStatus = async (statusData, orderid) => {
         }
 
         order.status = statusData;
-        await order.save();
 
+        await order.save();
+        console.log("Update status",order.status)
         return order;
     } catch (error) {
         console.error('Error updating order status:', error);
@@ -140,7 +143,7 @@ const getOrderDetail = async (orderid) =>{
             .populate('clientId', 'firstname lastname phone address'); // Populate client details (only fetch relevant client info)
 
         if (!order) {
-            throw new Error('Order not found for the given order ID');
+            return res.status(404).send('Order not found.');
         }
         return order;
     }catch(error){

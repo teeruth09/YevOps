@@ -11,7 +11,9 @@ function ViewOrder(props) {
     const shop = props.shop;
     const client = props.client;
     const onCodeChange = props.onCodeChange;
+    const orderId = props.orderId;
     console.log(order.status)
+    // console.log("OrderId is",orderId)
     return (
         <div className='flex justify-center'>
             <div className='mt-2 flex flex-col'>
@@ -39,7 +41,7 @@ function ViewOrder(props) {
     
                     </div>
                     <div>
-                    <OrderSideBar shop={shop} order={order} onCodeChange={onCodeChange}/>
+                    <OrderSideBar shop={shop} order={order} onCodeChange={onCodeChange} orderId={orderId}/>
                     <div className='mt-96 mb-5 ml-96'>
                         {["Due Dated", "Sending", "In Progress"].includes(order.status) && <Chat/>}
                     </div>
