@@ -1,13 +1,27 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 
-const OrderDetail = () => {
+const OrderDetail = ({userRequest, onRequestChange}) => {
+
+  console.log("OrderDetail UserRequest",userRequest)
   const [formData, setFormData] = useState({
     clothType: '',
     budgetStart: '',
     budgetStop: '',
     deadline: '',
-    referenceImage: null,
+    referenceImage: '',
   });
+
+  // useEffect(() => {
+  //   if (userRequest) {
+  //     setFormData({
+  //       clothType: userRequest.clothType || '',
+  //       budgetStart: userRequest.budgetStart || '',
+  //       budgetStop: userRequest.budgetStop || '',
+  //       deadline: userRequest.deadline || '',
+  //       // referenceImage: userRequest.referenceImage || '',
+  //     });
+  //   }
+  // }, [userRequest]); // Depend on userRequest so it updates when props change
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -15,6 +29,8 @@ const OrderDetail = () => {
       ...formData,
       [name]: value,
     });
+  
+    onRequestChange(name, value); // Pass individual field changes
   };
 
   const handleImageUpload = (e) => {
@@ -23,6 +39,8 @@ const OrderDetail = () => {
       ...formData,
       referenceImage: file,
     });
+  
+    onRequestChange('referenceImage', file); // Pass image change as a separate field
   };
 
   return (
@@ -33,8 +51,8 @@ const OrderDetail = () => {
         <label className="block text-gray-700">ชนิดผ้า</label>
         <input
           type="text"
-          name="productType"
-          value={formData.productType}
+          name="clothType"
+          value={formData.clothType}
           onChange={handleInputChange}
           className="w-full border p-2 rounded-md"
           placeholder="ชนิดผ้า"

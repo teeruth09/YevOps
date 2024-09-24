@@ -13,8 +13,17 @@ const order = async (req, res) => {
 
 const requests = async (req, res) => {
     try {
-        const orders = await  pullRequestOrder(req.body);
-        res.status(200).send(orders);
+        // Call the service to get the order history
+        const result = await pullRequestOrder(req);
+
+        if (result.status === 404) {
+            return res.status(404).send(result.message);
+        }
+
+        res.status(200).json(result.data); // Sending the orders back as JSON
+
+        // const orders = await  pullRequestOrder(req.body);
+        // res.status(200).send(orders);
     } catch (err) {
         console.error(err);
         res.status(500).send("Internal Server Error");

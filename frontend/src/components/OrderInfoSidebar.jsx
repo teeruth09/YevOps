@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaClock } from 'react-icons/fa';
 
-const OrderInfoSideBar = ({ shop, order, onSendRequest }) => {
+const OrderInfoSideBar = ({ shop, order, onSendRequest, userRequest }) => {
     // const shop = props.shop;
     // const order = props.order;
 

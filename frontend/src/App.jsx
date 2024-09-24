@@ -50,7 +50,7 @@ function App() {
         <Route path="/order/1/report" element={<ReportPage/>} />
         <Route path="/order/1/review" element={<ReviewPage/>} />
         <Route path="/shop/profile/post" element={<ShopProfilePreviewPage/>} />
-        <Route path="/shop/viewrequest" element={<ShopViewClientOrderPage/>} />
+        <Route path="/shop/viewrequest/:id" element={<ShopViewClientOrderPage/>} />
         <Route path="/verifyshop" element={<Verifyshop/>} />
         <Route path="/chat" element={<ChatPage/>} />
         <Route path="/order/information" element={<OrderInformationPage/>} />
