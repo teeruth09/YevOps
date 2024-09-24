@@ -2,25 +2,29 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom"; // Import useLocation
 import NavbarClient from "@/components/NavbarClient";
 import ViewOrder from "@/components/ViewOrder";
-
+import { useParams } from "react-router-dom";
 const ViewOrderPage = () => {
   const location = useLocation(); // Hook to get the location object
 
   const {orderId} = location.state || {};
-  // console.log("OrderId",orderId)
+  // const { orderId } = useParams(); // Get orderId from the URL
+
+  console.log("OrderId",orderId)
+
+  if (!orderId) {
+    console.error('Order ID is undefined');
+    return <div>Error: Order ID is missing.</div>;
+  }
 
   const [order, setOrder] = useState({
-    status: location.state?.orderId.status || "In Progress",
-    name: location.state?.orderId.name || "Basic", // Map orderType to name
-    code: location.state?.orderId.code || "9ARMS",
-    detail: location.state?.orderId.detail || "The basic pack...",
-    total: location.state?.orderId.total || 500,
-    discount: location.state?.orderId.discount || 100,
-    fee: location.state?.orderId.fee || 20,
-    pay:
-      (location.state?.orderId.total || 500) -
-      (location.state?.orderId.discount || 100) +
-      (location.state?.orderId.fee || 20),
+    status: "In Progress", // Default value
+    name: "Basic", // Default value
+    code: "9ARMS", // Default value
+    detail: "The basic pack...", // Default value
+    total: 500, // Default value
+    discount: 100, // Default value
+    fee: 20, // Default value
+    pay: 500 - 100 + 20, // Default value
   });
 
   const [shop, setShop] = useState({
@@ -47,6 +51,10 @@ const ViewOrderPage = () => {
 
   useEffect(() =>{
     const fetchOrderDetail = async () =>{
+      if (!orderId) {
+        console.error("Order ID is undefined.");
+        return;
+      }
       try{
         const response = await fetch(`http://localhost:5555/order/orderdetail/${orderId}`,{
           method: "GET",
@@ -82,7 +90,7 @@ const ViewOrderPage = () => {
       }
     }
     fetchOrderDetail();
-  }, []);  
+  }, [orderId]);//Add orderId as a dependency  
 
 
   const handleOrderChage = (e) => {
@@ -100,6 +108,7 @@ const ViewOrderPage = () => {
         client={client}
         order={order}
         onCodeChage={handleOrderChage}
+        orderId={orderId}
       />
     </div>
   );
