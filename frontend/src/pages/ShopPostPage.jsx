@@ -8,9 +8,8 @@ import Shopcard from "@/components/ShopCard";
 import myImage from "../../public/website_picture.png"; // Assuming your component is in src/components
 import { jwtDecode } from "jwt-decode";
 import PostCard from "@/components/PostCard";
-import { Link } from "react-router-dom";
 
-const PostPage = () => {
+const ShopPostPage = () => {
   const [orders, setOrders] = useState([
     {
       id: 1,
@@ -405,11 +404,9 @@ const PostPage = () => {
     <div>
       {/* Navbar */}
       <NavbarComponent />
-      <Link to="/create-post">
-        <div className=" fixed right-8 bottom-8 shadow-lg w-20 h-20 bg-red-500 text-white text-[36px] rounded-full flex items-center justify-center text-center">
-          +
-        </div>
-      </Link>
+      {/* <div className=" fixed right-8 bottom-8 shadow-lg w-20 h-20 bg-red-500 text-white text-[36px] rounded-full flex items-center justify-center text-center">
+        +
+      </div> */}
       <div className="flex flex-col items-center">
         <div className="flex flex-col-reverse gap-2">
           {orders.map((order) => (
@@ -423,4 +420,4 @@ const PostPage = () => {
   );
 };
 
-export default PostPage;
+export default ShopPostPage;
