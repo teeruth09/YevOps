@@ -5,22 +5,33 @@ import CustomerSizeInfoCard from './CustomerSizeInfoCard';
 import OrderInfoSideBar from './OrderInfoSideBar';
 
 const OrderInformation = (props) => {
-    const { order: initialOrder, shop, client: initialClient, onCodeChange } = props;
+    const { order, shop, client, onCodeChange, userRequest } = props;
+    console.log("Client Size id",client.size)
+    // console.log("User Request",userRequest)
 
-    const [order, setOrder] = useState(initialOrder);
-    const [client, setClient] = useState(initialClient);
+    const [orderInfo, setOrder] = useState(order);
+    const [clientInfo, setClient] = useState(client);
+    const [userRequestInfo, setUserRequest] = useState(userRequest)
     const handleClientChange = (key, value) => {
         setClient({
-          ...client,
+          ...clientInfo,
           [key]: value
         });
       };
     
       const handleOrderChange = (key, value) => {
         setOrder({
-          ...order,
+          ...orderInfo,
           [key]: value
         });
+      };
+
+      const handleUserRequestChange = (key, value) => {
+        setUserRequest((prevUserRequestInfo) => ({
+          ...prevUserRequestInfo,
+          [key]: value
+        }));
+        console.log("UserRequestInfo",userRequestInfo)
       };
     
       const handleSubmit = () => {
@@ -29,6 +40,7 @@ const OrderInformation = (props) => {
           order,
           client,
           shop,
+          userRequestInfo
         };
     
         console.log("Submitting data:", requestData);
@@ -53,10 +65,13 @@ const OrderInformation = (props) => {
                             size={client.size}
                             onChange={handleClientChange}       
                         />
-                        <OrderDetail/> 
+                        <OrderDetail
+                          userRequest={userRequestInfo}
+                          onRequestChange={handleUserRequestChange}
+                        /> 
                     </div>
                     <div>
-                    <OrderInfoSideBar shop={shop} order={order} onCodeChange={onCodeChange} onSendRequest={handleSubmit}/>
+                    <OrderInfoSideBar shop={shop} order={order} userRequest={userRequestInfo} onCodeChange={onCodeChange} onSendRequest={handleSubmit}/>
                     </div>
                 </div>
             </div>

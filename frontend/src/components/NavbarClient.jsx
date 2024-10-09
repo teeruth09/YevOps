@@ -6,6 +6,7 @@ import { IoEyeOutline } from "react-icons/io5";
 import { IoIosLogOut } from "react-icons/io";
 
 const NavbarClient = () => {
+    const [searchTerm, setSearchTerm] = useState('');
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
     const toggleDropdown = () => {
@@ -69,6 +70,39 @@ const NavbarClient = () => {
         console.error('Logout error:', error);
         }
     };
+
+    // Function to handle search submission
+    const handleSearchSubmit = async (e) => {
+        e.preventDefault();
+        
+        try {
+        // Sending the search term to the backend API
+        const response = await fetch(`http://localhost:5555/search?keyword=${searchTerm}`, {
+            method: 'GET', // Change to 'POST' if your API expects a POST request
+        });
+        
+        if (!response.ok) {
+            if (response.status === 404) {
+                // Handle 404 error, navigate to a different endpoint or show a message
+                console.error('Resource not found (404)');
+                navigate(`/search?keyword=${searchTerm}`); // Example: Navigate to a custom error page
+                return;
+            } else {
+                throw new Error('Search request failed');
+            }
+        }
+        
+        const result = await response.json();
+        console.log('Search result:', result);
+        console.log({ searchResults: result }); // Log the state being passed
+        navigate(`/search?keyword=${searchTerm}`, {state: {searchResults: result}});
+        
+        // Do something with the result, like updating state or redirecting
+        // Example: setSearchResults(result);
+        } catch (error) {
+        console.error('Error during search:', error);
+        }
+    };
   
 
     return (
@@ -79,11 +113,19 @@ const NavbarClient = () => {
                         YevOps
                     </div>
                     <div className="relative pl-8 text-gray-600 ">
-                        <div className="bg-white flex  rounded-xl h-10 px-5 pr-5  ">
-                            <input type="search" name="serch" placeholder="Search" class= "text-sm focus:outline-none pr-5"/>     
-                            <span
-                                class="flex items-center whitespace-nowrap  py-[0.25rem] text-surface dark:border-neutral-400 dark:text-white [&>svg]:h-5 [&>svg]:w-5"
-                                id="button-addon2">
+                        <form className="bg-white flex  rounded-xl h-10 px-5 pr-5 " onSubmit={handleSearchSubmit}>
+                            <input 
+                                type="search"
+                                name="search"
+                                placeholder='Search'
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className='text-sm focus:outline-none pr-5'
+                            />    
+                            <button
+                                type="submit"
+                                className="flex items-center whitespace-nowrap  py-[0.25rem] text-surface dark:border-neutral-400 dark:text-white [&>svg]:h-5 [&>svg]:w-5"
+                            >
                                 <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -95,8 +137,8 @@ const NavbarClient = () => {
                                     stroke-linejoin="round"
                                     d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                                 </svg>
-                            </span>
-                        </div>
+                            </button>
+                        </form>
                     </div>
                     <div className="flex flex-1 items-center  sm:items-stretch sm:justify-start ml-4 ">
                         <div className="hidden sm:ml-6 sm:block">
@@ -111,16 +153,6 @@ const NavbarClient = () => {
                                 }
                                 >
                                 Home
-                                </NavLink>
-                                <NavLink
-                                to="/viewshop"
-                                className={({ isActive }) =>
-                                    isActive
-                                    ? "rounded-md bg-white px-5 py-2 text-sm font-medium text-black"
-                                    : "rounded-md px-5 py-2 text-sm font-medium text-white hover:text-black"
-                                }
-                                >
-                                ViewShop
                                 </NavLink>
                                 <NavLink
                                 to="/post"

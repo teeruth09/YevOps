@@ -22,6 +22,8 @@ import ShopProfilePreviewPage from "./pages/ShopProfilePreviewpage";
 import Verifyshop from "./pages/VerifyShopPage";
 import ChatPage from "./pages/ChatPage";
 import OrderInformationPage from "./pages/OrderInformationPage";
+import ViewClients from "./pages/ViewClients"
+import ApplyShopPage from "./pages/ApplyShopPage"
 import ShopViewClientOrderPage from "./pages/ShopViewClientOrderPage";
 import PostPage from "./pages/PostPage";
 
@@ -45,7 +47,7 @@ function App() {
       />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/viewshop" element={<Viewshoppage />} />
+      <Route path="/viewshop/:id" element={<Viewshoppage />} />
       <Route path="/order/:id" element={<ViewOrderPage />} />
       <Route path="/search" element={<ShowShopAfterSearch />} />
       <Route path="/client/profile/bank" element={<ClientProfileBankPage />} />
@@ -67,11 +69,14 @@ function App() {
       <Route path="/order/1/report" element={<ReportPage />} />
       <Route path="/order/1/review" element={<ReviewPage />} />
       <Route path="/shop/profile/post" element={<ShopProfilePreviewPage />} />
-      <Route path="/shop/viewrequest" element={<ShopViewClientOrderPage />} />
+      <Route path="/shop/viewrequest/:id" element={<ShopViewClientOrderPage />} />
       <Route path="/verifyshop" element={<Verifyshop />} />
       <Route path="/chat" element={<ChatPage />} />
       <Route path="/order/information" element={<OrderInformationPage />} />
-      <Route path="/post" element={<PostPage />} />
+      <Route path="/post" element={<PostPage />} />        <Route path="/applyshop" element={<ApplyShopPage/>} />
+        <Route path="/admin/clients" element={<ViewClients/>} />
+        <Route path="/admin/shop/1" element={<ViewClients/>} />
+
     </Routes>
   );
 }

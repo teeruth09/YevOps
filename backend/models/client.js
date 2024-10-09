@@ -1,4 +1,5 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const clientSize = require('./clientSize');
 
 const clientSchema = new mongoose.Schema({
     email: { 
@@ -24,6 +25,7 @@ const clientSchema = new mongoose.Schema({
     ],
     username: {type: String}, 
     token: { type: String },
+    clientSize: {type: mongoose.Schema.Types.ObjectId, ref:'ClientSize'}
 })
 
 module.exports = mongoose.model('Client', clientSchema);

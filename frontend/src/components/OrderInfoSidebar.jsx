@@ -1,7 +1,7 @@
 import React from 'react'
 import { FaClock } from 'react-icons/fa';
 
-const OrderInfoSideBar = ({ shop, order, onSendRequest }) => {
+const OrderInfoSideBar = ({ shop, order, onSendRequest, userRequest }) => {
     // const shop = props.shop;
     // const order = props.order;
 
@@ -9,12 +9,12 @@ const OrderInfoSideBar = ({ shop, order, onSendRequest }) => {
         <div className='bg-white p-10 md:w-[480px] h-fit rounded-lg shadow-2xl'>
                 <div className='flex gap-x-5 mb-3 flex-col sm:flex-row'>
                     <img
-                        src="https://th.bing.com/th/id/OIP.6Vkv1Oyc641507Z8PhZrRgHaHX?w=900&h=895&rs=1&pid=ImgDetMain"
+                        src={shop.imageProfile}
                         alt="profile.jpg"
                         className="w-24 h-24 lg:w-32 lg:h-32"
                     />
                     <div>
-                        <h4 className='font-bold text-2xl mb-2'>{shop.name}</h4>
+                        <h4 className='font-bold text-2xl mb-2'>{shop.shopName}</h4>
                     </div>
                 </div>
                 <div className='mb-3'>

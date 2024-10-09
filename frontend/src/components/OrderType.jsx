@@ -2,8 +2,9 @@ import React from 'react'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { FaClock } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
-const OrderType = () => {
+const OrderType = ({shopId}) => {
   const [orderTypes, setOrderTypes] = useState([
     {
         shopId: 1, // Add an ID for easier identification
@@ -25,6 +26,10 @@ const OrderType = () => {
       deadline: "28"
     }
   ]);
+  let token = localStorage.getItem("x-access-token");
+  let role = localStorage.getItem("role");
+  const navigate = useNavigate();
+
 
   const maxOrderType = orderTypes.length;
   const [viewPackage, setViewPackage] = useState(0);
@@ -32,6 +37,17 @@ const OrderType = () => {
   const packageClick = (index) => {
     setViewPackage(index); // Update the state with the index of the clicked button
   };
+
+  const handleOrder = () => {
+    if(!token){
+      alert("Please log in before order product")
+    }
+    else{
+      if(role === 'client'){
+        navigate('/order/information', {state: {sendShopId: shopId }}); //pass shopId
+      }
+    }
+  }
 
   // Fetch shop's Order type (1-3)
   useEffect(() => {
@@ -68,7 +84,7 @@ const OrderType = () => {
               <p className='text-xl font-bold pl-1'>{orderTypes[0].deadline} Days</p>
             </div>
             <p style={{ whiteSpace: 'pre-line' }} className='text-l font-medium pt-5 px-10 text-gray-700'>{orderTypes[0].detail}</p>
-            <button className='my-10 w-[90%] h-10 border-[1px] shadow-xl bg-red-500 text-white text-xl font-medium flex items-center justify-center rounded-lg hover:bg-red-700'>
+            <button className='my-10 w-[90%] h-10 border-[1px] shadow-xl bg-red-500 text-white text-xl font-medium flex items-center justify-center rounded-lg hover:bg-red-700' onClick={handleOrder}>
               Order Now
             </button>
           </div>
@@ -85,7 +101,7 @@ const OrderType = () => {
               <p className='text-xl font-bold pl-1'>{orderTypes[1].deadline} Days</p>
             </div>
             <p style={{ whiteSpace: 'pre-line' }} className='text-l font-medium pt-5 px-10 text-gray-700'>{orderTypes[1].detail}</p>
-            <button className='my-10 w-[90%] h-10 border-[1px] shadow-xl bg-red-500 text-white text-xl font-medium flex items-center justify-center rounded-lg hover:bg-red-700'>
+            <button className='my-10 w-[90%] h-10 border-[1px] shadow-xl bg-red-500 text-white text-xl font-medium flex items-center justify-center rounded-lg hover:bg-red-700' onClick={handleOrder}>
               Order Now
             </button>
           </div>
@@ -102,7 +118,7 @@ const OrderType = () => {
               <p className='text-xl font-bold pl-1'>{orderTypes[2].deadline} Days</p>
             </div>
             <p style={{ whiteSpace: 'pre-line' }} className='text-l font-medium pt-5 px-10 text-gray-700'>{orderTypes[2].detail}</p>
-            <button className='my-10 w-[90%] h-10 border-[1px] shadow-xl bg-red-500 text-white text-xl font-medium flex items-center justify-center rounded-lg hover:bg-red-700'>
+            <button className='my-10 w-[90%] h-10 border-[1px] shadow-xl bg-red-500 text-white text-xl font-medium flex items-center justify-center rounded-lg hover:bg-red-700' onClick={handleOrder}>
               Order Now
             </button>
           </div>

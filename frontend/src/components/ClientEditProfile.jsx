@@ -36,7 +36,8 @@ const ClientEditProfile = () => {
     phone: "",
     gender: "",
     address: "",
-    whose_size: "ขนาดตัวของคุณ",
+    clientSize: "",
+    whoseSize: "",
     shirtLength: "45", //เสื้อยาว
     chestSize: "45", //รอบอก
     waistline: "45", //รอบเอว
@@ -77,23 +78,24 @@ const ClientEditProfile = () => {
           phone: data.phone,
           gender: data.gender,
           address: data.address,
-          whose_size: data.whose_size,
-          shirtLength: data.shirtLength,
-          chestSize: data.chestSize,
-          waistLine: data.waistline,
-          hip: data.hip,
-          waistShirt: data.waistShirt,
-          hipShirt: data.hipShirt,
-          thigh: data.thigh,
-          crotch: data.crotch,
-          shoulder: data.shoulder,
-          armLength: data.armLength,
-          calf: data.calf,
-          tipLeg: data.tipLeg,
-          legLength: data.legLength,
-          upperArm: data.upperArm,
+          clientSize: data.clientSize._id,
+          whoseSize: "ขนาดตัวของ"+data.firstname,
+          shirtLength: data.clientSize.shirtLength,
+          chestSize: data.clientSize.chestSize,
+          waistline: data.clientSize.waistline,
+          hip: data.clientSize.hip,
+          waistShirt: data.clientSize.waistShirt,
+          hipShirt: data.clientSize.hipShirt,
+          thigh: data.clientSize.thigh,
+          crotch: data.clientSize.crotch,
+          shoulder: data.clientSize.shoulder,
+          armLength: data.clientSize.armLength,
+          calf: data.clientSize.calf,
+          tipLeg: data.clientSize.tipLeg,
+          legLength: data.clientSize.legLength,
+          upperArm: data.clientSize.upperArm,
         });
-        console.log(data);
+        console.log("Hello",data);
       } catch (error) {
         console.error("Failed to fetch user data:", error);
       }
@@ -273,79 +275,26 @@ const ClientEditProfile = () => {
             />
           </div>
           <div className="flex flex-col lg:flex-row pt-6 lg:pt-16 items-center">
-            {!isEditing ? (
               <>
                 <p className="flex-auto lg:w-24">Size Profile</p>
                 <div className="select-user w-full lg:w-auto">
                   <div className="lg:pl-8 ">
                     <Select>
                       <SelectTrigger className="w-96 col-span-2">
-                        <SelectValue placeholder={userInfo.whose_size} />
+                        <SelectValue placeholder={userInfo.whoseSize}/>
                       </SelectTrigger>
-                      <SelectContent>
+                      {/* <SelectContent>
                         <SelectGroup>
                           <SelectItem value="A">ขนาดตัวของนาย A</SelectItem>
                           <SelectItem value="B">ขนาดตัวของนาย B</SelectItem>
                           <SelectItem value="C">ขนาดตัวของนาย C</SelectItem>
                         </SelectGroup>
-                      </SelectContent>
+                      </SelectContent> */}
                     </Select>
                   </div>
                 </div>
               </>
-            ) : (
-              <>
-                <p className="flex-auto lg:w-24">Size Profile</p>
-                <div className="flex">
-                  <button
-                    onClick={handleDeleteSize} // Set up deletion functionality
-                    className="ml-3 w-auto   bg-white hover:bg-red-500 hover:text-white text-red-500 border py-2 px-2 rounded"
-                  >
-                    Del
-                  </button>
-                  <button
-                    onClick={handleAddSize}
-                    className="ml-3 w-auto  bg-white hover:bg-gray-500 hover:text-white text-gray-500 border py-2 px-2 rounded"
-                  >
-                    Add
-                  </button>
-                  <button
-                    onClick={handleSaveEditSize}
-                    className="ml-3 w-auto bg-white  hover:bg-gray-500 hover:text-white text-gray-500 border py-2 px-3 rounded"
-                  >
-                    <MdModeEdit />
-                  </button>
-                </div>
-                <div className="select-user w-full lg:w-auto">
-                  <div className="lg:pl-4 ">
-                    <Select>
-                      <SelectTrigger className="w-96 col-span-2">
-                        <SelectValue placeholder={userInfo.whose_size} />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectGroup>
-                          {selectItems.map((item, index) => (
-                            <SelectItem key={item.id} value={item.id}>
-                              {editingIndex === index ? (
-                                <input
-                                  type="text"
-                                  value={newItemLabel}
-                                  onChange={(e) =>
-                                    setNewItemLabel(e.target.value)
-                                  }
-                                />
-                              ) : (
-                                item.label
-                              )}
-                            </SelectItem>
-                          ))}
-                        </SelectGroup>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-              </>
-            )}
+              
           </div>
           <div className="flex flex-col lg:flex-row pt-3">
             <div className="flex-1 mb-4 lg:mb-0">เสื้อ</div>
@@ -355,7 +304,7 @@ const ClientEditProfile = () => {
             <div className="mb-4 lg:mb-0">
               <p>เสื้อยาว</p>
               <input
-                name="shirtLong"
+                name="shirtLength"
                 type="text"
                 value={userInfo.shirtLength}
                 className="border border-gray-300 rounded-xl h-10 px-5"

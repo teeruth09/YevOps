@@ -16,7 +16,7 @@ import {
 import TextField from '../components/hook-form/rhf-textfield'
 import SelectRow from '@/components/register/SelectRow'
 
-const RegisterPage = () => {
+const ApplyShopPage = () => {
   const navigate = useNavigate()
 
   const RegisterSchema = z
@@ -49,7 +49,9 @@ const RegisterPage = () => {
       date: z.string().min(1, { message: 'Date is required' }),
       month: z.string().min(1, { message: 'Month is required' }),
       year: z.string().min(1, { message: 'Year is required' }),
-      role: z.string().default('client'),
+      role: z.string().default('shop'),
+      shopDescription: z.string().default(""),
+      location: z.string().default(""),
       
     })
     .refine((data) => data.password === data.confirmPassword, {
@@ -79,10 +81,10 @@ const RegisterPage = () => {
   })
 
   const onSubmit = async (data) => {
-    // console.log(`data = ${JSON.stringify(data)}`)
+    console.log(`data = ${JSON.stringify(data)}`)
 
     try {
-      const response = await axios.post(endpoints.auth.register, data)
+      const response = await axios.post(endpoints.auth.applyShop, data)
       console.log(`response = ${JSON.stringify(response)}`)
       if (response.status === 201) {
         const {token, role}  = response.data;
@@ -196,7 +198,7 @@ const RegisterPage = () => {
           <p className='w-1/3'>Create As :</p>
 
           <Select
-            defaultValue='client'
+            defaultValue='shop'
             onValueChange={(role) => setValue('role', role)}
           >
             <SelectTrigger className='w-full'>
@@ -204,7 +206,7 @@ const RegisterPage = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem value='client'>User</SelectItem>
+                <SelectItem value='shop'>Online Shop</SelectItem>
                 {/* <SelectItem value='shop'>Online Shop</SelectItem> */}
               </SelectGroup>
             </SelectContent>
@@ -232,4 +234,4 @@ const RegisterPage = () => {
   )
 }
 
-export default RegisterPage
+export default ApplyShopPage

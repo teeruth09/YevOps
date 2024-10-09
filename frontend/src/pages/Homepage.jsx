@@ -7,14 +7,14 @@ import Filterbar from '@/components/FilterBar'
 import Shopcard from '@/components/ShopCard'
 import myImage from '../../public/website_picture.png'; // Assuming your component is in src/components
 import { jwtDecode } from "jwt-decode";
-
+import { Link } from 'react-router-dom'
 
 const HomePage = () => {
   const centerdiv = {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit,432px)',
   }
-
+  const [allshop, setAllshop] = useState([]);
   const [shops, setShop] = useState([
     // Dummy data (Fetched array of data from db)
     {
@@ -28,114 +28,25 @@ const HomePage = () => {
       shopDescription: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
       startBudget: "2100",
       stopBudget: "999999",
-    },
-    {
-      id: 2, // Add an ID for easier identification
-      verifyStatus: "N",
-      previewImage: "https://i.imgur.com/SjjJVdY.png",
-      shopProfile: "https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg",
-      shopName: "Bunny4Eva",
-      shopRating: "3.8",
-      reviewCount: "12",
-      shopDescription: "I luv bnuy",
-      startBudget: "1300",
-      stopBudget: "4000",
-    },
-    {
-      id: 3, // Add an ID for easier identification
-      verifyStatus: "Y",
-      previewImage: "https://m.media-amazon.com/images/I/61ILcasnX7L._AC_UF894,1000_QL80_.jpg",
-      shopProfile: "https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg",
-      shopName: "A",
-      shopRating: "1.4",
-      reviewCount: "14",
-      shopDescription: "A quick brown",
-      startBudget: "10000",
-      stopBudget: "57000",
-    },
-    {
-      id: 4, // Add an ID for easier identification
-      verifyStatus: "N",
-      previewImage: "https://i.imgur.com/SjjJVdY.png",
-      shopProfile: "https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg",
-      shopName: "Chamber Stupid",
-      shopRating: "3.7",
-      reviewCount: "1384",
-      shopDescription: "book.",
-      startBudget: "0",
-      stopBudget: "100",
-    },
-    {
-      id: 5, // Add an ID for easier identification
-      verifyStatus: "Y",
-      previewImage: "https://animetv-jp.net/wp-content/uploads/2024/06/%E3%80%90%E3%83%AD%E3%82%B7%E3%83%87%E3%83%AC%E3%80%91%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BCPV-%E3%83%9E%E3%83%BC%E3%82%B7%E3%83%A3ver.%EF%BD%9C2024%E5%B9%B47%E6%9C%883%E6%97%A5%E6%B0%B4%E6%94%BE%E9%80%81%E9%96%8B%E5%A7%8B-YouTube-0-0-18.jpeg",
-      shopProfile: "https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg",
-      shopName: "TakdanaiKaitod",
-      shopRating: "4.9",
-      reviewCount: "946672",
-      shopDescription: "ขายไก่ทอดมา 37 ปี ปีนี้ปีท้ายละ เบื่อ อยากไปนอนแล้วอย่ามาสั่งจะได้มั้ย",
-      startBudget: "100000",
-      stopBudget: "600000",
-    },{
-      id: 6, // Add an ID for easier identification
-      verifyStatus: "Y",
-      previewImage: "https://animetv-jp.net/wp-content/uploads/2024/06/%E3%80%90%E3%83%AD%E3%82%B7%E3%83%87%E3%83%AC%E3%80%91%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BCPV-%E3%83%9E%E3%83%BC%E3%82%B7%E3%83%A3ver.%EF%BD%9C2024%E5%B9%B47%E6%9C%883%E6%97%A5%E6%B0%B4%E6%94%BE%E9%80%81%E9%96%8B%E5%A7%8B-YouTube-0-0-18.jpeg",
-      shopProfile: "https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg",
-      shopName: "TakdanaiKaitod",
-      shopRating: "4.9",
-      reviewCount: "946672",
-      shopDescription: "ขายไก่ทอดมา 37 ปี ปีนี้ปีท้ายละ เบื่อ อยากไปนอนแล้วอย่ามาสั่งจะได้มั้ย",
-      startBudget: "100000",
-      stopBudget: "600000",
-    },{
-      id: 7, // Add an ID for easier identification
-      verifyStatus: "Y",
-      previewImage: "https://animetv-jp.net/wp-content/uploads/2024/06/%E3%80%90%E3%83%AD%E3%82%B7%E3%83%87%E3%83%AC%E3%80%91%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BCPV-%E3%83%9E%E3%83%BC%E3%82%B7%E3%83%A3ver.%EF%BD%9C2024%E5%B9%B47%E6%9C%883%E6%97%A5%E6%B0%B4%E6%94%BE%E9%80%81%E9%96%8B%E5%A7%8B-YouTube-0-0-18.jpeg",
-      shopProfile: "https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg",
-      shopName: "TakdanaiKaitod",
-      shopRating: "4.9",
-      reviewCount: "946672",
-      shopDescription: "ขายไก่ทอดมา 37 ปี ปีนี้ปีท้ายละ เบื่อ อยากไปนอนแล้วอย่ามาสั่งจะได้มั้ย",
-      startBudget: "100000",
-      stopBudget: "600000",
-    },{
-      id: 8, // Add an ID for easier identification
-      verifyStatus: "Y",
-      previewImage: "https://animetv-jp.net/wp-content/uploads/2024/06/%E3%80%90%E3%83%AD%E3%82%B7%E3%83%87%E3%83%AC%E3%80%91%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BCPV-%E3%83%9E%E3%83%BC%E3%82%B7%E3%83%A3ver.%EF%BD%9C2024%E5%B9%B47%E6%9C%883%E6%97%A5%E6%B0%B4%E6%94%BE%E9%80%81%E9%96%8B%E5%A7%8B-YouTube-0-0-18.jpeg",
-      shopProfile: "https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg",
-      shopName: "TakdanaiKaitod",
-      shopRating: "4.9",
-      reviewCount: "946672",
-      shopDescription: "ขายไก่ทอดมา 37 ปี ปีนี้ปีท้ายละ เบื่อ อยากไปนอนแล้วอย่ามาสั่งจะได้มั้ย",
-      startBudget: "100000",
-      stopBudget: "600000",
-    },{
-      id: 9, // Add an ID for easier identification
-      verifyStatus: "Y",
-      previewImage: "https://animetv-jp.net/wp-content/uploads/2024/06/%E3%80%90%E3%83%AD%E3%82%B7%E3%83%87%E3%83%AC%E3%80%91%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BCPV-%E3%83%9E%E3%83%BC%E3%82%B7%E3%83%A3ver.%EF%BD%9C2024%E5%B9%B47%E6%9C%883%E6%97%A5%E6%B0%B4%E6%94%BE%E9%80%81%E9%96%8B%E5%A7%8B-YouTube-0-0-18.jpeg",
-      shopProfile: "https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg",
-      shopName: "TakdanaiKaitod",
-      shopRating: "4.9",
-      reviewCount: "946672",
-      shopDescription: "ขายไก่ทอดมา 37 ปี ปีนี้ปีท้ายละ เบื่อ อยากไปนอนแล้วอย่ามาสั่งจะได้มั้ย",
-      startBudget: "100000",
-      stopBudget: "600000",
+      genre: "Cosplay",
     },
   ]);
 
   // Fetch Orders
   useEffect(() => {
-    async function fetchOrders() {
+    async function fetchShops() {
       try {
-        const response = await fetch('/api/shop/shopdata'); // Replace with shop API endpoint
+        const response = await fetch('http://localhost:5555/shop/shopdata'); // Replace with shop API endpoint
         const data = await response.json();
+        console.log(data)
+        setAllshop(data)
         setShop(data);
       } catch (error) {
         console.error('Failed to fetch orders:', error);
       }
     }
 
-    fetchOrders();
+    fetchShops();
   }, []);
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -190,11 +101,12 @@ const HomePage = () => {
           <Shopcard previewImage="https://i.imgur.com/SjjJVdY.png"
           shopProfile="https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg"
           shopName="Hinoshii is cool"
-          shopRating="5.0"
+          shopRating="3.0"
           reviewCount="1384"
           shopDescription="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
           startBudget="2100"
-          stopBudget="999999"/>
+          stopBudget="999999"
+          genre="Wedding"/>
 
           <Shopcard previewImage="https://i.imgur.com/SjjJVdY.png"
           shopProfile="https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg"
@@ -203,7 +115,8 @@ const HomePage = () => {
           reviewCount="1384"
           shopDescription="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
           startBudget="2100"
-          stopBudget="999999"/>
+          stopBudget="999999"
+          genre="Cosplay"/>
 
           <Shopcard previewImage="https://i.imgur.com/SjjJVdY.png"
           shopProfile="https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg"
@@ -212,37 +125,47 @@ const HomePage = () => {
           reviewCount="1384"
           shopDescription="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
           startBudget="2100"
-          stopBudget="999999"/>
+          stopBudget="999999"
+          genre="Cosplay"/>
           
-          <Shopcard previewImage="https://i.imgur.com/SjjJVdY.png"
-          shopProfile="https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg"
-          shopName="Never gonna give"
-          shopRating="5.0"
-          reviewCount="1384"
-          shopDescription="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-          startBudget="2100"
-          stopBudget="999999"/>
           
-          <Shopcard previewImage="https://i.imgur.com/SjjJVdY.png"
-          shopProfile="https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg"
-          shopName="Hinoshii is cool"
-          shopRating="5.0"
-          reviewCount="1384"
-          shopDescription="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-          startBudget="2100"
-          stopBudget="999999"/>
-          
-          <Shopcard previewImage="https://i.imgur.com/SjjJVdY.png"
-          shopProfile="https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg"
-          shopName="Hinoshii is cool"
-          shopRating="5.0"
-          reviewCount="1384"
-          shopDescription="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-          startBudget="2100"
-          stopBudget="999999"/>
-          
+
 
         </div>
+        <div style={centerdiv} className="justify-center w-[90vw] m-auto z-1">
+
+          {allshop.length > 0 ? (
+          allshop.map((result) => {
+              // Check if any of the required fields are empty
+              
+              if (!result.shopName || !result.imageProfile || !result.shopDescription) {
+                return null; // Skip this shop if any of the fields are empty
+              }
+
+              return (
+                <Link to={`/viewshop/${result._id}`} state={{shopId: result._id}}> 
+                  <Shopcard
+                  shopId={result._id}
+                  previewImage={result.previewImage}
+                  verifyStatus={result.isVerified} 
+                  shopProfile={result.imageProfile}
+                  shopName={result.shopName}
+                  shopRating={result.shopRating}
+                  reviewCount={result.reviewCount}
+                  shopDescription={result.shopDescription}
+                  startBudget={result.startBudget}
+                  stopBudget={result.stopBudget}
+                  genre={result.genre}
+                  />
+                  <p>ShopId:{result._id}</p>
+                </Link>
+              );
+            })
+          ) : (
+            <p>No Shop found</p>
+          )}
+        </div>
+
       </div>
       
     </div>
@@ -250,6 +173,3 @@ const HomePage = () => {
 }
 
 export default HomePage
-
-
-
