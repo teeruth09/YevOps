@@ -4,17 +4,8 @@ import { FiPlusCircle } from 'react-icons/fi'
 import { RxSlash } from 'react-icons/rx'
 
 const ShopEditProfile = () => {
-  const [userInfo, setUserInfo] = useState({
-    username: 'The Sewing Shop',
-    imageProfile:
-      'https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain',
-    shopName: 'The Sewing Shop',
-    phone: 'xxxxxxxxxx',
-    address: '911/2 Ladkrabang',
-    shopDescription: 'รับตัดชุดสูท ชุด Cosplay การันตีสินค้าคุณภาพ',
-    location:
-      'https://www.bing.com/maps/geoplat/REST/v1/Imagery/Map/RoadVibrant/13.723014,100.749996/13?ms=648,345&heid=7862906125874626561,707070&fpp=13.723013877868652,100.74999618530273;178&ml=Basemap,LandCover,Landmarks,OsmBuildings&key=AnTcaqBi2ypp0xI-OZNi4W_ik2KhjgpqioTAtXLC8GzkMBQRMlyxvxyTnd5b73im&c=en-US&fmt=jpeg&od=1&shading=hill&logo=n&da=ro',
-  })
+  const [userInfo, setUserInfo] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
   const [isEditing, setIsEditing] = useState(false)
 
   // shop profile image
@@ -23,7 +14,6 @@ const ShopEditProfile = () => {
   const hiddenImageInputRef = useRef(null)
 
   const handleAvatarChange = (e) => {
-    console.log('img onChange triggered')
     const file = e.target.files?.[0]
 
     if (file) {
@@ -66,6 +56,8 @@ const ShopEditProfile = () => {
         setNewAvatarUrl(`http://localhost:5555/images/${data.imageProfile}`)
       } catch (error) {
         console.error('Failed to fetch user data:', error)
+      } finally {
+        setIsLoading(false)
       }
     }
 
@@ -134,16 +126,23 @@ const ShopEditProfile = () => {
       <div className='w-full lg:w-auto h-full bg-white shadow-xl p-5 lg:p-10'>
         <div className='Profiledetail'>
           <div className='flex flex-col lg:flex-row'>
-            <img
-              src={newAvatarUrl ?? userInfo.imageProfile}
-              alt='profile.jpg'
+            <div
               className={cn(
-                'w-32 h-32 lg:w-48 lg:h-48',
-                isEditing && 'cursor-pointer'
+                'w-32 h-32 lg:w-48 lg:h-48 bg-gray-300',
+                isLoading && 'animate-pulse'
               )}
-              // when this img is clicked, the input below is clicked instead
-              onClick={() => hiddenImageInputRef.current?.click()}
-            />
+            >
+              <img
+                src={newAvatarUrl ?? userInfo?.imageProfile}
+                alt='profile.jpg'
+                className={cn(
+                  'w-32 h-32 lg:w-48 lg:h-48',
+                  isEditing && 'cursor-pointer'
+                )}
+                // when this img is clicked, the input below is clicked instead
+                onClick={() => hiddenImageInputRef.current?.click()}
+              />
+            </div>
 
             <input
               required
@@ -157,14 +156,14 @@ const ShopEditProfile = () => {
             />
 
             <div className='pt-5 lg:pt-0 lg:pl-5'>
-              <div className='text-2xl font-bold'>{userInfo.username}</div>
+              <div className='text-2xl font-bold'>{userInfo?.username}</div>
               <div className='flex flex-col lg:flex-row'>
                 <div className='name'>
                   <p>Shop Name</p>
                   <input
                     name='shopName'
                     type='text'
-                    value={userInfo.shopName}
+                    value={userInfo?.shopName}
                     className='border border-gray-300 rounded-xl h-10 px-5 mb-4 lg:mb-0'
                     onChange={handleChange}
                     disabled={!isEditing}
@@ -177,7 +176,7 @@ const ShopEditProfile = () => {
                   <input
                     name='phone'
                     type='text'
-                    value={userInfo.phone}
+                    value={userInfo?.phone}
                     className='border border-gray-300 rounded-xl h-10 px-5'
                     onChange={handleChange}
                     disabled={!isEditing}
@@ -191,7 +190,7 @@ const ShopEditProfile = () => {
             <input
               name='address'
               type='text'
-              value={userInfo.address}
+              value={userInfo?.address}
               className='border border-gray-300 rounded-xl h-10 w-full px-5'
               onChange={handleChange}
               disabled={!isEditing}
@@ -202,7 +201,7 @@ const ShopEditProfile = () => {
 
             <textarea
               name='shopDescription'
-              value={userInfo.shopDescription}
+              value={userInfo?.shopDescription}
               className='border border-gray-300 rounded-xl h-20 w-full pb-9 px-2 '
               onChange={handleChange}
               disabled={!isEditing}
@@ -213,7 +212,7 @@ const ShopEditProfile = () => {
               <div>
                 <p>Shop Location</p>
                 <img
-                  src={userInfo.location}
+                  src={userInfo?.location}
                   alt='location.jpg'
                   className='w-full h-full'
                 />
@@ -236,7 +235,7 @@ const ShopEditProfile = () => {
                 </div>
 
                 <img
-                  src={userInfo.location}
+                  src={userInfo?.location}
                   alt='location.jpg'
                   className='w-full h-full'
                 />
