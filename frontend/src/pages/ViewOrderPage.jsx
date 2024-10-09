@@ -48,6 +48,12 @@ const ViewOrderPage = () => {
     ],
   });
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const options = { day: "numeric", month: "short", year: "numeric" };
+    return date.toLocaleDateString("en-GB", options);
+  };
+
 
   useEffect(() =>{
     const fetchOrderDetail = async () =>{
@@ -71,6 +77,8 @@ const ViewOrderPage = () => {
           shopName: data.shopId.shopName,
           shopDescription: data.shopId.shopDescription,
           imageProfile: data.shopId.imageProfile,
+          confirmDeadline: formatDate(data.shopReplyDescription.confirmDeadline),
+          confirmPrice: data.shopReplyDescription.confirmPrice
 
         })
         setOrder({
