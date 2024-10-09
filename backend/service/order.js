@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const Client = require('../models/client');
 const config = process.env;
 const Shop = require('../models/shop');
+const ShopReplyDescription = require('../models/shopReplyDescription');
 
 const createOrder = async (orderData, userid) => {
     const { shopId, clientSize, orderType, userRequestDescription, billingInfo, customerInfo, deadline,shopReplyDescription,createAt,price} = orderData;
@@ -67,8 +68,9 @@ const manageOrder = async (requestData) => {
         console.log('Request Data:', requestData); // Log incoming request data
         const statusData = requestData.status ;
         const orderid = requestData.orderid; // Make sure you have orderid from the requestData
+        const shopReplyDescription = requestData.shopReplyDescription;
 
-        const updatedOrder = await updateStatus(statusData, orderid);
+        const updatedOrder = await updateStatus(statusData, orderid, shopReplyDescription);
 
         return updatedOrder;
     } catch (error) {
@@ -110,12 +112,35 @@ const pullRequestOrder = async (req) => {
     }
 }
 
-const updateStatus = async (statusData, orderid) => {
+const updateStatus = async (statusData, orderid, shopReplyDescription) => {
     try {
         const id = new mongoose.Types.ObjectId(orderid);
         const order = await Order.findOne({_id: id });
         if (!order) {
             throw new Error('Order not found for the given order ID');
+        }
+
+        //check if status == Pending (NewRequest) and we have shopReplyData to update
+        console.log('orderStatus:', order.status);
+        console.log('shopReplyDescription Data:', shopReplyDescription);
+
+
+        if(order.status === 'Pending' && shopReplyDescription){
+            //create a new ShopReplyDescription document
+            const newShopReplyDescription =  new ShopReplyDescription({
+                confirmDeadline: shopReplyDescription.confirmDeadline,  
+                confirmPrice: shopReplyDescription.confirmPrice,
+            });
+            //Save the new ShopReplyDescription
+            const savedShopReplyDescription = await newShopReplyDescription.save();
+            //Update the order with the new shopReplyDescription ID
+            order.shopReplyDescription = savedShopReplyDescription._id;
+        }
+        if(order.status === 'Payment' && statusData === 'In Progress'){
+            const shopReplyData = await ShopReplyDescription.findOne({_id: order.shopReplyDescription})
+            console.log('shopReplyData:',shopReplyData)
+            order.price = shopReplyData.confirmPrice
+            order.deadline = shopReplyData.confirmDeadline
         }
 
         order.status = statusData;
@@ -165,7 +190,8 @@ const getOrderDetail = async (orderid) =>{
         const order = await Order.findById(orderid)
             .populate('shopId', 'shopName imageProfile previewImage shopDescription') // Populate shop details (only fetch shopName, imageProfile, and previewImage)
             .populate('clientId', 'firstname lastname phone address clientSize imageProfile') // Populate client details (only fetch relevant client info)
-            .populate('userRequestDescription', 'clothType budgetStart budgetStop referenceImage');
+            .populate('userRequestDescription', 'clothType budgetStart budgetStop referenceImage')
+            .populate('shopReplyDescription', 'confirmDeadline confirmPrice')
 
         if (!order) {
             return res.status(404).send('Order not found.');
