@@ -24,6 +24,7 @@ import ChatPage from "./pages/ChatPage"
 import OrderInformationPage from "./pages/OrderInformationPage"
 import ViewClients from "./pages/ViewClients"
 import ApplyShopPage from "./pages/ApplyShopPage"
+import AdminViewShop from "./pages/AdminViewShop"
 
 function App() {
   return (
@@ -54,7 +55,7 @@ function App() {
         <Route path="/order/information" element={<OrderInformationPage/>} />
         <Route path="/applyshop" element={<ApplyShopPage/>} />
         <Route path="/admin/clients" element={<ViewClients/>} />
-        <Route path="/admin/shop/1" element={<ViewClients/>} />
+        <Route path="/admin/shop/1" element={<AdminViewShop/>} />
 
       </Routes>
    
