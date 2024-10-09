@@ -8,10 +8,10 @@ const ClientPurchaseHistory = () => {
   const [orders, setOrders] = useState([
     {
       id: 1, // Add an ID for easier identification
-      shop_name: "The Sewing shop",
+      shopName: "The Sewing shop",
       order_picture: "https://th.bing.com/th/id/OIP.VgTfsglMSIRrHk1ZlW1LbwHaIc?w=570&h=650&rs=1&pid=ImgDetMain",
-      shop_profile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
-      order_date: "15 Aug 2024",
+      imageProfile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
+      createAt: "15 Aug 2024",
       deadline: "20 Aug 2024",
       status: "Pending",
       price: "100.00 THB",
@@ -20,10 +20,10 @@ const ClientPurchaseHistory = () => {
     },
     {
       id: 2, // Add an ID for easier identification
-      shop_name: "The Sewing shop",
+      shopName: "The Sewing shop",
       order_picture: "https://th.bing.com/th/id/OIP.VgTfsglMSIRrHk1ZlW1LbwHaIc?w=570&h=650&rs=1&pid=ImgDetMain",
-      shop_profile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
-      order_date: "15 Aug 2024",
+      imageProfile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
+      createAt: "15 Aug 2024",
       deadline: "20 Aug 2024",
       status: "Payment",
       price: "100.00 THB",
@@ -32,10 +32,10 @@ const ClientPurchaseHistory = () => {
     },
     {
       id: 3, // Add an ID for easier identification
-      shop_name: "The Sewing shop",
+      shopName: "The Sewing shop",
       order_picture: "https://th.bing.com/th/id/OIP.VgTfsglMSIRrHk1ZlW1LbwHaIc?w=570&h=650&rs=1&pid=ImgDetMain",
-      shop_profile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
-      order_date: "15 Aug 2024",
+      imageProfile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
+      createAt: "15 Aug 2024",
       deadline: "20 Aug 2024",
       status: "In Progress",
       price: "100.00 THB",
@@ -44,10 +44,10 @@ const ClientPurchaseHistory = () => {
     },
     {
       id: 4, // Add an ID for easier identification
-      shop_name: "The Sewing shop",
+      shopName: "The Sewing shop",
       order_picture: "https://th.bing.com/th/id/OIP.VgTfsglMSIRrHk1ZlW1LbwHaIc?w=570&h=650&rs=1&pid=ImgDetMain",
-      shop_profile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
-      order_date: "15 Aug 2024",
+      imageProfile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
+      createAt: "15 Aug 2024",
       deadline: "20 Aug 2024",
       status: "Canceled",
       price: "100.00 THB",
@@ -56,10 +56,10 @@ const ClientPurchaseHistory = () => {
     },
     {
       id: 5, // Add an ID for easier identification
-      shop_name: "The Sewing shop",
+      shopName: "The Sewing shop",
       order_picture: "https://th.bing.com/th/id/OIP.VgTfsglMSIRrHk1ZlW1LbwHaIc?w=570&h=650&rs=1&pid=ImgDetMain",
-      shop_profile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
-      order_date: "15 Aug 2024",
+      imageProfile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
+      createAt: "15 Aug 2024",
       deadline: "20 Aug 2024",
       status: "Sending",
       price: "100.00 THB",
@@ -68,10 +68,10 @@ const ClientPurchaseHistory = () => {
     },
     {
       id: 6, // Add an ID for easier identification
-      shop_name: "The Sewing shop",
+      shopName: "The Sewing shop",
       order_picture: "https://th.bing.com/th/id/OIP.VgTfsglMSIRrHk1ZlW1LbwHaIc?w=570&h=650&rs=1&pid=ImgDetMain",
-      shop_profile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
-      order_date: "15 Aug 2024",
+      imageProfile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
+      createAt: "15 Aug 2024",
       deadline: "20 Aug 2024",
       status: "Due Dated",
       price: "100.00 THB",
@@ -80,10 +80,10 @@ const ClientPurchaseHistory = () => {
     },
     {
       id: 7, // Add an ID for easier identification
-      shop_name: "The Sewing shop",
+      shopName: "The Sewing shop",
       order_picture: "https://th.bing.com/th/id/OIP.VgTfsglMSIRrHk1ZlW1LbwHaIc?w=570&h=650&rs=1&pid=ImgDetMain",
-      shop_profile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
-      order_date: "15 Aug 2024",
+      imageProfile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
+      createAt: "15 Aug 2024",
       deadline: "20 Aug 2024",
       status: "Complete-Not Review",
       price: "100.00 THB",
@@ -92,10 +92,10 @@ const ClientPurchaseHistory = () => {
     },
     {
       id: 8, // Add an ID for easier identification
-      shop_name: "The Sewing shop",
+      shopName: "The Sewing shop",
       order_picture: "https://th.bing.com/th/id/OIP.VgTfsglMSIRrHk1ZlW1LbwHaIc?w=570&h=650&rs=1&pid=ImgDetMain",
-      shop_profile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
-      order_date: "15 Aug 2024",
+      imageProfile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
+      createAt: "15 Aug 2024",
       deadline: "20 Aug 2024",
       status: "Rejected",
       price: "100.00 THB",
@@ -104,10 +104,10 @@ const ClientPurchaseHistory = () => {
     },
     {
       id: 9, // Add an ID for easier identification
-      shop_name: "The Sewing shop",
+      shopName: "The Sewing shop",
       order_picture: "https://th.bing.com/th/id/OIP.VgTfsglMSIRrHk1ZlW1LbwHaIc?w=570&h=650&rs=1&pid=ImgDetMain",
-      shop_profile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
-      order_date: "15 Aug 2024",
+      imageProfile:"https://th.bing.com/th/id/OIP.2UgtaTL--UtqX-LFVsMh6gHaH_?w=1000&h=1080&rs=1&pid=ImgDetMain",
+      createAt: "15 Aug 2024",
       deadline: "20 Aug 2024",
       status: "Delivered",
       price: "100.00 THB",
@@ -120,9 +120,17 @@ const ClientPurchaseHistory = () => {
 
   useEffect(() => {
     async function fetchOrders() {
+      const token = localStorage.getItem("x-access-token");
       try {
-        const response = await fetch('/api/user/orders'); // Replace with your API endpoint
+        const response = await fetch("http://localhost:5555/order/history",{
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            "x-access-token": token,
+          },
+        }); // Replace with your API endpoint
         const data = await response.json();
+        console.log("Order",data)
         setOrders(data);
       } catch (error) {
         console.error('Failed to fetch orders:', error);
@@ -167,7 +175,7 @@ const ClientPurchaseHistory = () => {
       </div>
       <div className='pt-1'>
         {filteredOrders.map((order) => (
-          <Link key={order.id} to={`/order/${order.id}`} state={{order}}>
+          <Link key={order.id} to={`/order/${order._id}`} state={{orderId: order._id}}>
             <OrderCard key={order.id} orderInfo={order} /> 
           </Link>
         ))}

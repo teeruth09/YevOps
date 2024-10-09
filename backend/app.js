@@ -8,6 +8,7 @@ const search = require('./controllers/search');
 const profile = require('./controllers/profile');
 const order = require('./controllers/order');
 const payment = require('./controllers/payment');
+const clientSize = require('./controllers/clientSize');
 const midauth = require('./middlewares/auth')
 const cors = require('cors');
 
@@ -45,6 +46,12 @@ app.patch("/createPayment", midauth , payment.create);
 app.get('/shop/shopdata', profile.getAllShops)
 
 app.get('/shop/shopdata/:id',profile.getShopProfile)
+
+app.get('/order/history',midauth, order.getOrderHistoryController)
+
+app.get('/order/orderdetail/:id',order.getOrderDetailController)
+
+app.get('/clientSize/:id',clientSize.getClientSizeController)
 
 app.post('/welcome', midauth, (req, res) => {
     res.status(200).send("Welcome HACKER");

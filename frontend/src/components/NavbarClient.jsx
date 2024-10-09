@@ -155,16 +155,6 @@ const NavbarClient = () => {
                                 Home
                                 </NavLink>
                                 <NavLink
-                                to="/viewshop"
-                                className={({ isActive }) =>
-                                    isActive
-                                    ? "rounded-md bg-white px-5 py-2 text-sm font-medium text-black"
-                                    : "rounded-md px-5 py-2 text-sm font-medium text-white hover:text-black"
-                                }
-                                >
-                                ViewShop
-                                </NavLink>
-                                <NavLink
                                 to="/post"
                                 className={({ isActive }) =>
                                     isActive
@@ -172,7 +162,7 @@ const NavbarClient = () => {
                                     : "rounded-md px-5 py-2 text-sm font-medium text-white hover:text-black"
                                 }
                                 >
-                                Create Post
+                                Post
                                 </NavLink>
                                 <NavLink
                                 to="/applyshop"

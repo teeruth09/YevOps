@@ -1,15 +1,15 @@
+import NavbarShop from "@/components/NavbarShop";
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom"; // Import useLocation
-import NavbarClient from "@/components/NavbarClient";
-import ViewOrder from "@/components/ViewOrder";
-import { useParams } from "react-router-dom";
-const ViewOrderPage = () => {
+import { useLocation } from "react-router-dom";
+import OrderInformation from "@/components/OrderInformation";
+import ShopViewOrderInformation from "@/components/ShopViewOrderInformation";
+
+const ShopViewClientOrderPage = () => {
   const location = useLocation(); // Hook to get the location object
 
   const {orderId} = location.state || {};
-  // const { orderId } = useParams(); // Get orderId from the URL
 
-  console.log("OrderId",orderId)
+  console.log("OrderId in ShopViewClientOrderPage",orderId)
 
   if (!orderId) {
     console.error('Order ID is undefined');
@@ -17,24 +17,22 @@ const ViewOrderPage = () => {
   }
 
   const [order, setOrder] = useState({
-    status: "In Progress", // Default value
-    name: "Basic", // Default value
-    code: "9ARMS", // Default value
-    detail: "The basic pack...", // Default value
-    total: 500, // Default value
-    discount: 100, // Default value
-    fee: 20, // Default value
-    pay: 500 - 100 + 20, // Default value
+    status: "New Request",
+    name: "Basic",
+    price: "3000",
+    detail:
+      "The basic pack, low detail cosplay and i write this to test if the message is like 400 charecters long will it able to fit in",
+    deadline: "14",
+
   });
 
   const [shop, setShop] = useState({
+    name: "Nai_mam dotshop",
+    img: "https://th.bing.com/th/id/OIP.6Vkv1Oyc641507Z8PhZrRgHaHX?w=900&h=895&rs=1&pid=ImgDetMain",
     shopName: "Nai_mama dotshop",
-    shopDescription:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     imageProfile: "https://th.bing.com/th/id/OIP.6Vkv1Oyc641507Z8PhZrRgHaHX?w=900&h=895&rs=1&pid=ImgDetMain",
-    tag: ["Basic", "Cosplay"],
     confirmDeadline: "17 Sep 2024",
-    confirmPrice: 2000,
+    confirmPrice: 200,
   });
 
   const [client, setClient] = useState({
@@ -42,18 +40,22 @@ const ViewOrderPage = () => {
     phone: "08x-123-4567",
     address: "123/342 ศรีนครินทร์ 43 ประเวศ ประเวศ กรุงเทพ 10250",
     size: "ขนาดตัวของ สมชาย",
-    payment: [
-      "VISA Kasikornbank [Default] *5199",
-      "VISA Kasikornbank [Default] *4321",
-    ],
+    imageProfile: "",
   });
+
+  const [userRequest, setUserRequest] = useState({
+    clothType: "",
+    budgetStart: '',
+    budgetStop: '',
+    deadline: '',
+    referenceImage: [],
+  })
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const options = { day: "numeric", month: "short", year: "numeric" };
     return date.toLocaleDateString("en-GB", options);
   };
-
 
   useEffect(() =>{
     const fetchOrderDetail = async () =>{
@@ -66,25 +68,32 @@ const ViewOrderPage = () => {
           method: "GET",
         });
         const data = await response.json();
-
+        // console.log("Get orderDetail",data)
         setClient({
           fullname: data.clientId.firstname+' '+data.clientId.lastname,
           phone: data.clientId.phone,
           address: data.clientId.address,
           size: data.clientSize,
+          imageProfile: data.clientId.imageProfile,
         });
         setShop({
           shopName: data.shopId.shopName,
           shopDescription: data.shopId.shopDescription,
           imageProfile: data.shopId.imageProfile,
-          confirmDeadline: formatDate(data.shopReplyDescription.confirmDeadline),
-          confirmPrice: data.shopReplyDescription.confirmPrice
+          confirmDeadline: formatDate(data.deadline),
+          confirmPrice: data.userRequestDescription.budgetStart,
 
         })
         setOrder({
           status: data.status,
           name: data.orderType,
-
+        })
+        setUserRequest({
+          clothType: data.userRequestDescription.clothType,
+          budgetStart: data.userRequestDescription.budgetStart,
+          budgetStop: data.userRequestDescription.budgetStop,
+          deadline: formatDate(data.deadline),
+          referenceImage: data.userRequestDescription.referenceImage,
         })
 
         if (response.ok){
@@ -98,7 +107,7 @@ const ViewOrderPage = () => {
       }
     }
     fetchOrderDetail();
-  }, [orderId]);//Add orderId as a dependency  
+  }, [orderId]);//Add orderId as a dependency
 
 
   const handleOrderChage = (e) => {
@@ -109,12 +118,14 @@ const ViewOrderPage = () => {
   };
 
   return (
-    <div className="w-screen">
-      <NavbarClient />
-      <ViewOrder
+    <div>
+      <NavbarShop />
+      <div className="flex pl-5 pt-5"></div>
+      <ShopViewOrderInformation
         shop={shop}
         client={client}
         order={order}
+        userRequest={userRequest}
         onCodeChage={handleOrderChage}
         orderId={orderId}
       />
@@ -122,4 +133,4 @@ const ViewOrderPage = () => {
   );
 };
 
-export default ViewOrderPage;
+export default ShopViewClientOrderPage;

@@ -11,12 +11,14 @@ function ViewOrder(props) {
     const shop = props.shop;
     const client = props.client;
     const onCodeChange = props.onCodeChange;
+    const orderId = props.orderId;
     console.log(order.status)
+    // console.log("OrderId is",orderId)
     return (
         <div className='flex justify-center'>
             <div className='mt-2 flex flex-col'>
                 <div className='mb-8'>
-                    Order{' > '}{shop.name}
+                    Order{' > '}{shop.shopName}
                 </div>
                 <div className='flex flex-col md:flex-row gap-x-10'>
                     <div className='flex flex-col w-auto md:w-4/5'>
@@ -33,12 +35,13 @@ function ViewOrder(props) {
                         <CustomerInfoCard 
                             address={client.address}
                             size={client.size}
+                            fullname={client.fullname}
                         />
                         {!["Pending", "Rejected", "Canceled"].includes(order.status) && <PaymentMethodCard payment={client.payment} />}
     
                     </div>
                     <div>
-                    <OrderSideBar shop={shop} order={order} onCodeChange={onCodeChange}/>
+                    <OrderSideBar shop={shop} order={order} onCodeChange={onCodeChange} orderId={orderId}/>
                     <div className='mt-96 mb-5 ml-96'>
                         {["Due Dated", "Sending", "In Progress"].includes(order.status) && <Chat/>}
                     </div>

@@ -4,6 +4,7 @@ const ClientSize = require('../models/clientSize');
 const Shop = require('../models/shop');
 const config = process.env;
 
+
 const fetchProfile = async (req) => {
     try {
         const token = req.body.token || req.query.token || req.headers['x-access-token'];
@@ -14,7 +15,7 @@ const fetchProfile = async (req) => {
         const { user_id } = jwt.verify(token, config.TOKEN_KEY);
 
         let user = await Client.findById(user_id);
-        let userSizes = await ClientSize.find({ clientId: user_id });
+        // let userSizes = await ClientSize.find({ clientId: user_id });
 
         if (!user) {
             user = await Shop.findById(user_id);
@@ -36,12 +37,36 @@ const fetchProfile = async (req) => {
                 gender: user.gender,
                 birthdate: user.birthdate,
                 phone: user.phone,
-                userSizes: userSizes,
+                // clientSize: user.clientSize,
                 imageProfile : user.imageProfile
             });
-
-
-        } else if (user.role === "shop") {
+            // If the user has a clientSize ID, fetch the associated client size details
+            if (user.clientSize) {
+                const clientSize = await ClientSize.findById(user.clientSize._id);
+                if (clientSize) {
+                    // Add the client size details to the profile
+                    Object.assign(profile, {
+                        clientSize: {
+                            _id: clientSize._id,
+                            shirtLength: clientSize.shirtLength,
+                            chestSize: clientSize.chestSize,
+                            waistline: clientSize.waistline,
+                            hip: clientSize.hip,
+                            waistShirt: clientSize.waistShirt,
+                            hipShirt: clientSize.hipShirt,
+                            thigh: clientSize.thigh,
+                            crotch: clientSize.crotch,
+                            shoulder: clientSize.shoulder,
+                            armLength: clientSize.armLength,
+                            calf: clientSize.calf,
+                            tipLeg: clientSize.tipLeg,
+                            legLength: clientSize.legLength,
+                            upperArm: clientSize.upperArm
+                        }
+                    });
+                }
+            } 
+        }else if (user.role === "shop") {
             Object.assign(profile, {
                 shopName: user.shopName,
                 shopDescription: user.shopDescription,
@@ -88,40 +113,41 @@ const updateProfile = async (req) => {
                 gender: req.body.gender ,
                 birthdate: req.body.birthdate ,
             });
-
-            // const clientSizeId = req.body.clientSizeId;
-            // if (!clientSizeId) {
-            //     throw new Error("ClientSize ID is required");
-            // }
-
-            // const clientSize = await ClientSize.findOne({ _id: clientSizeId, clientId: user_id });
-            // if (!clientSize) {
-            //     throw new Error("ClientSize not found");
-            // }
-
-            // await clientSize.updateOne({
-            //     shirtLength: req.body.shirtLength,
-            //     chestSize: req.body.chestSize,
-            //     waistline: req.body.waistline,
-            //     hip: req.body.hip,
-            //     waistShirt: req.body.waistShirt,
-            //     hipShirt: req.body.hipShirt,
-            //     thigh: req.body.thigh,
-            //     crotch: req.body.crotch,
-            //     shoulder: req.body.shoulder,
-            //     armLength: req.body.armLength,
-            //     calf: req.body.calf,
-            //     tipLeg: req.body.tipLeg,
-            //     legLength: req.body.legLength,
-            //     upperArm: req.body.upperArm
-            // });
+            // Update client size details
+            const clientSizeId = user.clientSize?._id; // Use the clientSize ID from the user's profile
+            if (clientSizeId) {
+                // Find the client size by ID
+                const clientSize = await ClientSize.findById(clientSizeId);
+                if (clientSize) {
+                    // Update the client size fields
+                    await clientSize.updateOne({
+                        shirtLength: req.body.shirtLength,
+                        chestSize: req.body.chestSize,
+                        waistline: req.body.waistline,
+                        hip: req.body.hip,
+                        waistShirt: req.body.waistShirt,
+                        hipShirt: req.body.hipShirt,
+                        thigh: req.body.thigh,
+                        crotch: req.body.crotch,
+                        shoulder: req.body.shoulder,
+                        armLength: req.body.armLength,
+                        calf: req.body.calf,
+                        tipLeg: req.body.tipLeg,
+                        legLength: req.body.legLength,
+                        upperArm: req.body.upperArm
+                    });
+                } else {
+                    throw new Error("ClientSize not found");
+                }
+            }
 
         } else if (user.role === "shop") {
             await user.updateOne({
                 shopName: req.body.shopName ,
                 shopDescription: req.body.shopDescription ,
                 location: req.body.location,
-                phone: req.body.phone
+                phone: req.body.phone,
+                genre: req.body.genre,
             });
             
         }
