@@ -27,6 +27,8 @@ const ShopViewClientOrderPage = () => {
   });
 
   const [shop, setShop] = useState({
+    name: "Nai_mam dotshop",
+    img: "https://th.bing.com/th/id/OIP.6Vkv1Oyc641507Z8PhZrRgHaHX?w=900&h=895&rs=1&pid=ImgDetMain",
     shopName: "Nai_mama dotshop",
     imageProfile: "https://th.bing.com/th/id/OIP.6Vkv1Oyc641507Z8PhZrRgHaHX?w=900&h=895&rs=1&pid=ImgDetMain",
     confirmDeadline: "17 Sep 2024",
