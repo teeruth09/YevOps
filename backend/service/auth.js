@@ -152,7 +152,7 @@ const registerShop = async (userData) => {
         imageProfile,
         registerDate,
         isVerified: false,
-        
+        genre: [],
     };
 
 
