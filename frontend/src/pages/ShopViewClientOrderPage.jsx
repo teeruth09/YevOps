@@ -85,6 +85,7 @@ const ShopViewClientOrderPage = () => {
         setOrder({
           status: data.status,
           name: data.orderType,
+          price: data.price
         })
         setUserRequest({
           clothType: data.userRequestDescription.clothType,
