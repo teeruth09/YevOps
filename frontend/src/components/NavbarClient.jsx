@@ -162,7 +162,7 @@ const NavbarClient = () => {
                                     : "rounded-md px-5 py-2 text-sm font-medium text-white hover:text-black"
                                 }
                                 >
-                                Create Post
+                                Post
                                 </NavLink>
                                 <NavLink
                                 to="/applyshop"

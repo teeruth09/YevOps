@@ -146,7 +146,8 @@ const updateProfile = async (req) => {
                 shopName: req.body.shopName ,
                 shopDescription: req.body.shopDescription ,
                 location: req.body.location,
-                phone: req.body.phone
+                phone: req.body.phone,
+                genre: req.body.genre,
             });
             
         }
