@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { FaClock } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
-const OrderType = ({shopId}) => {
+const OrderType = ({shopId,orderTypeIds}) => {
   const [orderTypes, setOrderTypes] = useState([
     {
         shopId: 1, // Add an ID for easier identification
@@ -48,7 +48,7 @@ const OrderType = ({shopId}) => {
       }
     }
   }
-
+  console.log("orderTypeIds afmkamkgemkkamkmkaa,fe,l",orderTypeIds);
   // Fetch shop's Order type (1-3)
   useEffect(() => {
     async function fetchOrders() {

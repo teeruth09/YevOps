@@ -34,6 +34,7 @@ const Viewshoppage = () => {
     previewImage: [],
     phone: "",
     address: "",
+    orderTypeIds: [],
   });
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -60,7 +61,8 @@ const Viewshoppage = () => {
             shopDescription: data.shopDescription,
             previewImage: data.previewImage,
             phone: data.phone,
-            address: data.address
+            address: data.address,
+            orderTypeIds: data.orderTypeIds,
           })
           if (response.ok){
             console.log("Shop Profile:",data);
@@ -145,7 +147,7 @@ const Viewshoppage = () => {
               <CommentCard />
             </div>
             <div className='ml-20'>
-              <OrderType shopId={shopId}/>
+              <OrderType shopId={shopId} orderTypeIds={shopDetail.orderTypeIds}/>
             </div>
           </div>
         </div>
