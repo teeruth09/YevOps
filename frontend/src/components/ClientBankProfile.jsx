@@ -162,7 +162,7 @@ const ClientBankProfile = () => {
               <div className="flex justify-center mt-4">
                 <button
                   type="submit"
-                  className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700"
+                  className="bg-red-600 text-white px-6 py-2 rounded hover:bg-blue-700"
                 >
                   SEND
                 </button>
