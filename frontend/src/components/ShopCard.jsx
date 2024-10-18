@@ -11,7 +11,7 @@ const Shopcard = ({genre,shopId,previewImage,verifyStatus,shopProfile,shopName,s
     textOverflow: 'ellipsis',
   };
   return (
-    <div onClick={() => alert("shopID is : " + shopId)} className='flex flex-col items-center m-4 w-[400px] h-[500px] rounded-sm border-[4px]'>       {/* Shop preview picture */}
+    <div onClick={() => alert("shopID is : " + shopId)} className='flex flex-col items-center m-4 w-[400px] h-[500px] rounded-sm border-[1px] shadow-md'>       {/* Shop preview picture */}
       <img className='mt-4 w-[368px] h-[200px] rounded-md'src={previewImage} alt="cum" />
       {/* Shop pfp, name, rating */}
       <div className='flex justify-start relative mt-6 w-[368px] h-[60px]'>

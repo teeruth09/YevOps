@@ -9,6 +9,7 @@ import myImage from "../../public/website_picture.png"; // Assuming your compone
 import { jwtDecode } from "jwt-decode";
 import PostCard from "@/components/PostCard";
 import { Link } from "react-router-dom";
+import PostCard2 from "@/components/PostCard2";
 
 const PostPage = () => {
   const [orders, setOrders] = useState([
@@ -414,7 +415,8 @@ const PostPage = () => {
         <div className="flex flex-col-reverse gap-2">
           {orders.map((order) => (
             //   <Link key={order.id} to={`/order/${order.id}`} state={{ order }}>
-            <PostCard key={order.id} orderInfo={order} />
+            <PostCard2 key={order.id} orderInfo={order} />
+            
             //   </Link>
           ))}
         </div>
