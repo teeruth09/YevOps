@@ -17,25 +17,6 @@ const createOrder = async (orderData, userid) => {
         throw new Error('User not found');
     }
 
-    // shopId: { type: mongoose.Schema.Types.ObjectId, ref: 'Shop'}, 
-    // clientId: { type: mongoose.Schema.Types.ObjectId, ref: 'Client'}, 
-    // clientSize: { type: String },
-    // orderType: { type: String},
-    // status: { type: String, enum: ['rejected', 'accepted', 'pending'] },
-    // userRequestDescription: { type: mongoose.Schema.Types.ObjectId, ref: 'UserRequestDescription' },
-    // billingInfo: { type: String },
-    // customerInfo: { type: String },
-    // deadline: { type: Date },
-    // total: { type: Number},
-    // code: { type: String },
-    // discount: { type: Number },
-    // serviceFee: { type: Number },
-    // pay: { type: Boolean},
-    // paymentMethod: { type: String }
-    // shopReplyDescription: {type: mongoose.Schema.Types.ObjectId, ref: 'ShopReplyDescription'},
-    // createAt: {type: Date, default: Date.now},
-    // price: {type: Number},
-
     const userRequest = await UserRequestDescription.create({
         clothType: userRequestDescription.clothType,
         budgetStart: userRequestDescription.budgetStart,
@@ -45,22 +26,35 @@ const createOrder = async (orderData, userid) => {
     });
 
 
-    const order = await Order.create({
-        shopId,
-        clientId:userid,
-        clientSize:user.clientSize,
-        orderType,
-        status:"Pending",
-        userRequestDescription: userRequest._id, // Reference the UserRequestDescription's ObjectId
-        billingInfo,
-        customerInfo:user.address,
-        deadline: userRequest.deadline,
-        pay:false,
-        createAt,
-        price: userRequest.budgetStart
-    });
-    console.log("Order",order)
-    return order
+    const currentDate = new Date();
+
+
+    if (userRequest.deadline.getTime() > currentDate.getTime()) {
+        
+            const order = await Order.create({
+                shopId,
+                clientId:userid,
+                clientSize:user.clientSize,
+                orderType,
+                status:"Pending",
+                userRequestDescription: userRequest._id, // Reference the UserRequestDescription's ObjectId
+                billingInfo,
+                customerInfo:user.address,
+                deadline: userRequest.deadline,
+                pay:false,
+                createAt,
+                price: userRequest.budgetStart
+            });
+            console.log("Order",order)
+            return order
+
+    }
+
+    else {
+        console.log("Fail")
+        return { status: 404, message: "Fail create order." };
+
+    }
 }
 
 const manageOrder = async (requestData) => {
