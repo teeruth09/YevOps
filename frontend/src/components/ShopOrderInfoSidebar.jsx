@@ -1,6 +1,7 @@
 import React, {useState,useEffect} from "react";
 import { FaClock } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import ShopReply from "./ShopReply";
 
 function SingleButton(props) {
   return (<Link to={props.to1}>
@@ -42,6 +43,11 @@ function DoubleButton(props) {
 function Button(props) {
   const orderStatus = props.orderStatus;
   const orderId = props.orderId; // Ensure orderId is passed
+  const confirmDeadline = props.confirmDeadline;
+  const confirmPrice = props.confirmPrice;
+
+  console.log("confirmDeadline:",confirmDeadline);
+  console.log("confirmPrice:",confirmPrice);
 
   useEffect(() => {
       console.log('Hellogkaokogkeoko orderId in parent component:', orderId);
@@ -71,6 +77,10 @@ function Button(props) {
               body: JSON.stringify({
                   orderid: orderId,  // Ensure you have the order ID or other necessary data
                   status: orderStatus,
+                  shopReplyDescription:{
+                    confirmDeadline: confirmDeadline,
+                    confirmPrice: confirmPrice,
+                  }
               }),
           });
 
@@ -91,6 +101,8 @@ function Button(props) {
       }
 
       console.log(`Submit Status of orderId:${orderId}`, orderStatus);
+      console.log("confirmDeadline:",confirmDeadline);
+      console.log("confirmPrice:",confirmPrice);
   };
 
   switch(orderStatus) {
@@ -112,10 +124,12 @@ function Button(props) {
   }
 }
 
-const ShopOrderInfoSidebar = ({ client, order, onSendRequest,orderId }) => {
+const ShopOrderInfoSidebar = ({ client, order, onSendRequest,orderId,confirmDeadline,confirmPrice}) => {
   // const shop = props.shop;
   // const order = props.order;
   console.log("ShopOrderInfoSidebar  orderId",orderId)
+  // console.log("confirmDeadline",confirmDeadline)
+  // console.log("confirmPrice",confirmPrice)
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -195,7 +209,7 @@ const ShopOrderInfoSidebar = ({ client, order, onSendRequest,orderId }) => {
           Reject
         </button> */}
         <div>
-          <Button orderStatus={order.status} orderId={orderId} onClick={() => {}}/>
+          <Button orderStatus={order.status} orderId={orderId} confirmDeadline={confirmDeadline} confirmPrice={confirmPrice} onClick={() => {}}/>
         </div>
       </div>
     </div>

@@ -136,6 +136,16 @@ const updateStatus = async (statusData, orderid, shopReplyDescription) => {
             //Update the order with the new shopReplyDescription ID
             order.shopReplyDescription = savedShopReplyDescription._id;
         }
+        else if(order.status === 'Pending' && statusData === 'Payment'){
+            const newShopReplyDescription =  new ShopReplyDescription({
+                confirmDeadline: order.deadline,  
+                confirmPrice: order.price,
+            });
+            //Save the new ShopReplyDescription
+            const savedShopReplyDescription = await newShopReplyDescription.save();
+            //Update the order with the new shopReplyDescription ID
+            order.shopReplyDescription = savedShopReplyDescription._id;
+        }
         if(order.status === 'Payment' && statusData === 'In Progress'){
             const shopReplyData = await ShopReplyDescription.findOne({_id: order.shopReplyDescription})
             console.log('shopReplyData:',shopReplyData)

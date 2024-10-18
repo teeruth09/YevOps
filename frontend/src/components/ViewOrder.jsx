@@ -12,8 +12,11 @@ function ViewOrder(props) {
     const client = props.client;
     const onCodeChange = props.onCodeChange;
     const orderId = props.orderId;
-    console.log(order.status)
-    // console.log("OrderId is",orderId)
+    console.log("orderID",orderId)
+    console.log("shop",shop)
+    console.log("client",client)
+    console.log("order",order)
+
     return (
         <div className='flex justify-center'>
             <div className='mt-2 flex flex-col'>

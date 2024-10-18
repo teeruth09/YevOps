@@ -66,27 +66,35 @@ const ViewOrderPage = () => {
           method: "GET",
         });
         const data = await response.json();
-
+        
         setClient({
           fullname: data.clientId.firstname+' '+data.clientId.lastname,
           phone: data.clientId.phone,
           address: data.clientId.address,
           size: data.clientSize,
         });
+        const shopReplyDescription = data.shopReplyDescription || {};
         setShop({
           shopName: data.shopId.shopName,
           shopDescription: data.shopId.shopDescription,
           imageProfile: data.shopId.imageProfile,
-          confirmDeadline: formatDate(data.shopReplyDescription.confirmDeadline),
-          confirmPrice: data.shopReplyDescription.confirmPrice
+          confirmDeadline: shopReplyDescription.confirmDeadline ? formatDate(shopReplyDescription.confirmDeadline) : "N/A", // Set default value if undefined
+          confirmPrice: shopReplyDescription.confirmPrice || 0, // Use 0 if confirmPrice is undefined
 
         })
+        const totalPrice = data.status === "Payment" ? shopReplyDescription.confirmPrice : data.price;
+        const discount = data.discount || 0;
+        const fee = data.fee || 0;
+        const pay = totalPrice - discount + fee;
         setOrder({
           status: data.status,
           name: data.orderType,
-
+          total: totalPrice,
+          discount: discount,
+          fee: fee,
+          pay: pay,
         })
-
+        console.log("Hello data",data)
         if (response.ok){
           console.log("Order Id Detail:",data);
           // setShopDetail(data)

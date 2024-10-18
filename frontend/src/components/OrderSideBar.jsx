@@ -124,7 +124,7 @@ function Button(props) {
 function ShowPrice(props) {
     const order = props.order;
     const onCodeChange = props.onCodeChange;
-
+    console.log("fmakokgoeoaok",order)
     return (<div>
         <div className='mb-4'>
                 <h5 className='text-xl mb-2'>Code</h5>
@@ -141,19 +141,19 @@ function ShowPrice(props) {
             <div>
                 <div className='flex justify-between'>
                     <p>Order Total</p>
-                    <p>THB {order.total}</p>
+                    <p>{order.total} THB</p>
                 </div>
                 <div className='flex justify-between'>
                     <p>Promotion Code</p>
-                    <p>THB {order.discount}</p>
+                    <p>{order.discount} THB</p>
                 </div>
                 <div className='flex justify-between'>
                     <p>Service Fee</p>
-                    <p>THB {order.fee}</p>
+                    <p>{order.fee} THB</p>
                 </div>
                 <div className='flex justify-between text-red-700'>
                     <p>You'll Pay</p>
-                    <p>THB {order.pay}</p>
+                    <p>{order.pay} THB</p>
                 </div>
             </div>
     </div>)
