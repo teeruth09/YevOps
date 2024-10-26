@@ -1,13 +1,14 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import { IoEyeOutline } from 'react-icons/io5'
 import { IoIosLogOut } from 'react-icons/io'
+import { handleLogout } from './services/navbar.service'
 
 const UserNavbarDropdown = () => {
   const navigate = useNavigate()
 
   const handleLogoutClicked = async () => {
     const onLogout = () => navigate('/', { replace: true })
-    handleLogoutClicked(onLogout)
+    handleLogout(onLogout)
   }
 
   return (

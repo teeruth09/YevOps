@@ -86,10 +86,6 @@ const HomePage = () => {
 
   return (
     <div>
-      {/* Navbar */}
-      {/* <NavbarComponent/> */}
-      <Navbar />
-
       <div className='flex flex-col items-center'>
         {/* Landing pic */}
         <img className='w-auto h-auto my-10' src={myImage} alt='' />

@@ -6,13 +6,12 @@ import ShopEditProfile from '@/components/ShopEditProfile'
 const ShopProfileEditPage = () => {
   return (
     <div>
-        <NavbarShop/>
-        <div className='flex pl-5 pt-5'>
-            <ShopSidebar/>
-            <div className='pl-[300px]'> 
-              <ShopEditProfile/>
-            </div>
+      <div className='flex pl-5 pt-5'>
+        <ShopSidebar />
+        <div className='pl-[300px]'>
+          <ShopEditProfile />
         </div>
+      </div>
     </div>
   )
 }

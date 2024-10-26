@@ -6,13 +6,12 @@ import ShopReview from '@/components/ShopReview'
 const ShopProfileReviewHistoryPage = () => {
   return (
     <div>
-        <NavbarShop/>
-        <div className='flex pl-5 pt-5'>
-            <ShopSidebar/>
-            <div className='pl-[300px]'>
-              <ShopReview/>
-            </div>
+      <div className='flex pl-5 pt-5'>
+        <ShopSidebar />
+        <div className='pl-[300px]'>
+          <ShopReview />
         </div>
+      </div>
     </div>
   )
 }

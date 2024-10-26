@@ -6,13 +6,12 @@ import ClientPostHistory from '@/components/ClientPostHistory'
 const ClientProfilePostPage = () => {
   return (
     <div>
-        <NavbarClient/>
-        <div className='flex pl-5 pt-5'>
-            <ClientSidebar/>
-            <div className='pl-[300px]'>
-                <ClientPostHistory/>
-            </div>
-        </div>        
+      <div className='flex pl-5 pt-5'>
+        <ClientSidebar />
+        <div className='pl-[300px]'>
+          <ClientPostHistory />
+        </div>
+      </div>
     </div>
   )
 }

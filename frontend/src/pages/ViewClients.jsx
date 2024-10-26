@@ -32,8 +32,6 @@ function ViewClients() {
 
   return (
     <div>
-        <Navbar />
-
         <div className='mx-20 my-10'>
           <h1 className='font-bold text-2xl mb-10'>Clients</h1>
 

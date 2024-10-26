@@ -6,13 +6,12 @@ import ClientBankProfile from '@/components/ClientBankProfile'
 const ClientProfileBankPage = () => {
   return (
     <div>
-        <NavbarClient/>
-        <div className='flex pl-5 pt-5'>
-            <ClientSidebar/>
-            <div className='pl-[300px]'>
-              <ClientBankProfile/>
-            </div>
-        </div>        
+      <div className='flex pl-5 pt-5'>
+        <ClientSidebar />
+        <div className='pl-[300px]'>
+          <ClientBankProfile />
+        </div>
+      </div>
     </div>
   )
 }

@@ -6,11 +6,10 @@ import ClientPurchaseHistory from '../components/ClientPurchaseHistory'
 const ClientProfileHistoryPage = () => {
   return (
     <div>
-      <NavbarClient/>
       <div className='flex pl-5 pt-5'>
-        <ClientSidebar/>
+        <ClientSidebar />
         <div className='pl-[300px]'>
-          <ClientPurchaseHistory/>
+          <ClientPurchaseHistory />
         </div>
       </div>
     </div>

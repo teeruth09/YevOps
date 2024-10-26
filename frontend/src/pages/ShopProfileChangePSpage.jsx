@@ -5,13 +5,12 @@ import ChangePassword from '../components/ChangePassword'
 const ShopProfileChangePsPage = () => {
   return (
     <div>
-        <NavbarShop/>
-        <div className='flex pl-5 pt-5'>
-            <ShopSidebar/>
-            <div className='pl-[300px]'>
-              <ChangePassword/>
-            </div>
+      <div className='flex pl-5 pt-5'>
+        <ShopSidebar />
+        <div className='pl-[300px]'>
+          <ChangePassword />
         </div>
+      </div>
     </div>
   )
 }

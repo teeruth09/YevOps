@@ -404,8 +404,6 @@ const PostPage = () => {
 
   return (
     <div>
-      {/* Navbar */}
-      <NavbarComponent />
       <Link to="/create-post">
         <div className=" fixed right-8 bottom-8 shadow-lg w-20 h-20 bg-red-500 text-white text-[36px] rounded-full flex items-center justify-center text-center">
           +

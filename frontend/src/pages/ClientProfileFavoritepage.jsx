@@ -4,16 +4,13 @@ import ClientSidebar from '../components/ClientSidebarProfile'
 import Shopcard from '@/components/ShopCard'
 import ClientFavoriteShop from '@/components/ClientFavoriteShop'
 
-
 const ClientProfileFavoritePage = () => {
- 
   return (
     <div>
-      <NavbarClient/>
       <div className='flex pl-5 pt-5'>
-        <ClientSidebar/>
+        <ClientSidebar />
         <div className='pl-[300px]'>
-          <ClientFavoriteShop/>
+          <ClientFavoriteShop />
         </div>
       </div>
     </div>

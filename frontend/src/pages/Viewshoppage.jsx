@@ -112,7 +112,6 @@ const Viewshoppage = () => {
   
   return (
     <div>
-      <NavbarComponent />
         <div className='flex flex-col w-full p-6 gap-4 '>
           
           <p className='text-sm ml-32'>View Shop &gt; Shop</p>

@@ -68,8 +68,6 @@ const CreatePostPage = () => {
 
   return (
     <div>
-      {/* Navbar */}
-      <NavbarComponent />
       <div className="flex flex-col items-center">
         <Link to="/post">
           <div className="fixed left-8 top-16 w-20 h-20 text-black text-[36px] rounded-full flex items-center justify-center text-center">

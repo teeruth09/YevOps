@@ -6,11 +6,10 @@ import ClientEditProfile from '../components/ClientEditProfile'
 const ClientProfileEditPage = () => {
   return (
     <div>
-      <NavbarClient/>
       <div className='flex pl-5 pt-5'>
-        <ClientSidebar/>
+        <ClientSidebar />
         <div className='pl-[300px]'>
-          <ClientEditProfile/>
+          <ClientEditProfile />
         </div>
       </div>
     </div>

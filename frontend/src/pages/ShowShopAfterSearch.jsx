@@ -66,9 +66,6 @@ const Aftersearch = () => {
 
   return (
     <div className='relative'>
-      {/* Navbar */}
-      <NavbarComponent/>
-
       {/* Display search query */}
       <p className='text-4xl font-bold pl-10 pt-8 pb-8'>Result for "{searchTerm}"</p>
       {/* The filter bar */}

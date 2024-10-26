@@ -402,8 +402,6 @@ const ShopPostPage = () => {
 
   return (
     <div>
-      {/* Navbar */}
-      <NavbarComponent />
       {/* <div className=" fixed right-8 bottom-8 shadow-lg w-20 h-20 bg-red-500 text-white text-[36px] rounded-full flex items-center justify-center text-center">
         +
       </div> */}
