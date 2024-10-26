@@ -170,12 +170,12 @@ const ShopViewOrderInformation = (props) => {
                 <input 
                 name="confirmPrice" 
                 type="text" 
-                value={confirmPrice} 
+                value={order.status !== 'Pending' ? order.price: confirmPrice} 
                 className="border border-gray-300 rounded-xl h-10 px-5 mb-4 lg:mb-0"
                 onChange={handleReply}
                 disabled={!isEditing}/>
                 
-                {isReplying ? (
+                {isReplying &&order.status === 'Pending' ? (
                   <>
                     <div className="flex flex-col lg:flex-row justify-end pt-10 items-center">
                       <button
@@ -193,6 +193,7 @@ const ShopViewOrderInformation = (props) => {
                     </div>
                   </>
                 ) : (
+                  order.status === "Pending" && (
                   <div className="flex flex-row-reverse">
                     <button
                       onClick={() => setIsReplying(true)}
@@ -201,6 +202,7 @@ const ShopViewOrderInformation = (props) => {
                       Edit
                     </button>
                   </div>
+                  )
                 )}
               </div>
             </div>
@@ -261,6 +263,8 @@ const ShopViewOrderInformation = (props) => {
               onCodeChange={onCodeChange}
               onSendRequest={handleSubmit}
               orderId={orderId}
+              confirmDeadline={confirmDeadline}
+              confirmPrice={confirmPrice}
             />
           </div>
         </div>

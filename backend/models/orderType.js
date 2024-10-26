@@ -8,7 +8,7 @@ const orderTypeSchema = new mongoose.Schema({
     name: {type: String},
     price: {type: Number},
     detail: {type: String},
-    deadline: {type: Date}
+    deadline: {type: String}
 })
 
 module.exports = mongoose.model('OrderType', orderTypeSchema);
