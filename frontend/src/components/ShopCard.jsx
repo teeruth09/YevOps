@@ -12,7 +12,7 @@ const Shopcard = ({genre,shopId,previewImage,verifyStatus,shopProfile,shopName,s
   };
   return (
     <div onClick={() => alert("shopID is : " + shopId)} className='flex flex-col items-center m-4 w-[400px] h-[500px] rounded-sm border-[1px] shadow-md'>       {/* Shop preview picture */}
-      <img className='mt-4 w-[368px] h-[200px] rounded-md'src={previewImage} alt="cum" />
+      <img className='mt-4 w-[368px] h-[200px] rounded-md'src={previewImage} alt="PreviewImage" />
       {/* Shop pfp, name, rating */}
       <div className='flex justify-start relative mt-6 w-[368px] h-[60px]'>
         <img className='w-[60px] h-100 rounded-full' src={shopProfile} alt="" />

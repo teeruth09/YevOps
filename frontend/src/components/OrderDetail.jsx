@@ -103,7 +103,7 @@ const OrderDetail = ({userRequest, onRequestChange}) => {
       <div className="mb-4 border-dashed border-2 rounded-md p-6 flex justify-center items-center">
         <label
           htmlFor="file-upload"
-          className="cursor-pointer text-center text-blue-500"
+          className="cursor-pointer text-center text-red-500"
         >
           {formData.referenceImage ? (
             <img
