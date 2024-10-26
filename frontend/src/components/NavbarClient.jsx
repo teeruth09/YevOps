@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { FaUserCircle } from 'react-icons/fa'
-import { IoEyeOutline } from 'react-icons/io5'
-import { IoIosLogOut } from 'react-icons/io'
-import UserNavbarDropdown from './shared/navbar/UserNavbarDropDown'
+import UserNavbarDropdown from '../shared/navbar/UserNavbarDropDown'
 
 const NavbarClient = () => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -20,7 +18,6 @@ const NavbarClient = () => {
 
   useEffect(() => {
     async function fetchUserData() {
-      // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjZlMTM0ODIzZGRmOWVlMzUyMzIwNWExIiwiZW1haWwiOiJqYW5lLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTcyNjExMTk5NywiZXhwIjoxNzI2MTE1NTk3fQ.ekWV-nzlzRb8Tqhs1vVfY0o7vdk43sxif4mqNvfHfuQ"
       const token = localStorage.getItem('x-access-token')
 
       try {
@@ -129,7 +126,7 @@ const NavbarClient = () => {
               />
               <button
                 type='submit'
-                className='flex items-center whitespace-nowrap  py-[0.25rem] text-surface dark:border-neutral-400 dark:text-white [&>svg]:h-5 [&>svg]:w-5'
+                className='flex items-center whitespace-nowrap text-black  py-[0.25rem] text-surface dark:border-neutral-400 dark:text-black [&>svg]:h-5 [&>svg]:w-5'
               >
                 <svg
                   xmlns='http://www.w3.org/2000/svg'

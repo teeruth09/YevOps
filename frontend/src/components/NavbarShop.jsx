@@ -1,10 +1,7 @@
-import React from 'react'
 import { useState, useEffect } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { FaUserCircle } from 'react-icons/fa'
-import { IoEyeOutline } from 'react-icons/io5'
-import { IoIosLogOut } from 'react-icons/io'
-import UserNavbarDropdown from './shared/navbar/UserNavbarDropDown'
+import UserNavbarDropdown from '../shared/navbar/UserNavbarDropDown'
 
 const NavbarShop = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
@@ -20,7 +17,6 @@ const NavbarShop = () => {
 
   useEffect(() => {
     async function fetchUserData() {
-      // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjZlMTM0ODIzZGRmOWVlMzUyMzIwNWExIiwiZW1haWwiOiJqYW5lLmRvZUBleGFtcGxlLmNvbSIsImlhdCI6MTcyNjExMTk5NywiZXhwIjoxNzI2MTE1NTk3fQ.ekWV-nzlzRb8Tqhs1vVfY0o7vdk43sxif4mqNvfHfuQ"
       const token = localStorage.getItem('x-access-token')
 
       try {
@@ -36,6 +32,7 @@ const NavbarShop = () => {
           ...userInfo,
           username: data.username,
         })
+        console.log('userInfo = ', JSON.stringify(userInfo))
       } catch (error) {
         console.error('Failed to fetch user data:', error)
       }
