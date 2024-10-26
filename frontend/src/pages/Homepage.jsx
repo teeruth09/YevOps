@@ -51,9 +51,9 @@ const HomePage = () => {
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   let token = localStorage.getItem("x-access-token");
-  console.log("token", token);
+  // console.log("token", token);
   let role = localStorage.getItem("role");
-  console.log("role", role);
+  // console.log("role", role);
 
   useEffect(() => {
     if (token) {
@@ -91,7 +91,7 @@ const HomePage = () => {
       <div className='flex flex-col items-center'>
         {/* Landing pic */}
         <img className='w-auto h-auto my-10' src={myImage} alt="" />
-        
+        {/* <img src={`http://localhost:5555/images/8ce421e182c9e39b152d2d054e888f74`} alt="" /> */}
 
         {/* Filterbar */}
         <Filterbar/>

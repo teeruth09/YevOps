@@ -40,7 +40,11 @@ app.get('/profile', midauth, profile.getProfile)
 
 app.put('/profile', midauth, upload.single('image'), profile.putProfile)
 
-app.post('/createOrder', midauth, order.order)
+const check = (error, req, res, next) => {
+  console.log('This is the rejected field ->', error.field);
+}
+
+app.post('/createOrder', midauth, upload.single('image'), check, order.order)
 
 app.post('/requestsOrder', midauth, order.requests)
 
@@ -60,7 +64,7 @@ app.get('/clientSize/:id', clientSize.getClientSizeController)
 
 app.post('/orderTypes',orderType.createOrderTypesController)
 
-app.get('/orderTypes/:id',orderType.getOrderTypeIdsController)
+app.post('/orderTypes/getdetail/',orderType.getOrderTypeIdsController)
 
 
 app.post('/welcome', midauth, (req, res) => {

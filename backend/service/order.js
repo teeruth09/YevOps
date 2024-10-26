@@ -7,7 +7,14 @@ const config = process.env;
 const Shop = require('../models/shop');
 const ShopReplyDescription = require('../models/shopReplyDescription');
 
-const createOrder = async (orderData, userid) => {
+const fs = require('fs')
+const util = require('util')
+const unlinkFile = util.promisify(fs.unlink)
+
+const { uploadFile, getFileStream } = require('../configs/s3')
+
+
+const createOrder = async (orderData, userid, referenceImage) => {
     const { shopId, clientSize, orderType, userRequestDescription, billingInfo, customerInfo, deadline,shopReplyDescription,createAt,price} = orderData;
 
     // Step 1: Fetch user info by userid
@@ -16,51 +23,72 @@ const createOrder = async (orderData, userid) => {
     if (!user) {
         throw new Error('User not found');
     }
+    
+    const file = referenceImage
+    let uploadResult = ''
+    if(file){
+    //   console.log("siajigjai",file)
+      uploadResult = await uploadFile(file)
+      await unlinkFile(file.path)
+      console.log(uploadResult)
+      console.log(uploadResult.Key)
+    }
+    console.log("userRequestDescription", userRequestDescription)
 
-    // shopId: { type: mongoose.Schema.Types.ObjectId, ref: 'Shop'}, 
-    // clientId: { type: mongoose.Schema.Types.ObjectId, ref: 'Client'}, 
-    // clientSize: { type: String },
-    // orderType: { type: String},
-    // status: { type: String, enum: ['rejected', 'accepted', 'pending'] },
-    // userRequestDescription: { type: mongoose.Schema.Types.ObjectId, ref: 'UserRequestDescription' },
-    // billingInfo: { type: String },
-    // customerInfo: { type: String },
-    // deadline: { type: Date },
-    // total: { type: Number},
-    // code: { type: String },
-    // discount: { type: Number },
-    // serviceFee: { type: Number },
-    // pay: { type: Boolean},
-    // paymentMethod: { type: String }
-    // shopReplyDescription: {type: mongoose.Schema.Types.ObjectId, ref: 'ShopReplyDescription'},
-    // createAt: {type: Date, default: Date.now},
-    // price: {type: Number},
-
+    let userRequestObj;
+    try {
+        // Check if userRequestDescription is a string and parse it
+        if (typeof userRequestDescription === 'string') {
+            userRequestObj = JSON.parse(userRequestDescription);
+        } else {
+            userRequestObj = userRequestDescription; // It's already an object
+        }
+    } catch (error) {
+        console.error("Error parsing userRequestDescription:", error);
+        // Handle the error as appropriate, e.g., return or set a default value
+        return;
+    }
+    console.log("Key",uploadResult.Key)
+    imageRefApi = `http://localhost:5555/images/${uploadResult.Key}`
     const userRequest = await UserRequestDescription.create({
-        clothType: userRequestDescription.clothType,
-        budgetStart: userRequestDescription.budgetStart,
-        budgetStop: userRequestDescription.budgetStop,
-        deadline: userRequestDescription.deadline,
-        referenceImage: userRequestDescription.referenceImage,
+        clothType: userRequestObj.clothType,
+        budgetStart: userRequestObj.budgetStart,
+        budgetStop: userRequestObj.budgetStop,
+        deadline: userRequestObj.deadline,
+        referenceImage: imageRefApi,
     });
+    console.log("userReques2222", userRequest)   
+ 
+
+    const currentDate = new Date();
 
 
-    const order = await Order.create({
-        shopId,
-        clientId:userid,
-        clientSize:user.clientSize,
-        orderType,
-        status:"Pending",
-        userRequestDescription: userRequest._id, // Reference the UserRequestDescription's ObjectId
-        billingInfo,
-        customerInfo:user.address,
-        deadline: userRequest.deadline,
-        pay:false,
-        createAt,
-        price: userRequest.budgetStart
-    });
-    console.log("Order",order)
-    return order
+    if (userRequest.deadline.getTime() > currentDate.getTime()) {
+        
+            const order = await Order.create({
+                shopId,
+                clientId:userid,
+                clientSize:user.clientSize,
+                orderType,
+                status:"Pending",
+                userRequestDescription: userRequest._id, // Reference the UserRequestDescription's ObjectId
+                billingInfo,
+                customerInfo:user.address,
+                deadline: userRequest.deadline,
+                pay:false,
+                createAt,
+                price: userRequest.budgetStart
+            });
+            console.log("Order",order)
+            return order
+
+    }
+
+    else {
+        console.log("Fail")
+        return { status: 404, message: "Fail create order." };
+
+    }
 }
 
 const manageOrder = async (requestData) => {

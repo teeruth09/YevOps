@@ -44,25 +44,44 @@ const OrderType = ({shopId,orderTypeIds}) => {
     }
     else{
       if(role === 'client'){
-        navigate('/order/information', {state: {sendShopId: shopId }}); //pass shopId
+        //Send only the selected order type based on viewPackage
+        const selectedOrderTypeId = orderTypeIds[viewPackage]?._id;
+        if(selectedOrderTypeId){
+          navigate('/order/information', {state: {sendShopId: shopId , sendOrderTypeId: selectedOrderTypeId }}); //pass shopId
+        }
       }
     }
   }
   console.log("orderTypeIds afmkamkgemkkamkmkaa,fe,l",orderTypeIds);
   // Fetch shop's Order type (1-3)
   useEffect(() => {
-    async function fetchOrders() {
+    async function fetchOrderDetails() {
         try {
-            const response = await fetch('/api/shop/shopOrderType/shopId'); // Replace with shop API endpoint
+          const fetchedOrderTypes = await Promise.all(orderTypeIds.map(async (orderType) => {
+            const response = await fetch(`http://localhost:5555/orderTypes/getdetail/`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({orderTypeId: orderType._id})
+            })
+            if(!response.ok){
+              throw new Error('Network response was not ok');
+            }
             const data = await response.json();
-            setShop(data);
+            return data; // Returns order type details
+          }));
+
+          setOrderTypes(fetchedOrderTypes);
         } catch (error) {
             console.error('Failed to fetch orders:', error);
         }
     }
     
-    fetchOrders();
-  }, []);
+    if (orderTypeIds.length > 0) {
+      fetchOrderDetails(); // Fetch only if orderTypeIds is not empty
+    }
+  }, [orderTypeIds]);
 
     return (
       <div className='w-[500px] border-[1px]'>

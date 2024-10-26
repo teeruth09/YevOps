@@ -111,7 +111,7 @@ const NavbarShop = () => {
                                 >
                                 Home
                                 </NavLink>
-                                <NavLink
+                                {/* <NavLink
                                 to="/viewshop"
                                 className={({ isActive }) =>
                                     isActive
@@ -120,8 +120,8 @@ const NavbarShop = () => {
                                 }
                                 >
                                 ViewShop
-                                </NavLink>
-                                <NavLink
+                                </NavLink> */}
+                                {/* <NavLink
                                 to="/about"
                                 className={({ isActive }) =>
                                     isActive
@@ -130,7 +130,7 @@ const NavbarShop = () => {
                                 }
                                 >
                                 About Us
-                                </NavLink>
+                                </NavLink> */}
                                 <NavLink
                                 to="/verifyshop"
                                 className={({ isActive }) =>
