@@ -19,7 +19,7 @@ const Filterbar = () => {
         <div className='w-[300px] h-3/5'>
         <p className='text-lg font-medium h-1/2 flex items-center'>Budget</p>
           <input 
-            className='flex flex row h-1/2 w-[300px] border-b border-red-300 text-left text-2xl font-bold focus:outline-none'
+            className='flex row h-1/2 w-[300px] border-b border-red-300 text-left text-2xl font-bold focus:outline-none'
             type="number"
             min="0"
             max="999999"
