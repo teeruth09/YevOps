@@ -1,11 +1,5 @@
 import axios, { endpoints } from '../../util/axios'
 
-// export const login = async (credential) => {
-//   const res = await axios.post(endpoints.auth.login, credential)
-
-//   return res.data
-// }
-
 export const login = async (credential) => {
   try {
     const res = await axios.post(endpoints.auth.login, credential)
