@@ -1,9 +1,8 @@
-import React from 'react'
-import NavbarShop from '@/components/NavbarShop'
 import { Link } from 'react-router-dom'
 import TextField from '@mui/material/TextField'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Checkbox from '@mui/material/Checkbox'
+import { BackButton } from '@/shared/components/CustomButton'
 
 const Verifyshop = () => {
   return (
@@ -11,11 +10,7 @@ const Verifyshop = () => {
       <form action=''>
         <div className='w-[1200px] m-auto'>
           {/* Back Button */}
-          <div className='my-8 w-[70px] h-[40px] flex items-center text-xl font-semibold hover:cursor-pointer hover:text-red-500'>
-            <Link to={`/`}>
-              <p>{'<'} Back</p>
-            </Link>
-          </div>
+          <BackButton containerStyle='my-8'/>
 
           {/* Shop Address */}
           <div className='flex flex-col items-center'>

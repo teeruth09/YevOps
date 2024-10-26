@@ -8,6 +8,7 @@ import TextField from '../components/hook-form/rhf-textfield'
 import useLogin from '../react-query/hooks/useLogin'
 
 import { useSnackbar } from 'notistack'
+import { BackButton } from '@/shared/components/CustomButton'
 
 const LoginPage = () => {
   const LoginSchema = z.object({
@@ -43,7 +44,12 @@ const LoginPage = () => {
         className='bg-white rounded w-3/5 px-16 py-12 flex flex-col gap-4'
         onSubmit={handleSubmit(onSubmit)}
       >
-        <p className='mb-8 font-bold text-2xl'>Welcome Back!</p>
+        <div className='w-full grid grid-cols-3 items-center mb-8'>
+          <BackButton containerStyle='items-center' />
+          <p className='font-bold text-2xl text-center justify-self-center whitespace-nowrap'>
+            Welcome Back!
+          </p>
+        </div>
 
         <TextField
           type='email'

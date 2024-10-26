@@ -8,6 +8,7 @@ import { useSnackbar } from 'notistack'
 
 import TextField from '../components/hook-form/rhf-textfield'
 import SelectRow from '@/components/register/SelectRow'
+import { BackButton } from '@/shared/components/CustomButton'
 
 const ApplyShopPage = () => {
   const navigate = useNavigate()
@@ -104,7 +105,12 @@ const ApplyShopPage = () => {
         className='bg-white rounded w-3/5 px-16 py-12 flex flex-col gap-4'
         onSubmit={handleSubmit(onSubmit)}
       >
-        <p className='mb-8 font-bold text-2xl text-center'>Open your shop</p>
+        <div className='w-full grid grid-cols-3 items-center mb-8'>
+          <BackButton containerStyle='items-center' />
+          <p className='font-bold text-2xl text-center justify-self-center whitespace-nowrap'>
+            Open your shop
+          </p>
+        </div>
 
         <div className='w-full flex items-center gap-2'>
           <TextField
