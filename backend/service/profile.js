@@ -117,7 +117,8 @@ const updateProfile = async (req) => {
       console.log(uploadResult)
       console.log(uploadResult.Key)
     }
-    const imageLink = `blob:http://localhost:5173/${uploadResult.Key}`
+    // const imageLink = `blob:http://localhost:5173/${uploadResult.Key}`
+    let imageLink = `http://localhost:5555/images/${uploadResult.Key}`
     const updatedFields = {
       address: req.body.address,
     }
@@ -129,7 +130,7 @@ const updateProfile = async (req) => {
         phone: req.body.phone,
         gender: req.body.gender,
         birthdate: req.body.birthdate,
-        ...(file ?{imageProfile: uploadResult.Key} : {}),
+        ...(file ?{imageProfile: imageLink} : {}),
       })
       // Update client size details
       const clientSizeId = user.clientSize?._id // Use the clientSize ID from the user's profile

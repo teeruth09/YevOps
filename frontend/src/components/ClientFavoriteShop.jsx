@@ -1,5 +1,6 @@
 import React from "react";
 import Shopcard from "./ShopCard";
+import { FaHeart } from "react-icons/fa";
 
 const FavoriteShop = ({
   previewImage,
@@ -74,11 +75,7 @@ const FavoriteShop = ({
           </div>
         </div>
         <div className="absolute top-0 right-1">
-          <img
-            className="w-[14px] h-[14px]"
-            src="https://cdn-icons-png.flaticon.com/128/151/151910.png"
-            alt=""
-          />
+          <FaHeart color="red" />
         </div>
       </div>
       {/* Shop description 3 lines */}
@@ -87,7 +84,7 @@ const FavoriteShop = ({
       </div>
       {/* Budget */}
       <p className="w-[230px] mt-2 text-xl font-bold">
-        {startBudget} - {stopBudget} THB
+        Starts at: {startBudget} THB
       </p>
     </div>
   );
@@ -101,63 +98,63 @@ const ClientFavoriteShop = () => {
       </div>
       <div className="grid grid-cols-3 gap-4">
         <FavoriteShop
-          previewImage="https://i.imgur.com/SjjJVdY.png"
-          shopProfile="https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg"
-          shopName="Hinoshii is cool"
+          previewImage="http://localhost:5555/images/cc1ceeb845958036d9a5b9e8627682a8"
+          shopProfile="http://localhost:5555/images/dc030af4fdd0597fa1ea1520af97e71f"
+          shopName="THANA"
           shopRating="5.0"
           reviewCount="1384"
-          shopDescription="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-          startBudget="2100"
+          shopDescription="รับตัดชุดสูท ทุกชนิด"
+          startBudget="1000"
           stopBudget="999999"
         />
         <FavoriteShop
-          previewImage="https://i.imgur.com/SjjJVdY.png"
-          shopProfile="https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg"
-          shopName="Read this is gay"
+          previewImage="http://localhost:5555/images/cc1ceeb845958036d9a5b9e8627682a8"
+          shopProfile="http://localhost:5555/images/dc030af4fdd0597fa1ea1520af97e71f"
+          shopName="THANA"
           shopRating="5.0"
           reviewCount="1384"
-          shopDescription="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-          startBudget="2100"
+          shopDescription="รับตัดชุดสูท ทุกชนิด"
+          startBudget="1000"
           stopBudget="999999"
         />
         <FavoriteShop
-          previewImage="https://i.imgur.com/SjjJVdY.png"
-          shopProfile="https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg"
-          shopName="Hinoshii is cool"
+          previewImage="http://localhost:5555/images/cc1ceeb845958036d9a5b9e8627682a8"
+          shopProfile="http://localhost:5555/images/dc030af4fdd0597fa1ea1520af97e71f"
+          shopName="THANA"
           shopRating="5.0"
           reviewCount="1384"
-          shopDescription="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-          startBudget="2100"
+          shopDescription="รับตัดชุดสูท ทุกชนิด"
+          startBudget="1000"
           stopBudget="999999"
         />
         <FavoriteShop
-          previewImage="https://i.imgur.com/SjjJVdY.png"
-          shopProfile="https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg"
-          shopName="Never gonna give"
+          previewImage="http://localhost:5555/images/cc1ceeb845958036d9a5b9e8627682a8"
+          shopProfile="http://localhost:5555/images/dc030af4fdd0597fa1ea1520af97e71f"
+          shopName="THANA"
           shopRating="5.0"
           reviewCount="1384"
-          shopDescription="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-          startBudget="2100"
+          shopDescription="รับตัดชุดสูท ทุกชนิด"
+          startBudget="1000"
           stopBudget="999999"
         />
         <FavoriteShop
-          previewImage="https://i.imgur.com/SjjJVdY.png"
-          shopProfile="https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg"
-          shopName="Hinoshii is cool"
+          previewImage="http://localhost:5555/images/cc1ceeb845958036d9a5b9e8627682a8"
+          shopProfile="http://localhost:5555/images/dc030af4fdd0597fa1ea1520af97e71f"
+          shopName="THANA"
           shopRating="5.0"
           reviewCount="1384"
-          shopDescription="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-          startBudget="2100"
+          shopDescription="รับตัดชุดสูท ทุกชนิด"
+          startBudget="1000"
           stopBudget="999999"
         />
         <FavoriteShop
-          previewImage="https://i.imgur.com/SjjJVdY.png"
-          shopProfile="https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg"
-          shopName="Hinoshii is cool"
+          previewImage="http://localhost:5555/images/cc1ceeb845958036d9a5b9e8627682a8"
+          shopProfile="http://localhost:5555/images/dc030af4fdd0597fa1ea1520af97e71f"
+          shopName="THANA"
           shopRating="5.0"
           reviewCount="1384"
-          shopDescription="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-          startBudget="2100"
+          shopDescription="รับตัดชุดสูท ทุกชนิด"
+          startBudget="1000"
           stopBudget="999999"
         />
       </div>

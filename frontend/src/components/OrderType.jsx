@@ -52,7 +52,7 @@ const OrderType = ({shopId,orderTypeIds}) => {
       }
     }
   }
-  console.log("orderTypeIds afmkamkgemkkamkmkaa,fe,l",orderTypeIds);
+  // console.log("orderTypeIds afmkamkgemkkamkmkaa,fe,l",orderTypeIds);
   // Fetch shop's Order type (1-3)
   useEffect(() => {
     async function fetchOrderDetails() {

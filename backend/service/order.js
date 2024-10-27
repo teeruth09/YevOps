@@ -209,7 +209,8 @@ const getOrderHistory = async (req) =>{
         // console.log(user);
         const orders = await Order.find({clientId: user._id})
             .populate('shopId', 'shopName imageProfile previewImage shopDescription') // Populate shop details (only fetch shopName, imageProfile, and previewImage)
-            .populate('clientId', 'firstname lastname phone address username'); // Populate client details (only fetch relevant client info)
+            .populate('clientId', 'firstname lastname phone address username') // Populate client details (only fetch relevant client info)
+            .populate('userRequestDescription', 'clothType budgetStart budgetStop referenceImage')
 
         if (!orders || orders.length === 0) {
             return { status: 404, message: "No orders found for this client." };

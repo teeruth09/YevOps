@@ -97,7 +97,7 @@ const HomePage = () => {
         <Filterbar/>
 
         {/* Placing cards  */}
-        <div style={centerdiv} className="justify-center w-[90vw] m-auto z-1">
+        {/* <div style={centerdiv} className="justify-center w-[90vw] m-auto z-1">
           <Shopcard previewImage="https://i.imgur.com/SjjJVdY.png"
           shopProfile="https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg"
           shopName="Hinoshii is cool"
@@ -128,17 +128,14 @@ const HomePage = () => {
           stopBudget="999999"
           genre="Cosplay"/>
           
-          
-
-
-        </div>
+        </div> */}
         <div style={centerdiv} className="justify-center w-[90vw] m-auto z-1">
 
           {allshop.length > 0 ? (
           allshop.map((result) => {
               // Check if any of the required fields are empty
               
-              if (!result.shopName || !result.imageProfile || !result.shopDescription) {
+              if (!result.shopName || !result.imageProfile || !result.shopDescription || !result.orderTypeIds) {
                 return null; // Skip this shop if any of the fields are empty
               }
 
@@ -153,11 +150,11 @@ const HomePage = () => {
                   shopRating={result.shopRating}
                   reviewCount={result.reviewCount}
                   shopDescription={result.shopDescription}
-                  startBudget={result.startBudget}
+                  startBudget={result.orderTypeIds[0]}
                   stopBudget={result.stopBudget}
                   genre={result.genre}
                   />
-                  <p>ShopId:{result._id}</p>
+                  {/* <p>ShopId:{result._id}</p> */}
                 </Link>
               );
             })

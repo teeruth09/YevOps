@@ -49,7 +49,7 @@ const OrderCard = ({ orderInfo }) => {
     return (
     <div className='w-full lg:w-auto h-auto bg-white shadow-xl px-3 rounded-lg my-5'>
       <div className='flex'>
-            <img src={orderInfo.order_picture} alt="ชุดสูท" className='w-52 h-52 mr-3' />
+            <img src={orderInfo.userRequestDescription.referenceImage[0]} alt="ชุดสูท" className='w-52 h-52 mr-3' />
             <div>
                 <div className='flex py-3'>
                     <img src={orderInfo.shopId.imageProfile} alt="รูปโปรไฟล์ร้าน" className='rounded-full w-12 h-12' />

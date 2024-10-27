@@ -1,10 +1,22 @@
 const { model } = require("mongoose");
-const {createOrderTypes,getOrderTypeIds} = require("../service/orderTypeService")
+const {createOrderTypes,getOrderTypeIds,fetchAllShopOrderType} = require("../service/orderTypeService")
+const jwt = require('jsonwebtoken')
+const config = process.env
+const Shop = require('../models/shop');
 
 //Cotroller to handle create multiple OrderTypes and updating Shop
 const createOrderTypesController = async (req, res) =>{
     try{
-        const {shopId, orderTypes} = req.body;
+        // Decode the token to get the shopId
+        const token = req.headers['x-access-token'];
+        if (!token) {
+            throw new Error('Token is required')
+        }
+        const {user_id} = jwt.verify(token, config.TOKEN_KEY);
+        const shopId = user_id;
+        // console.log("print shopId",shopId)
+        // const {shopId, orderTypes} = req.body;
+        const { orderTypes } = req.body;
 
         const createdOrderTypes = await createOrderTypes(shopId, orderTypes);
         res.status(201).json({
@@ -29,4 +41,17 @@ const getOrderTypeIdsController = async (req,res) =>{
     }
 }
 
-module.exports = {createOrderTypesController,getOrderTypeIdsController}
+const fetchAllShopOrderTypeController = async (req, res) =>{
+    try {
+        const profile = await fetchAllShopOrderType(req)
+        res.status(200).send(profile)
+      } catch (err) {
+        if (err.message === 'User not Found') {
+          return res.status(404).send(err.message)
+        }
+        console.error(err)
+        res.status(500).send('Internal Server Error')
+      }
+}
+
+module.exports = {createOrderTypesController,getOrderTypeIdsController,fetchAllShopOrderTypeController}

@@ -53,7 +53,8 @@ const ShopEditProfile = () => {
         })
         console.log(data.imageProfile)
 
-        setNewAvatarUrl(`http://localhost:5555/images/${data.imageProfile}`)
+        // setNewAvatarUrl(`http://localhost:5555/images/${data.imageProfile}`)
+        setNewAvatarUrl(data.imageProfile)
       } catch (error) {
         console.error('Failed to fetch user data:', error)
       } finally {

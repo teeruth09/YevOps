@@ -9,6 +9,7 @@ const order = require('./controllers/order')
 const payment = require('./controllers/payment')
 const clientSize = require('./controllers/clientSize')
 const orderType = require('./controllers/orderTypeController')
+const previewImage = require('./controllers/previewImageController')
 const midauth = require('./middlewares/auth')
 const cors = require('cors')
 
@@ -66,6 +67,11 @@ app.post('/orderTypes',orderType.createOrderTypesController)
 
 app.post('/orderTypes/getdetail/',orderType.getOrderTypeIdsController)
 
+app.get('/shop/shopOrderTypes',orderType.fetchAllShopOrderTypeController)
+
+app.post('/shop/shopdata/previewImage',  upload.array('previewImage', 4),previewImage.updatePreviewImageController)
+
+app.get('/shop/getAllpreviewImage',previewImage.fetchAllPreviewImageFromShopIdController)
 
 app.post('/welcome', midauth, (req, res) => {
   res.status(200).send('Welcome HACKER')

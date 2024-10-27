@@ -42,7 +42,7 @@ const Viewshoppage = () => {
     return date.toLocaleDateString('en-GB', options);
   };
  
-  console.log("ShopId:",shopId)
+  // console.log("ShopId:",shopId)
 
   useEffect(() =>{
       const fetchShopProfile = async () =>{
@@ -131,7 +131,7 @@ const Viewshoppage = () => {
                 <p className='text-sm'>5.0 (37)</p>
               </div>
               
-              <ShopCarousel imageUrls={mockImages} />
+              <ShopCarousel imageUrls={shopDetail.previewImage} />
 
               <MainDetailCard address={shopDetail.address} phone={shopDetail.phone} registerDate={formatDate(shopDetail.registerDate)} shopDescription={shopDetail.shopDescription}/>
 
