@@ -2,8 +2,9 @@ const { pullRequestOrder, manageOrder, createOrder, getOrderHistory, getOrderDet
 
 
 const order = async (req, res) => {
+    console.log("File co",req.file)
     try {
-        const order = await  createOrder(req.body,req.user.user_id);
+        const order = await  createOrder(req.body,req.user.user_id,req.file);
         res.status(201).send(order._id);
     } catch (err) {
         console.error(err);

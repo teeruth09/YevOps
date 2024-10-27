@@ -4,7 +4,7 @@ import { FaClock } from 'react-icons/fa';
 const OrderInfoSideBar = ({ shop, order, onSendRequest, userRequest }) => {
     // const shop = props.shop;
     // const order = props.order;
-
+    console.log("SSSSShop",shop)
     return (
         <div className='bg-white p-10 md:w-[480px] h-fit rounded-lg shadow-2xl'>
                 <div className='flex gap-x-5 mb-3 flex-col sm:flex-row'>

@@ -42,7 +42,7 @@ const Viewshoppage = () => {
     return date.toLocaleDateString('en-GB', options);
   };
  
-  console.log("ShopId:",shopId)
+  // console.log("ShopId:",shopId)
 
   useEffect(() =>{
       const fetchShopProfile = async () =>{
@@ -116,7 +116,7 @@ const Viewshoppage = () => {
         <div className='flex flex-col w-full p-6 gap-4 '>
           
           <p className='text-sm ml-32'>View Shop &gt; Shop</p>
-
+          
           <div className='grid grid-cols-2 ml-32'>
             <div className='flex flex-col gap-2'>
               
@@ -131,7 +131,7 @@ const Viewshoppage = () => {
                 <p className='text-sm'>5.0 (37)</p>
               </div>
               
-              <ShopCarousel imageUrls={mockImages} />
+              <ShopCarousel imageUrls={shopDetail.previewImage} />
 
               <MainDetailCard address={shopDetail.address} phone={shopDetail.phone} registerDate={formatDate(shopDetail.registerDate)} shopDescription={shopDetail.shopDescription}/>
 
@@ -151,6 +151,8 @@ const Viewshoppage = () => {
             </div>
           </div>
         </div>
+        {/* <img src={`http://localhost:5555/images/8ce421e182c9e39b152d2d054e888f74`} alt="" /> */}
+
     </div>
   )
 }

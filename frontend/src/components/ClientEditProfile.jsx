@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { cn } from '@/lib/utils'
+import React, { useState, useEffect, useRef } from "react";
 import {
   Select,
   SelectContent,
@@ -55,6 +56,27 @@ const ClientEditProfile = () => {
   });
   const [isEditing, setIsEditing] = useState(false);
 
+  // client profile image
+  const [isLoading, setIsLoading] = useState(true)
+  const [newAvatarUrl, setNewAvatarUrl] = useState(null)
+  const [avatarFile, setAvatarFile] = useState(null)
+  const hiddenImageInputRef = useRef(null)
+
+  const handleAvatarChange = (e) => {
+    const file = e.target.files?.[0]
+
+    if (file) {
+      setAvatarFile(file)
+      const reader = new FileReader()
+
+      reader.onload = () => {
+        setNewAvatarUrl(reader.result)
+      }
+
+      reader.readAsDataURL(file)
+    }
+  }
+
   useEffect(() => {
     async function fetchUserData() {
       const token = localStorage.getItem("x-access-token");
@@ -95,9 +117,13 @@ const ClientEditProfile = () => {
           legLength: data.clientSize.legLength,
           upperArm: data.clientSize.upperArm,
         });
-        console.log("Hello",data);
+        setNewAvatarUrl(data.imageProfile)
+
+        // console.log("Hello",data);
       } catch (error) {
         console.error("Failed to fetch user data:", error);
+      }finally {
+        setIsLoading(false)
       }
     }
 
@@ -106,21 +132,27 @@ const ClientEditProfile = () => {
 
   const updateUserInfo = async () => {
     const token = localStorage.getItem("x-access-token");
-    console.log("token", token);
+    // console.log("token", token);
+    const formData = new FormData()
 
     if (!token) {
       console.error("Token is missing in local storage.");
       return;
     }
+    if (avatarFile) formData.append('image', avatarFile)
 
+    // Append userInfo properties to formData
+    Object.entries(userInfo).forEach(([key, value]) => {
+      formData.append(key, value)
+    })
+    // send formData instead with userInfo too
     try {
       const response = await fetch("http://localhost:5555/profile", {
         method: "PUT",
         headers: {
-          "Content-Type": "application/json",
           "x-access-token": token,
         },
-        body: JSON.stringify(userInfo), // Pass userInfo as the updated data
+        body: formData, // Use formData as the body
       });
       const data = await response.json();
       if (response.ok) {
@@ -193,10 +225,33 @@ const ClientEditProfile = () => {
       <div className="w-full lg:w-auto h-full bg-white shadow-xl p-5 lg:p-10">
         <div className="Profiledetail">
           <div className="flex flex-col lg:flex-row">
-            <img
-              src={userInfo.imageProfile}
-              alt="profile.jpg"
-              className="w-32 h-32 lg:w-48 lg:h-48"
+            <div
+              className={cn(
+                'w-32 h-32 lg:w-48 lg:h-48 bg-gray-300',
+                isLoading && 'animate-pulse'
+              )}
+            >
+              <img
+                src={newAvatarUrl ?? userInfo?.imageProfile}
+                alt='profile.jpg'
+                className={cn(
+                  'w-32 h-32 lg:w-48 lg:h-48',
+                  isEditing && 'cursor-pointer'
+                )}
+                // when this img is clicked, the input below is clicked instead
+                onClick={() => hiddenImageInputRef.current?.click()}
+              />
+            </div>
+
+            <input
+              required
+              ref={hiddenImageInputRef}
+              id='avatar'
+              type='file'
+              accept='image/*'
+              onChange={handleAvatarChange}
+              disabled={!isEditing}
+              className='hidden'
             />
             <div className="pt-5 lg:pt-0 lg:pl-5">
               <div className="text-2xl font-bold">

@@ -7,7 +7,7 @@ import Shopcard from '../components/ShopCard'
 import Filterbar from '../components/FilterBar'
 import { jwtDecode } from "jwt-decode";
 import { useLocation } from 'react-router-dom'
-
+import { Link } from 'react-router-dom'
 
 const Aftersearch = () => {
   const centerdiv = {
@@ -75,41 +75,41 @@ const Aftersearch = () => {
       <Filterbar/>
       {/* Placing cards  */}
       <div style={centerdiv} className="justify-center w-[90vw] m-auto z-1">
-        <Shopcard previewImage="https://i.imgur.com/SjjJVdY.png"
-        shopProfile="https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg"
-        shopName="Hinoshii is cool"
-        shopRating="5.0"
-        reviewCount="1384"
-        shopDescription="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-        startBudget="2100"
-        stopBudget="999999"/>
-
-        <Shopcard previewImage="https://i.imgur.com/SjjJVdY.png"
-        shopProfile="https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg"
-        shopName="Read this is gay"
-        shopRating="5.0"
-        reviewCount="1384"
-        shopDescription="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-        startBudget="2100"
-        stopBudget="999999"/>
-      </div>
-
-      
+       
       {searchResults.length > 0 ? (
-      searchResults.map((result, index) => (
-        <div key={index}>
-          <p>Shop Name: {result.shopName}</p>
-          <p>Shop shopProfile: {result.shopProfile}</p>
-          <p>Shop previewImage: {result.previewImage}</p>
-          <p>Shop shopRating: {result.shopRating}</p>
-          <p>Shop Description: {result.shopDescription}</p>
-          <p>Shop startBudget: {result.startBudget}</p>
-          <p>Shop stopBudget: {result.stopBudget}</p>
-        </div>
-      ))
+      searchResults.map((result, index) => {
+        // if (!result.shopName || !result.imageProfile || !result.shopDescription || !result.orderTypeIds) {
+        //   return null; // Skip this shop if any of the fields are empty
+        // }
+          return (
+          <div key={index}>  
+            <Link to={`/viewshop/${result._id}`} state={{ shopId: result._id }}> 
+              <Shopcard
+                shopId={result._id}
+                previewImage={result.previewImage}
+                verifyStatus={result.isVerified} 
+                shopProfile={result.imageProfile}
+                shopName={result.shopName}
+                shopRating={result.shopRating}
+                reviewCount={result.reviewCount}
+                shopDescription={result.shopDescription}
+                startBudget={result.orderTypeIds[0]}
+                stopBudget={result.stopBudget}
+                genre={result.genre}
+              />
+            </Link>
+          </div>
+          );
+        })
       ) : (
-        <p>No results found</p>
+        <div className='items-center'>
+          <p className='text-5xl mx-11 items-center font-bold'>No shop found</p>
+          <div className="bg-gray-300 p-1 mt-2"> 
+          <img src="https://thumbs.dreamstime.com/b/no-trade-icon-trading-booth-ban-there-commercial-equipment-prohibition-vector-271448154.jpg" alt="" className='w-full h-[300px]  '/>
+          </div>
+        </div>
       )}
+      </div>
     </div>
   )
 }

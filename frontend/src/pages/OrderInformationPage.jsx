@@ -8,7 +8,8 @@ const OrderInformationPage = () => {
 
     // Access the state passed via `navigate`
     const { sendShopId } = location.state || {};
-
+    const {sendOrderTypeId} = location.state || {};
+    
     const [order, setOrder] = useState({
       name: "Basic",
       price: "3000",
@@ -16,9 +17,11 @@ const OrderInformationPage = () => {
       deadline: "14"
     });
 
-    const [shop, setShopInfo] = useState({ 
+    const [shop, setShopInfo] = useState({
+      shopId: "",
       shopName: "Nai_mama dotshop", 
       imageProfile: "",
+      previewImage: [],
     });
 
     const [client, setClientInfo] = useState({
@@ -73,6 +76,7 @@ const OrderInformationPage = () => {
           });
           const data = await response.json();
           setShopInfo({
+            shopId: sendShopId,
             shopName: data.shopName,
             imageProfile: data.imageProfile,
             previewImage: data.previewImage,
@@ -88,7 +92,32 @@ const OrderInformationPage = () => {
         }
       }
       fetchShopProfile();
-  }, []);  
+    }, []);
+
+    useEffect(() => {
+      async function fetchOrderTypeDetails() {
+        try{
+          const fetchOrderTypes = await fetch(`http://localhost:5555/orderTypes/getdetail/`,{
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({orderTypeId: sendOrderTypeId})
+          })
+          const data = await fetchOrderTypes.json();
+          setOrder({
+            name: data.name,
+            price: data.price,
+            detail: data.detail,
+            deadline: data.deadline
+          })
+
+        }catch(error){
+          console.error("Error fetch OrderType info:", error); 
+        }
+      }
+      fetchOrderTypeDetails();
+    }, []);
 
 
 

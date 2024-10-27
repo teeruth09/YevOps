@@ -9,6 +9,7 @@ const order = require('./controllers/order')
 const payment = require('./controllers/payment')
 const clientSize = require('./controllers/clientSize')
 const orderType = require('./controllers/orderTypeController')
+const previewImage = require('./controllers/previewImageController')
 const midauth = require('./middlewares/auth')
 const cors = require('cors')
 
@@ -40,7 +41,11 @@ app.get('/profile', midauth, profile.getProfile)
 
 app.put('/profile', midauth, upload.single('image'), profile.putProfile)
 
-app.post('/createOrder', midauth, order.order)
+const check = (error, req, res, next) => {
+  console.log('This is the rejected field ->', error.field);
+}
+
+app.post('/createOrder', midauth, upload.single('image'), check, order.order)
 
 app.post('/requestsOrder', midauth, order.requests)
 
@@ -60,8 +65,13 @@ app.get('/clientSize/:id', clientSize.getClientSizeController)
 
 app.post('/orderTypes',orderType.createOrderTypesController)
 
-app.get('/orderTypes/:id',orderType.getOrderTypeIdsController)
+app.post('/orderTypes/getdetail/',orderType.getOrderTypeIdsController)
 
+app.get('/shop/shopOrderTypes',orderType.fetchAllShopOrderTypeController)
+
+app.post('/shop/shopdata/previewImage',  upload.array('previewImage', 4),previewImage.updatePreviewImageController)
+
+app.get('/shop/getAllpreviewImage',previewImage.fetchAllPreviewImageFromShopIdController)
 
 app.post('/welcome', midauth, (req, res) => {
   res.status(200).send('Welcome HACKER')
