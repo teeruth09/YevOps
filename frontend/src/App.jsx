@@ -21,14 +21,6 @@ import Verifyshop from './pages/VerifyShopPage'
 import ShopViewClientOrderPage from './pages/ShopViewClientOrderPage'
 import ShopProfilePreviewPage from './pages/ShopProfilePreviewpage'
 
-// Client Profile Pages
-import ClientProfileEditPage from './pages/ClientProfileEditpage'
-import ClientProfileFavoritePage from './pages/ClientProfileFavoritepage'
-import ClientProfileHistoryPage from './pages/ClientProfileHistorypage'
-import ClientProfileChangePsPage from './pages/ClientProfileChangePSpage'
-import ClientProfileBankPage from './pages/ClientProfileBankPage'
-import ClientProfilePostPage from './pages/ClientProfilePostPage'
-
 // Shared Layouts
 import MainLayout from './shared/layouts/MainLayout'
 import ProfileLayout from './shared/layouts/ProfileLayout'
@@ -41,6 +33,10 @@ import ShopEditProfile from './components/ShopEditProfile'
 // Client Components
 import ClientBankProfile from './components/ClientBankProfile'
 import ChangePassword from './components/ChangePassword'
+import ClientEditProfile from './components/ClientEditProfile'
+import ClientFavoriteShop from './components/ClientFavoriteShop'
+import ClientPurchaseHistory from './components/ClientPurchaseHistory'
+import ClientPostHistory from './components/ClientPostHistory'
 
 function App() {
   return (
@@ -69,26 +65,26 @@ function App() {
         {/* Routes with ProfileLayout */}
         <Route path='/' element={<ProfileLayout />}>
           {/* Client Profile Pages */}
-          <Route path='/client/profile' element={<ClientProfileEditPage />} />
+          <Route path='/client/profile' element={<ClientEditProfile />} />
           <Route
             path='/client/profile/favorites'
-            element={<ClientProfileFavoritePage />}
+            element={<ClientFavoriteShop />}
           />
           <Route
             path='/client/profile/history'
-            element={<ClientProfileHistoryPage />}
+            element={<ClientPurchaseHistory />}
           />
           <Route
             path='/client/profile/password'
-            element={<ClientProfileChangePsPage />}
+            element={<ChangePassword />}
           />
           <Route
             path='/client/profile/bank'
-            element={<ClientProfileBankPage />}
+            element={<ClientBankProfile />}
           />
           <Route
             path='/client/profile/post'
-            element={<ClientProfilePostPage />}
+            element={<ClientPostHistory />}
           />
 
           {/* Shop Profile Pages */}

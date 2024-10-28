@@ -32,7 +32,7 @@ export const clientSideLinks = [
   {
     link: '/client/profile/post',
     icon: <FaFolder className='text-gray-600' size={20} />,
-    name: 'My Post',
+    name: 'My Posts',
   },
   {
     link: '/client/profile/favorites',
@@ -52,7 +52,7 @@ export const clientSideLinks = [
   {
     link: '/client/profile/bank',
     icon: <BsBank2 className='text-gray-600' size={20} />,
-    name: 'Bank Account',
+    name: 'Bank Accounts',
   },
   {
     link: '/client/profile/password',
@@ -85,7 +85,7 @@ export const shopSideLinks = [
   {
     link: '/shop/profile/bank',
     icon: <BsBank2 className='text-gray-600' size={20} />,
-    name: 'Bank Account',
+    name: 'Bank Accounts',
   },
   {
     link: '/shop/profile/password',

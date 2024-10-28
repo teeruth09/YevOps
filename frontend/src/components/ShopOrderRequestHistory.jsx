@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import RequestOrderCard from './RequestOrderCard'
 import { Link } from 'react-router-dom'
+import Tabs from '@/shared/components/Tabs'
 
 const ShopOrderRequestHistory = () => {
   const [activeTab, setActiveTab] = useState('All')
@@ -79,27 +80,11 @@ const ShopOrderRequestHistory = () => {
 
   return (
     <div className='px-5 lg:px-20 w-full flex flex-col justify-center'>
-      <p className='pt-3 text-3xl font-semibold mb-8'>
-        Order History
-      </p>
+      <p className='pt-3 text-3xl font-semibold mb-8'>Order History</p>
 
-      <div className='flex border-b h-full w-fit px-12 bg-white shadow-xl rounded-lg my-3 justify-center'>
-        {tabs.map((tab) => (
-          <button
-            key={tab}
-            // TODO: make this responsive
-            className={`md:px-4 lg:px-8 py-4 focus:outline-none ${
-              activeTab === tab
-                ? 'text-black border-b-2 border-red-600'
-                : 'text-gray-600 hover:text-black'
-            }`}
-            onClick={() => setActiveTab(tab)}
-          >
-            {tab}
-          </button>
-        ))}
-      </div>
-      <div className='pt-1'>
+      <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
+
+      <div className='w-full pt-1'>
         {filteredOrders.map((order) => (
           <Link
             key={order.id}

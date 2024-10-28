@@ -30,7 +30,7 @@ const Sidebar = ({ isClient = true }) => {
   }, [])
 
   return (
-    <div className='w-[300px] pt-8 ps-8 flex-shrink-0 min-h-screen bg-white shadow-lg p-5 z-10'>
+    <div className='fixed w-[300px] pt-8 ps-8 flex-shrink-0 min-h-screen bg-white shadow-lg p-5 z-10'>
       <h2 className='text-xl mb-6 font-bold'>{userInfo.username}</h2>
       <hr className='border-t border-gray-300' />
       <div className='space-y-10'>
@@ -39,6 +39,8 @@ const Sidebar = ({ isClient = true }) => {
           ? clientSideLinks.map((link) => (
               <NavLink to={link.link} key={link.link}>
                 <div className='flex items-center space-x-3 py-4'>
+                  {location.pathname === link.link && <FaAngleRight />}
+
                   {link.icon}
                   <span
                     className={cn(
