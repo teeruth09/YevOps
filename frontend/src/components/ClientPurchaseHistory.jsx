@@ -1,3 +1,11 @@
+import {
+  FaCheckCircle,
+  FaSpinner,
+  FaTimesCircle,
+  FaQuestionCircle,
+  FaListAlt,
+} from 'react-icons/fa'
+
 import { useState, useEffect } from 'react'
 import OrderCard from './OrderCard'
 import { Link } from 'react-router-dom'
@@ -22,7 +30,13 @@ const ClientPurchaseHistory = () => {
     },
   ]) // Array to store fetched orders
 
-  const tabs = ['All', 'Success', 'In Progress', 'Failed', 'Other']
+  const tabs = [
+    { name: 'All', icon: <FaListAlt /> },
+    { name: 'Success', icon: <FaCheckCircle /> },
+    { name: 'In Progress', icon: <FaSpinner /> },
+    { name: 'Failed', icon: <FaTimesCircle /> },
+    { name: 'Other', icon: <FaQuestionCircle /> },
+  ]
 
   useEffect(() => {
     async function fetchOrders() {

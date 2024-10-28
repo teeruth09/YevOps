@@ -1,3 +1,12 @@
+import {
+  FaCheckCircle,
+  FaSpinner,
+  FaTimesCircle,
+  FaQuestionCircle,
+  FaListAlt,
+  FaRegPaperPlane,
+} from 'react-icons/fa'
+
 import { useState, useEffect } from 'react'
 import PostOrderCard from './PostOrderCard'
 import { Link } from 'react-router-dom'
@@ -17,17 +26,17 @@ const ClientPostHistory = () => {
       due_date: '20 Aug 2024',
       order_status: 'Waiting',
       price: '100.00 THB',
-      order_detail: 'หาร้านตัดชุดสูทสำหรับงานราตรี',
+      order_detail: 'หาร้านตัดชุดสูทสำหรับงานราตรี "Happy Birthday to You", or simply "Happy Birthday", is a song traditionally sung to celebrate a persons birthday. According to the 1998 Guinness World Records, it is the most recognized song in the English language, followed by For Hes a Jolly Good Fellow. The songs base lyrics have been translated into at least 18 languages.[1] The melody of Happy Birthday to You comes from the song Good Morning to All,[2] which has traditionally been attributed to American sisters Patty and Mildred J. Hill in 1893,[3][4] although the claim that the sisters composed the tune is disputed.[5]',
     },
   ]) // Array to store fetched orders
 
   const tabs = [
-    'All',
-    'New Request',
-    'In Progress',
-    'Success',
-    'Failed',
-    'Other',
+    { name: 'All', icon: <FaListAlt /> },
+    { name: 'New Request', icon: <FaRegPaperPlane /> },
+    { name: 'In Progress', icon: <FaSpinner /> },
+    { name: 'Success', icon: <FaCheckCircle /> },
+    { name: 'Failed', icon: <FaTimesCircle /> },
+    { name: 'Other', icon: <FaQuestionCircle /> },
   ]
 
   useEffect(() => {

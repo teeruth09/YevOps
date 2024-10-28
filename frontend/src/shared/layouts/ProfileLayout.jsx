@@ -8,7 +8,7 @@ const ProfileLayout = () => {
     <div className='flex min-h-screen w-full'>
       <Sidebar isClient={role === 'client'} />
 
-      <div className='mr-[300px]' />
+      <div className='mr-32 md:mr-[240px] lg:mr-[300px]' />
       <div className='flex-grow flex justify-center h-full px-10 py-10'>
         <Outlet />
       </div>

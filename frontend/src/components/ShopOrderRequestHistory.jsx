@@ -1,3 +1,12 @@
+import {
+  FaListAlt,
+  FaRegPaperPlane,
+  FaSpinner,
+  FaCheckCircle,
+  FaRegClock,
+  FaTimesCircle,
+} from 'react-icons/fa'
+
 import { useState, useEffect } from 'react'
 import RequestOrderCard from './RequestOrderCard'
 import { Link } from 'react-router-dom'
@@ -23,12 +32,12 @@ const ShopOrderRequestHistory = () => {
   const [orders, setOrders] = useState([]) // Array to store fetched orders
 
   const tabs = [
-    'All',
-    'New Request',
-    'In Progress',
-    'Success',
-    'Late',
-    'Canceled',
+    { name: 'All', icon: <FaListAlt /> },
+    { name: 'New Request', icon: <FaRegPaperPlane /> },
+    { name: 'In Progress', icon: <FaSpinner /> },
+    { name: 'Success', icon: <FaCheckCircle /> },
+    { name: 'Late', icon: <FaRegClock /> },
+    { name: 'Canceled', icon: <FaTimesCircle /> },
   ]
 
   useEffect(() => {
