@@ -3,6 +3,9 @@ import { useState, useEffect, useRef } from 'react'
 import { FiPlusCircle } from 'react-icons/fi'
 import { RxSlash } from 'react-icons/rx'
 
+import { Map, Marker } from '@vis.gl/react-google-maps'
+import { MAP_API } from '@/global-config'
+
 const ShopEditProfile = () => {
   const [userInfo, setUserInfo] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
@@ -121,7 +124,7 @@ const ShopEditProfile = () => {
   }
 
   return (
-    <div className='px-5 lg:px-20'>
+    <div className='px-5 lg:px-20 h-full min-w-full'>
       <div className='py-3 text-3xl font-semibold mb-4'>Profile</div>
       <div className='w-full lg:w-auto h-full bg-white shadow-xl p-5 lg:p-10'>
         <div className='Profiledetail'>
@@ -211,11 +214,17 @@ const ShopEditProfile = () => {
             {!isEditing ? (
               <div>
                 <p>Shop Location</p>
-                <img
-                  src={userInfo?.location}
-                  alt='location.jpg'
-                  className='w-full h-full'
-                />
+                {MAP_API && (
+                  <div className='h-[320px] w-full'>
+                    <Map
+                      defaultZoom={9}
+                      defaultCenter={{ lat: 13, lng: 100 }}
+                      disableDefaultUI
+                    >
+                      <Marker position={{ lat: 13, lng: 100 }} />
+                    </Map>
+                  </div>
+                )}
               </div>
             ) : (
               <div>

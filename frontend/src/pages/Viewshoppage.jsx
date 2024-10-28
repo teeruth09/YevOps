@@ -96,19 +96,6 @@ const Viewshoppage = () => {
       setIsAuthenticated(false);
     }
   }, [token]);
-
-  let NavbarComponent;
-  if (isAuthenticated) {
-    if (role === "client"){
-      NavbarComponent = NavbarClient;
-    }
-    else if (role === "shop"){
-      NavbarComponent = NavbarShop;
-    }
-  } else {
-    NavbarComponent = Navbar;
-  }
-
   
   return (
     <div>

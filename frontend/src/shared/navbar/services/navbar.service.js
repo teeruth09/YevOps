@@ -1,6 +1,6 @@
 import { endpoints } from '@/shared/endpoints'
 
-export const handleLogout = async (onLogout) => {
+export const handleLogout = async (onLogout = null) => {
   const token = localStorage.getItem('x-access-token')
   try {
     const response = await fetch(endpoints.auth.logout, {
@@ -14,7 +14,7 @@ export const handleLogout = async (onLogout) => {
     if (response.ok) {
       localStorage.removeItem('x-access-token') // Clear token from localStorage
       console.log('Logout successful')
-      onLogout()
+      if (onLogout) onLogout()
       // Force reload if on the home page
       if (window.location.pathname === '/') {
         window.location.reload()

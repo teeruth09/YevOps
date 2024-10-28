@@ -1,10 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import NavbarShop from '@/components/NavbarShop'
-import ShopSidebar from '@/components/ShopSidebarProfile'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
 import TextField from '@mui/material/TextField'
-import { FaPlus, FaPlusCircle } from 'react-icons/fa'
-import OrderType from '@/components/OrderType'
 
 const ShopProfilePreviewPage = () => {
   const [orderTypes, setOrderTypes] = useState([
@@ -30,19 +25,19 @@ const ShopProfilePreviewPage = () => {
   const [buttonCount, setButtonCounts] = useState(OrderTypeCount)
 
   // Fetch shop's Order type (1-3)
-  useEffect(() => {
-    async function fetchOrders() {
-      try {
-        const response = await fetch('/api/shop/shopOrderType/shopId') // Replace with shop API endpoint
-        const data = await response.json()
-        setShop(data)
-      } catch (error) {
-        console.error('Failed to fetch orders:', error)
-      }
-    }
+  // useEffect(() => {
+  //   async function fetchOrders() {
+  //     try {
+  //       const response = await fetch('/api/shop/shopOrderType/shopId') // Replace with shop API endpoint
+  //       const data = await response.json()
+  //       // setShop(data)
+  //     } catch (error) {
+  //       console.error('Failed to fetch orders:', error)
+  //     }
+  //   }
 
-    fetchOrders()
-  }, [])
+  //   fetchOrders()
+  // }, [])
 
   const bt2Clicked = () => {
     setButtonCounts(2)
@@ -53,14 +48,12 @@ const ShopProfilePreviewPage = () => {
   }
 
   return (
-    <div>
-      <div className='flex pl-5 pt-5'>
-        <ShopSidebar />
-        <div className='grid justify-start pl-[300px] w-[calc((100vw-19rem))]'>
+    <div className='px-5 lg:px-20 h-full min-w-full flex justify-center'>
+        <div className='grid grid-cols-1 justify-start w-full'>
           {/* Shop Preview Image */}
-          <div className='w-[500px] flex flex-col'>
-            <div className='w-full h-[80px] flex justify-start items-center border-b'>
-              <p className='text-2xl font-semibold'>Shop Preview Image</p>
+          <div className='w-full flex flex-col'>
+            <div className='w-full flex justify-start items-center border-b'>
+              <p className='text-3xl py-3 font-semibold'>Shop Preview Image</p>
             </div>
             <div className='w-full h-[300px] flex flex-col pt-3'>
               <p className='mb-3'>Upload your preview image here!</p>
@@ -71,9 +64,9 @@ const ShopProfilePreviewPage = () => {
           </div>
 
           {/* Shop Ordertype */}
-          <div className='w-[500px] flex flex-col'>
-            <div className='w-full h-[80px] flex justify-start items-center border-b'>
-              <p className='text-2xl font-semibold'>Order Package Settings</p>
+          <div className='w-full flex flex-col'>
+            <div className='w-full flex justify-start items-center border-b'>
+              <p className='text-3xl py-3 font-semibold'>Order Package Settings</p>
             </div>
             <div className='w-full flex flex-col pt-3'>
               <p className='mb-8'>Setting up your details here!</p>
@@ -227,7 +220,6 @@ const ShopProfilePreviewPage = () => {
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
   )

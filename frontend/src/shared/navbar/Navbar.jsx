@@ -26,11 +26,13 @@ const Navbar = () => {
       })
     }
     fetchUserData(onSuccess)
-  }, [userInfo])
+    // userInfo in [] = infinite loop
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const [isAuthenticated, setIsAuthenticated] = useState(false)
-  let token = localStorage.getItem('x-access-token')
-  let role = localStorage.getItem('role')
+  const token = localStorage.getItem('x-access-token')
+  const role = localStorage.getItem('role')
 
   useEffect(() => {
     if (token) {
@@ -48,7 +50,7 @@ const Navbar = () => {
   }, [token])
 
   return (
-    <nav className='bg-red-800 sticky top-0 z-50'>
+    <nav className='bg-red-800 fixed w-full top-0 z-50'>
       <div className='mx-1 w-full px-2 sm:px-6 lg:px-8 '>
         <div className='relative flex h-16 items-center justify-between'>
           {/* Logo */}

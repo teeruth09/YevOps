@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import PropTypes from 'prop-types'
 
 import { Progress } from '@/components/ui/progress'
@@ -10,7 +11,12 @@ import { cn } from '@/lib/utils'
 import { Map, Marker } from '@vis.gl/react-google-maps'
 import { MAP_API } from '@/global-config'
 
-export const MainDetailCard = ({address,phone,registerDate,shopDescription}) => {
+export const MainDetailCard = ({
+  address,
+  phone,
+  registerDate,
+  shopDescription,
+}) => {
   return (
     <div className='mt-8 flex flex-col gap-2 border-2 rounded shadow overflow-hidden'>
       {MAP_API && (
@@ -32,9 +38,7 @@ export const MainDetailCard = ({address,phone,registerDate,shopDescription}) => 
         <div className='grid grid-cols-3 gap-2'>
           <div className='flex flex-col col-span-2 gap-2'>
             <p>Address</p>
-            <p>
-              {address}
-            </p>
+            <p>{address}</p>
 
             <p>Contact us</p>
             <p>{phone}</p>

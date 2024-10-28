@@ -1,13 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import NavbarClient from '../components/NavbarClient'
 import OrderInformation from '@/components/OrderInformation'
 
 const OrderInformationPage = () => {
   const location = useLocation() // Hook to get the location object
 
   // Access the state passed via `navigate`
-  const { sendShopId } = location.state || {}
+  const { shopId } = location.state || {}
 
   const [order, setOrder] = useState({
     name: 'Basic',
@@ -68,13 +67,14 @@ const OrderInformationPage = () => {
     const fetchShopProfile = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5555/shop/shopdata/${sendShopId}`,
+          `http://localhost:5555/shop/shopdata/${shopId}`,
           {
             method: 'GET',
           }
         )
         const data = await response.json()
         setShopInfo({
+          shopId,
           shopName: data.shopName,
           imageProfile: data.imageProfile,
           previewImage: data.previewImage,
