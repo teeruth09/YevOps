@@ -172,6 +172,16 @@ const NavbarClient = () => {
                   Post
                 </NavLink>
                 <NavLink
+                  to="/design"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "rounded-md bg-white px-5 py-2 text-sm font-medium text-black"
+                      : "rounded-md px-5 py-2 text-sm font-medium text-white hover:text-black"
+                  }
+                >
+                  Design with AI
+                </NavLink>
+                <NavLink
                   to="/applyshop"
                   className={({ isActive }) =>
                     isActive

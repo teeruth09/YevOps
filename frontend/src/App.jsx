@@ -28,6 +28,7 @@ import ShopViewClientOrderPage from "./pages/ShopViewClientOrderPage";
 import PostPage from "./pages/PostPage";
 import ShopPostPage from "./pages/ShopPostPage";
 import CreatePostPage from "./pages/CreatePostPage";
+import DesignAIPage from "./pages/DesignAIPage";
 
 function App() {
   return (
@@ -52,6 +53,7 @@ function App() {
       <Route path="/viewshop/:id" element={<Viewshoppage />} />
       <Route path="/order/:id" element={<ViewOrderPage />} />
       <Route path="/search" element={<ShowShopAfterSearch />} />
+      <Route path="/design" element={<DesignAIPage />} />
       <Route path="/client/profile/bank" element={<ClientProfileBankPage />} />
       <Route path="/client/profile/post" element={<ClientProfilePostPage />} />
       <Route path="/shop/profile" element={<ShopProfileEditPage />} />
