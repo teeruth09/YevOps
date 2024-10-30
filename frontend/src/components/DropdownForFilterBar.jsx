@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-const DropdownForFilterBar = ({ options, placeHolder }) => {
+const DropdownForFilterBar = ({ options, placeHolder, defaultValue, onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOption, setSelectedOption] = useState(defaultValue || '');
   const [currentOptions, setCurrentOptions] = useState(options);
 
   const toggleDropdown = () => {
@@ -10,8 +10,11 @@ const DropdownForFilterBar = ({ options, placeHolder }) => {
   };
 
   const handleSelectOption = (option) => {
+    onChange(option);
+    
     setSelectedOption(option);
     setIsOpen(false);
+    onSelect(option);
   };
 
   return (
@@ -31,14 +34,13 @@ const DropdownForFilterBar = ({ options, placeHolder }) => {
           <div className='py-1'>
             {/* Options List */}
             {currentOptions.map((option, index) => (
-              <a
+              <div
                 key={index}
-                href="#"
                 onClick={() => handleSelectOption(option)}
                 className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
               >
                 {option}
-              </a>
+              </div>
             ))}
           </div>
         </div>

@@ -4,15 +4,18 @@ const searchName = async (req) => {
     
     try {
         const keyword = req.query.keyword; 
-        
+        let shops = null;
+
         if (!keyword) {
-            throw new Error('Keyword is required');
+            shops = await Shop.find();
+            return shops
         }
 
-        const shops = await Shop.find({ shopName: { $regex: `^${keyword}`, $options: 'i' } }); // find shop that name start with keyword, case insensitive
+        shops = await Shop.find({ shopName: { $regex: `^${keyword}`, $options: 'i' } }); // find shop that name start with keyword, case insensitive
 
         if (shops.length === 0) {
-            throw new Error('No Shop Found');
+            return { message: "No Shop Found"}
+            // throw new Error('No Shop Found');
         }
 
         return shops;

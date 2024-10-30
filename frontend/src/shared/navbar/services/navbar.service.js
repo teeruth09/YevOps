@@ -28,10 +28,10 @@ export const handleLogout = async (onLogout = null) => {
 }
 
 // Function to handle search submission
-export const handleSearch = async (searchTerm, onFound, onNotFound) => {
+export const handleSearch = async (url, onFound, onNotFound) => {
   try {
     // Sending the search term to the backend API
-    const response = await fetch(endpoints.client.search(searchTerm))
+    const response = await fetch(endpoints.client.search(url))
 
     if (!response.ok) {
       if (response.status === 404) {

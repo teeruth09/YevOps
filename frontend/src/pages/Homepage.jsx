@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Filterbar from '@/components/FilterBar'
 import Shopcard from '@/components/ShopCard'
-import myImage from '/home-image.png' // Assuming your component is in src/components
+import myImage from '../../public/website_picture.png' // Assuming your component is in src/components
 import { Link } from 'react-router-dom'
 import { endpoints } from '@/shared/endpoints'
 import { TypeAnimation } from 'react-type-animation'
