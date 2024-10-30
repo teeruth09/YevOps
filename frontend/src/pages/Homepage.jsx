@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
 import Filterbar from '@/components/FilterBar'
 import Shopcard from '@/components/ShopCard'
-import myImage from '../../public/website_picture.png' // Assuming your component is in src/components
+import myImage from '/home-image.png' // Assuming your component is in src/components
 import { Link } from 'react-router-dom'
 import { endpoints } from '@/shared/endpoints'
+import { TypeAnimation } from 'react-type-animation'
 
 const HomePage = () => {
   const centerdiv = {
@@ -31,7 +32,32 @@ const HomePage = () => {
     <div>
       <div className='flex flex-col items-center'>
         {/* Landing pic */}
-        <img className='w-auto h-auto my-10' src={myImage} alt='' />
+        {/* <img className='w-auto h-auto my-10' src={myImage} alt='' /> */}
+
+        <TypeAnimation
+          className={`w-full h-[400px] block bg-cover bg-center p-24 font-bold text-6xl border-b-2 text-white relative overflow-hidden my-10`}
+          style={{
+            backgroundImage: `url(${myImage})`, // Ensure myImage is formatted correctly
+            textShadow:
+              '0 2px 4px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(185, 28, 28, 0.8)', // black + red-800,
+          }}
+          sequence={[
+            'Platform for those interested in tailoring shops.',
+            800,
+            'Platform for those interested in cosplay events.',
+            800,
+            'Platform for those interested in unique outfits.',
+            800,
+            'Platform for those interested in fashion design.',
+            800,
+            'Platform for those interested in creative crafts.',
+            800,
+            'Platform for those interested in costume making.',
+            800,
+            '',
+          ]}
+          repeat={Infinity}
+        />
 
         {/* Filterbar */}
         <Filterbar />

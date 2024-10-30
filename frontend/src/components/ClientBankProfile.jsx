@@ -15,7 +15,7 @@ const ClientBankProfile = () => {
     <div className='px-5 w-full flex flex-col'>
       <div className='flex gap-4 items-center pt-3 mb-8'>
         <FaAngleLeft
-          className={cn(!isAddingNewBank ? 'hidden' : 'text-gray-600 h-6 w-6')}
+          className={cn(!isAddingNewBank ? 'hidden' : 'text-gray-600 h-6 w-6', 'cursor-pointer')}
           onClick={() => setIsAddingNewBank(false)}
         />
         <h1 className='text-3xl font-semibold'>Bank</h1>

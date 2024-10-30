@@ -73,7 +73,7 @@ const Navbar = () => {
 
           <div className='flex flex-1 items-center sm:items-stretch sm:justify-start ml-4'>
             <div className='sm:ml-6 sm:block'>
-              <div className=' space-x-4'>
+              <div className='flex w-full space-x-4'>
                 <NavLinkList isAuthenticated={isAuthenticated} role={role} />
               </div>
             </div>
