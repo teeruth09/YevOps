@@ -9,6 +9,6 @@ export const endpoints = {
     profile: `${BASE}/profile`,
   },
   client: {
-    search: (searchTerm) => `${BASE}/search?keyword=${searchTerm}`,
+    search: (url) => `${BASE}${url}`,
   },
 }

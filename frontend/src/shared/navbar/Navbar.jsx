@@ -7,6 +7,8 @@ import { jwtDecode } from 'jwt-decode'
 import { clientLinks, guestLinks, shopLinks } from './links.constant'
 import { SidebarContext } from '../contexts/SidebarProvider'
 import { HamburgerMenuIcon } from '@radix-ui/react-icons'
+import { FaMagnifyingGlass } from "react-icons/fa6";
+import { SearchContext } from '../contexts/SearchProvider'
 
 const Navbar = () => {
   const { sidebar: drawer } = useContext(SidebarContext)
@@ -192,20 +194,29 @@ const CustomNavLink = ({ to, title, icon }) => {
 
 const SearchInput = () => {
   const navigate = useNavigate()
+  // const [searchTerm, setSearchTerm] = useState('')
+  const { searchTerm, setSearchTerm, searchGenre, searchBudget, searchVerify } = useContext(SearchContext);
 
-  const [searchTerm, setSearchTerm] = useState('')
+
   // Function to handle search submission
   const handleSearchSubmit = async (e) => {
     e.preventDefault()
 
-    const onNotFound = () => navigate(`/search?keyword=${searchTerm}`)
+    // Construct the URL based on the context values
+    const url = `/search?keyword=${encodeURIComponent(searchTerm)}&genre=${encodeURIComponent(searchGenre)}&budget=${encodeURIComponent(searchBudget)}&verify=${encodeURIComponent(searchVerify)}`;
+
+    const onNotFound = () => navigate(`/search?keyword=${searchTerm}&genre=${searchGenre}&budget=${searchBudget}&verify=${searchVerify}`)
     const onFound = (result) =>
-      navigate(`/search?keyword=${searchTerm}`, {
+      navigate(`/search?keyword=${searchTerm}&genre=${searchGenre}&budget=${searchBudget}&verify=${searchVerify}`, {
         state: { searchResults: result },
       })
+    console.log('Search Term:', searchTerm)
 
-    handleSearch(searchTerm, onFound, onNotFound)
+    // can you help me create object url with this format caht gpt please
+    // /search?keyword=${searchTerm}&genre=${searchGenre}&budget=${searchBudget}&verify=${searchVerify}
+    handleSearch(url, onFound, onNotFound)
   }
+  
 
   return (
     <div className='relative pl-8 text-gray-600 '>
@@ -225,19 +236,7 @@ const SearchInput = () => {
           type='submit'
           className='flex items-center whitespace-nowrap  py-[0.25rem] text-surface dark:border-neutral-400 dark:text-white [&>svg]:h-5 [&>svg]:w-5'
         >
-          <svg
-            xmlns='http://www.w3.org/2000/svg'
-            fill='none'
-            viewBox='0 0 24 24'
-            strokeWidth='2'
-            stroke='currentColor'
-          >
-            <path
-              strokeLinecap='round'
-              strokeLinejoin='round'
-              d='m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z'
-            />
-          </svg>
+          <FaMagnifyingGlass />
         </button>
       </form>
     </div>

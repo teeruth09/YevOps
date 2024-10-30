@@ -3,6 +3,9 @@ import { NavLink, useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState('')
+  const [searchGenre, setSearchGenre] = useState('')
+  const [searchBudget, setSearchBudget] = useState('')
+  const [searchVerify, setSearchVerify] = useState('')
   const navigate = useNavigate()
 
   // Function to handle search submission
@@ -12,7 +15,7 @@ const Navbar = () => {
     try {
       // Sending the search term to the backend API
       const response = await fetch(
-        `http://localhost:5555/search?keyword=${searchTerm}`,
+        `http://localhost:5555/search?keyword=${searchTerm}&genre=${searchGenre}&budget=${searchBudget}&verify=${searchVerify}`,
         {
           method: 'GET', // Change to 'POST' if your API expects a POST request
         }
@@ -22,7 +25,7 @@ const Navbar = () => {
         if (response.status === 404) {
           // Handle 404 error, navigate to a different endpoint or show a message
           console.error('Resource not found (404)')
-          navigate(`/search?keyword=${searchTerm}`) // Example: Navigate to a custom error page
+          navigate(`/search?keyword=${searchTerm}&genre=${searchGenre}&budget=${searchBudget}&verify=${searchVerify}`) // Example: Navigate to a custom error page
           return
         } else {
           throw new Error('Search request failed')
