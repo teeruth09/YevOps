@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Select, SelectTrigger, SelectValue } from '@/components/ui/select'
+import {
+  PrimaryButton,
+  SecondaryButton,
+} from '@/shared/components/CustomButton'
 
 const ClientEditProfile = () => {
   // State to manage SelectItems
@@ -455,28 +459,21 @@ const ClientEditProfile = () => {
             </div>
           </div>
           <div className='flex flex-col lg:flex-row pt-10 items-center'>
-            <div className='flex-1'></div>
             {!isEditing ? (
-              <button
-                onClick={handleEditClick}
-                className='w-full lg:w-40 bg-white hover:bg-red-500 hover:text-white text-red-500 border py-2 px-4 rounded'
-              >
-                Edit
-              </button>
+              // <button
+              //   onClick={handleEditClick}
+              //   className='w-full lg:w-40 bg-white hover:bg-red-500 hover:text-white text-red-500 border py-2 px-4 rounded'
+              // >
+              //   Edit
+              // </button>
+
+              <PrimaryButton onClick={handleEditClick}>Edit</PrimaryButton>
             ) : (
-              <div>
-                <button
-                  onClick={handleCancelClick}
-                  className='w-full lg:w-40 bg-white hover:bg-gray-500 hover:text-white text-red-500 border py-2 px-4 rounded mt-2 lg:mt-0 lg:ml-2'
-                >
+              <div className='w-full flex flex-col gap-4'>
+                <SecondaryButton onClick={handleCancelClick}>
                   Cancel
-                </button>
-                <button
-                  onClick={handleSaveClick}
-                  className='ml-3 w-full lg:w-40 bg-red-500 hover:bg-red-500 hover:text-white text-white border py-2 px-4 rounded'
-                >
-                  Save
-                </button>
+                </SecondaryButton>
+                <PrimaryButton onClick={handleSaveClick}>Save</PrimaryButton>
               </div>
             )}
           </div>

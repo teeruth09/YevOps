@@ -1,3 +1,4 @@
+import { PrimaryButton } from '@/shared/components/CustomButton'
 import ChangePasswordInput from './ChangePasswordInput'
 
 const ChangePassword = () => {
@@ -18,9 +19,7 @@ const ChangePassword = () => {
           />
         </div>
 
-        <button className='px-11 mt-3 bg-red-500 hover:bg-white hover:text-red-500 text-white border py-2 rounded'>
-          Confirm
-        </button>
+        <PrimaryButton>Confirm</PrimaryButton>
       </div>
     </div>
   )

@@ -1,21 +1,35 @@
 import { FaFolder, FaHeart, FaHistory, FaEdit, FaLock } from 'react-icons/fa'
 import { BsBank2 } from 'react-icons/bs'
-
-import { FaStore, FaCheckCircle } from 'react-icons/fa' // Import relevant icons
+import {
+  FaStore,
+  FaCheckCircle,
+  FaInfoCircle,
+  FaClipboardCheck,
+} from 'react-icons/fa' // Import relevant icons
 
 export const guestLinks = [
   {
     link: '/applyshop',
     name: 'Open a shop',
-    icon: <FaStore size={20}  />, // Store icon for opening a shop
+    icon: <FaStore size={20} />, // Store icon for opening a shop
   },
 ]
 
 export const clientLinks = [
   {
+    link: '/post',
+    name: 'Post',
+    icon: <FaClipboardCheck size={20} />, // Icon for creating or checking posts
+  },
+  {
+    link: '/aboutus',
+    name: 'About us',
+    icon: <FaInfoCircle size={20} />, // Icon representing information
+  },
+  {
     link: '/applyshop',
     name: 'Open a shop',
-    icon: <FaStore size={20}  />, // Same icon for consistency
+    icon: <FaStore size={20} />, // Icon for opening a shop
   },
 ]
 

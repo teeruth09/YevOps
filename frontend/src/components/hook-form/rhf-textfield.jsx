@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 
+// This is an rhf-textfield
 const TextField = ({
   type = 'text',
   placeholder = '',
@@ -14,7 +15,8 @@ const TextField = ({
         required
         type={type}
         placeholder={placeholder}
-        {...register(name)}
+        // use register only if it is passed (optional)
+        {...(register ? register(name) : {})}
         autoComplete='off'
         className={`w-full border rounded px-4 py-2 ${className}`}
       />

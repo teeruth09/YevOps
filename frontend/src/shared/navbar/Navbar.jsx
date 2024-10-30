@@ -75,7 +75,7 @@ const Navbar = () => {
 
           <div className='flex flex-1 items-center sm:items-stretch sm:justify-start ml-4'>
             <div className='sm:ml-6 sm:block'>
-              <div className=' space-x-4'>
+              <div className='flex w-full space-x-4'>
                 <NavLinkList isAuthenticated={isAuthenticated} role={role} />
               </div>
             </div>
@@ -180,7 +180,7 @@ const CustomNavLink = ({ to, title, icon }) => {
       to={to}
       className={({ isActive }) =>
         isActive
-          ? 'rounded-md bg-white px-5 py-2 text-sm font-bold'
+          ? 'rounded-md text-white px-5 py-2 text-md font-bold'
           : 'rounded-md px-5 py-2 text-sm font-medium text-white hover:font-bold'
       }
     >

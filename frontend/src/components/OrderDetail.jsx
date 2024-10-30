@@ -44,7 +44,7 @@ const OrderDetail = ({userRequest, onRequestChange}) => {
   };
 
   return (
-    <div className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
+    <div className="w-full bg-white p-6 rounded-lg shadow-md">
       <h2 className="text-2xl font-semibold mb-4">Order Detail</h2>
 
       <div className="mb-4">

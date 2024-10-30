@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 
 import TextField from '../components/hook-form/rhf-textfield'
 import SelectRow from '@/components/register/SelectRow'
-import { BackButton } from '@/shared/components/CustomButton'
+import { BackButton, PrimaryButton } from '@/shared/components/CustomButton'
 
 import { useSnackbar } from 'notistack'
 
@@ -202,12 +202,7 @@ const RegisterPage = () => {
           )}
         </div>
 
-        <button
-          type='submit'
-          className='mt-4 bg-red-500 py-4 rounded-lg font-bold'
-        >
-          REGISTER
-        </button>
+        <PrimaryButton type='submit'>Register</PrimaryButton>
       </form>
     </div>
   )

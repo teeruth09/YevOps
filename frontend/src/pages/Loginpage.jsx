@@ -8,7 +8,7 @@ import TextField from '../components/hook-form/rhf-textfield'
 import useLogin from '../react-query/hooks/useLogin'
 
 import { useSnackbar } from 'notistack'
-import { BackButton } from '@/shared/components/CustomButton'
+import { BackButton, PrimaryButton } from '@/shared/components/CustomButton'
 
 const LoginPage = () => {
   const LoginSchema = z.object({
@@ -73,12 +73,7 @@ const LoginPage = () => {
           <p className='flex-grow text-end'>Forgot password?</p>
         </div>
 
-        <button
-          type='submit'
-          className='mt-4 bg-red-500 py-4 rounded-lg font-bold'
-        >
-          LOG IN
-        </button>
+        <PrimaryButton type='submit'>Log in</PrimaryButton>
 
         <div className='flex gap-2'>
           <p>Don&apos;t have an account?</p>
