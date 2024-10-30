@@ -41,7 +41,7 @@ const Shopcard = ({genre,shopId,previewImage,verifyStatus,shopProfile,shopName,s
   }, [startBudget]); // Depend on startBudget, so it fetches only when it changes
 
   return (
-    <div onClick={() => alert("shopID is : " + shopId)} className='flex flex-col items-center m-4 w-[400px] h-[500px] rounded-sm border-[4px]'>       {/* Shop preview picture */}
+    <div className='flex flex-col items-center m-4 w-[400px] h-[500px] rounded-sm border-[4px]'>       {/* Shop preview picture */}
       <img className='mt-4 w-[368px] h-[200px] rounded-md'src={previewImage[0]} alt="Image" />
       {/* Shop pfp, name, rating */}
       <div className='flex justify-start relative mt-6 w-[368px] h-[60px]'>

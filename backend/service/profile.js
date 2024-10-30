@@ -79,6 +79,7 @@ const fetchProfile = async (req) => {
         location: user.location,
         phone: user.phone,
         imageProfile: user.imageProfile,
+        genre: user.genre,
       })
     }
     return profile
@@ -160,17 +161,21 @@ const updateProfile = async (req) => {
         }
       }
     } else if (user.role === 'shop') {
+
+
+
       await user.updateOne({
         shopName: req.body.shopName,
         shopDescription: req.body.shopDescription,
         location: req.body.location,
         phone: req.body.phone,
+        genre: req.body.genre[1],
         ...(file ?{imageProfile: imageLink} : {}),
       })
     }
 
     await user.updateOne(updatedFields)
-    // console.log(user)
+    // console.log(userw)
 
     return await fetchProfile(req)
   } catch (err) {

@@ -2,6 +2,9 @@ import { cn } from '@/lib/utils'
 import { useState, useEffect, useRef } from 'react'
 import { FiPlusCircle } from 'react-icons/fi'
 import { RxSlash } from 'react-icons/rx'
+import DropdownForGenre from './DropdownForGenre';
+
+const GenreOption = ["Suits","Wedding","Formal Dress","Police","Cosplay","Others"]
 
 const ShopEditProfile = () => {
   const [userInfo, setUserInfo] = useState(null)
@@ -12,6 +15,11 @@ const ShopEditProfile = () => {
   const [newAvatarUrl, setNewAvatarUrl] = useState(null)
   const [avatarFile, setAvatarFile] = useState(null)
   const hiddenImageInputRef = useRef(null)
+  const [selectedGenre, setSelectedGenre] = useState(''); // State to store selected genre
+
+  const handleGenreSelect = (genre) => {
+    setSelectedGenre(genre ? genre.toString() : ''); // Ensure genre is a string
+  };
 
   const handleAvatarChange = (e) => {
     const file = e.target.files?.[0]
@@ -50,6 +58,7 @@ const ShopEditProfile = () => {
           address: data.address,
           shopDescription: data.shopDescription,
           location: data.location,
+          genre: data.genre,
         })
         console.log(data.imageProfile)
 
@@ -76,6 +85,17 @@ const ShopEditProfile = () => {
       formData.append(key, value)
     })
 
+  
+    //send genre
+    // if(selectedGenre !== '')
+    // {
+    //   formData.append('genre', selectedGenre.toString());
+    // }
+    if(selectedGenre)
+    {
+      formData.append('genre', selectedGenre);
+    }
+    console.log("SelectGenre",selectedGenre)
     // send formData instead with userInfo too
     try {
       const response = await fetch('http://localhost:5555/profile', {
@@ -243,6 +263,12 @@ const ShopEditProfile = () => {
               </div>
             )}
           </div>
+          <div className='my-10'>
+              <h1>Genre</h1>
+              <DropdownForGenre options={GenreOption} placeHolder={userInfo?.genre} isEditting={isEditing} onSelectOption={handleGenreSelect}/>
+              {/* <p>Selected Genre: {selectedGenre}</p>  */}
+          </div>
+
 
           <div className='flex flex-col lg:flex-row pt-10 items-center'>
             <div className='flex-1'></div>
