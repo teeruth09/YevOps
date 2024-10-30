@@ -2,9 +2,19 @@ import { cn } from '@/lib/utils'
 import { useState, useEffect, useRef } from 'react'
 import { FiPlusCircle } from 'react-icons/fi'
 import { RxSlash } from 'react-icons/rx'
-import DropdownForGenre from './DropdownForGenre';
+import DropdownForGenre from './DropdownForGenre'
 
-const GenreOption = ["Suits","Wedding","Formal Dress","Police","Cosplay","Others"]
+const GenreOption = [
+  'Suits',
+  'Wedding',
+  'Formal Dress',
+  'Police',
+  'Cosplay',
+  'Others',
+]
+
+import { Map, Marker } from '@vis.gl/react-google-maps'
+import { MAP_API } from '@/global-config'
 
 const ShopEditProfile = () => {
   const [userInfo, setUserInfo] = useState(null)
@@ -15,11 +25,11 @@ const ShopEditProfile = () => {
   const [newAvatarUrl, setNewAvatarUrl] = useState(null)
   const [avatarFile, setAvatarFile] = useState(null)
   const hiddenImageInputRef = useRef(null)
-  const [selectedGenre, setSelectedGenre] = useState(''); // State to store selected genre
+  const [selectedGenre, setSelectedGenre] = useState('') // State to store selected genre
 
   const handleGenreSelect = (genre) => {
-    setSelectedGenre(genre ? genre.toString() : ''); // Ensure genre is a string
-  };
+    setSelectedGenre(genre ? genre.toString() : '') // Ensure genre is a string
+  }
 
   const handleAvatarChange = (e) => {
     const file = e.target.files?.[0]
@@ -85,17 +95,15 @@ const ShopEditProfile = () => {
       formData.append(key, value)
     })
 
-  
     //send genre
     // if(selectedGenre !== '')
     // {
     //   formData.append('genre', selectedGenre.toString());
     // }
-    if(selectedGenre)
-    {
-      formData.append('genre', selectedGenre);
+    if (selectedGenre) {
+      formData.append('genre', selectedGenre)
     }
-    console.log("SelectGenre",selectedGenre)
+    console.log('SelectGenre', selectedGenre)
     // send formData instead with userInfo too
     try {
       const response = await fetch('http://localhost:5555/profile', {
@@ -142,7 +150,7 @@ const ShopEditProfile = () => {
   }
 
   return (
-    <div className='px-5 lg:px-20'>
+    <div className='px-5 h-full min-w-full'>
       <div className='py-3 text-3xl font-semibold mb-4'>Profile</div>
       <div className='w-full lg:w-auto h-full bg-white shadow-xl p-5 lg:p-10'>
         <div className='Profiledetail'>
@@ -232,11 +240,17 @@ const ShopEditProfile = () => {
             {!isEditing ? (
               <div>
                 <p>Shop Location</p>
-                <img
-                  src={userInfo?.location}
-                  alt='location.jpg'
-                  className='w-full h-full'
-                />
+                {MAP_API && (
+                  <div className='h-[320px] w-full'>
+                    <Map
+                      defaultZoom={9}
+                      defaultCenter={{ lat: 13, lng: 100 }}
+                      disableDefaultUI
+                    >
+                      <Marker position={{ lat: 13, lng: 100 }} />
+                    </Map>
+                  </div>
+                )}
               </div>
             ) : (
               <div>
@@ -264,11 +278,15 @@ const ShopEditProfile = () => {
             )}
           </div>
           <div className='my-10'>
-              <h1>Genre</h1>
-              <DropdownForGenre options={GenreOption} placeHolder={userInfo?.genre} isEditting={isEditing} onSelectOption={handleGenreSelect}/>
-              {/* <p>Selected Genre: {selectedGenre}</p>  */}
+            <h1>Genre</h1>
+            <DropdownForGenre
+              options={GenreOption}
+              placeHolder={userInfo?.genre}
+              isEditting={isEditing}
+              onSelectOption={handleGenreSelect}
+            />
+            {/* <p>Selected Genre: {selectedGenre}</p>  */}
           </div>
-
 
           <div className='flex flex-col lg:flex-row pt-10 items-center'>
             <div className='flex-1'></div>

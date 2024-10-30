@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
-import NavbarClient from '../components/NavbarClient'
+import { useState, useRef, useEffect } from 'react'
 
 const DesignAIPage = () => {
   const [messages, setMessages] = useState([]);
@@ -43,7 +42,6 @@ const DesignAIPage = () => {
 
   return (
     <div className="min-h-screen bg-white text-red-700">
-      <NavbarClient />
       <div className="flex flex-col items-center pt-5">
         <div className="bg-white border rounded-lg shadow-md w-full max-w-lg p-5">
           <h1 className="text-2xl font-semibold mb-4 text-center">

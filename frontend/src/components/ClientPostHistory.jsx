@@ -1,171 +1,90 @@
-import React ,{useState, useEffect} from 'react'
-import PostOrderCard from './PostOrderCard';
-import { Link } from 'react-router-dom';
+import {
+  FaCheckCircle,
+  FaSpinner,
+  FaTimesCircle,
+  FaQuestionCircle,
+  FaListAlt,
+  FaRegPaperPlane,
+} from 'react-icons/fa'
+
+import { useState, useEffect } from 'react'
+import PostOrderCard from './PostOrderCard'
+import { Link } from 'react-router-dom'
+import Tabs from '@/shared/components/Tabs'
 
 const ClientPostHistory = () => {
-
-  const [activeTab, setActiveTab] = useState("All");
+  const [activeTab, setActiveTab] = useState('All')
   const [orders, setOrders] = useState([
     {
       id: 1, // Add an ID for easier identification
-      client_name: "Teeruth",
-      order_picture: "https://th.bing.com/th/id/OIP.VgTfsglMSIRrHk1ZlW1LbwHaIc?w=570&h=650&rs=1&pid=ImgDetMain",
-      client_profile:"https://th.bing.com/th/id/OIP.IGNf7GuQaCqz_RPq5wCkPgHaLH?rs=1&pid=ImgDetMain",
-      post_date: "15 Aug 2024",
-      due_date: "20 Aug 2024",
-      order_status: "Waiting",
-      price: "100.00 THB",
-      order_detail: "หาร้านตัดชุดสูทสำหรับงานราตรี",
+      client_name: 'Teeruth',
+      order_picture:
+        'https://th.bing.com/th/id/OIP.VgTfsglMSIRrHk1ZlW1LbwHaIc?w=570&h=650&rs=1&pid=ImgDetMain',
+      client_profile:
+        'https://th.bing.com/th/id/OIP.IGNf7GuQaCqz_RPq5wCkPgHaLH?rs=1&pid=ImgDetMain',
+      post_date: '15 Aug 2024',
+      due_date: '20 Aug 2024',
+      order_status: 'Waiting',
+      price: '100.00 THB',
+      order_detail:
+        'หาร้านตัดชุดสูทสำหรับงานราตรี "Happy Birthday to You", or simply "Happy Birthday", is a song traditionally sung to celebrate a persons birthday. According to the 1998 Guinness World Records, it is the most recognized song in the English language, followed by For Hes a Jolly Good Fellow. The songs base lyrics have been translated into at least 18 languages.[1] The melody of Happy Birthday to You comes from the song Good Morning to All,[2] which has traditionally been attributed to American sisters Patty and Mildred J. Hill in 1893,[3][4] although the claim that the sisters composed the tune is disputed.[5]',
     },
-    {
-      id: 2, // Add an ID for easier identification
-      client_name: "Teeruth",
-      order_picture: "https://cdn.shopify.com/s/files/1/0255/9282/3901/products/long-sleeves-lace-ribbon-ball-gown-wedding-dresses-382_525x700.jpg?v=1630018154",
-      client_profile:"https://th.bing.com/th/id/OIP.IGNf7GuQaCqz_RPq5wCkPgHaLH?rs=1&pid=ImgDetMain",
-      post_date: "15 Aug 2024",
-      due_date: "20 Aug 2024",
-      order_status: "Payment",
-      price: "100.00 THB",
-      order_detail: "ตามหาร้านตัดชุดแต่งงาน",
-    },
-    {
-      id: 3, // Add an ID for easier identification
-      client_name: "Teeruth",
-      order_picture: "https://cf.shopee.co.th/file/896f2256f6c75569aa9eebecfd6bac4f",
-      client_profile:"https://th.bing.com/th/id/OIP.IGNf7GuQaCqz_RPq5wCkPgHaLH?rs=1&pid=ImgDetMain",
-      post_date: "15 Aug 2024",
-      due_date: "20 Aug 2024",
-      order_status: "In Progress",
-      price: "100.00 THB",
-      order_detail: "ตามหาร้านตัดชุดราชการ",
-    },
-    {
-      id: 4, // Add an ID for easier identification
-      client_name: "Teeruth",
-      order_picture: "https://th.bing.com/th/id/OIP.mYdospDTpRkpsL7LjRLzawHaJQ?rs=1&pid=ImgDetMain",
-      client_profile:"https://th.bing.com/th/id/OIP.IGNf7GuQaCqz_RPq5wCkPgHaLH?rs=1&pid=ImgDetMain",
-      post_date: "15 Aug 2024",
-      due_date: "20 Aug 2024",
-      order_status: "Canceled",
-      price: "100.00 THB",
-      order_detail: "ตามหาร้านตัดชุดครุยสำหรับงานวันรับปริญญา",
-    },
-    {
-      id: 5, // Add an ID for easier identification
-      client_name: "Teeruth",
-      order_picture: "https://down-th.img.susercontent.com/file/th-11134207-7r992-ls2e8b3c2ldpea",
-      client_profile:"https://th.bing.com/th/id/OIP.IGNf7GuQaCqz_RPq5wCkPgHaLH?rs=1&pid=ImgDetMain",
-      post_date: "15 Aug 2024",
-      due_date: "20 Aug 2024",
-      order_status: "Sending",
-      price: "100.00 THB",
-      order_detail: "ตามหาร้านตัดเสื้อช็อป",
-    },
-    {
-      id: 6, // Add an ID for easier identification
-      client_name: "Teeruth",
-      order_picture: "https://th.bing.com/th/id/OIP.AOI6miYAmpmX7fOFcGfH6AHaHa?rs=1&pid=ImgDetMain",
-      client_profile:"https://th.bing.com/th/id/OIP.IGNf7GuQaCqz_RPq5wCkPgHaLH?rs=1&pid=ImgDetMain",
-      post_date: "15 Aug 2024",
-      due_date: "20 Aug 2024",
-      order_status: "Due Dated",
-      price: "100.00 THB",
-      order_detail: "ตามหาร้านตัดชุดสูทสำหรับออกงานทางการ",
-    },
-    {
-      id: 7, // Add an ID for easier identification
-      client_name: "Teeruth",
-      order_picture: "https://filebroker-cdn.lazada.co.th/kf/S1c5d8fabf6ff4b99839bcb934cbf2ae8X.jpg",
-      client_profile:"https://th.bing.com/th/id/OIP.IGNf7GuQaCqz_RPq5wCkPgHaLH?rs=1&pid=ImgDetMain",
-      post_date: "15 Aug 2024",
-      due_date: "20 Aug 2024",
-      order_status: "Complete",
-      price: "100.00 THB",
-      order_detail: "ตามหาร้านตัดชุดไทยประยุกต์",
-    },
-    {
-      id: 8, // Add an ID for easier identification
-      client_name: "Teeruth",
-      order_picture: "https://phahurat.com/wp-content/uploads/2020/04/spd_20160317143718_b.jpg",
-      client_profile:"https://th.bing.com/th/id/OIP.IGNf7GuQaCqz_RPq5wCkPgHaLH?rs=1&pid=ImgDetMain",
-      post_date: "15 Aug 2024",
-      due_date: "20 Aug 2024",
-      order_status: "Delivered",
-      price: "100.00 THB",
-      order_detail: "ตามหาร้านตัดชุดราชปะแตน",
-    },
-    {
-      id: 9, // Add an ID for easier identification
-      client_name: "Teeruth",
-      order_picture: "https://http2.mlstatic.com/D_Q_NP_2X_969086-MLV75894582829_042024-V.webp",
-      client_profile:"https://th.bing.com/th/id/OIP.IGNf7GuQaCqz_RPq5wCkPgHaLH?rs=1&pid=ImgDetMain",
-      post_date: "15 Aug 2024",
-      due_date: "20 Aug 2024",
-      order_status: "New Request",
-      price: "1000.00 THB",
-      order_detail: "ตามหาร้านตัดชุด Demon Slayer",
-    },
-  ]); // Array to store fetched orders
+  ]) // Array to store fetched orders
 
-  const tabs = ["All", "New Request", "In Progress", "Success", "Failed","Other"];
+  const tabs = [
+    { name: 'All', icon: <FaListAlt /> },
+    { name: 'New Request', icon: <FaRegPaperPlane /> },
+    { name: 'In Progress', icon: <FaSpinner /> },
+    { name: 'Success', icon: <FaCheckCircle /> },
+    { name: 'Failed', icon: <FaTimesCircle /> },
+    { name: 'Other', icon: <FaQuestionCircle /> },
+  ]
 
   useEffect(() => {
     async function fetchOrders() {
       try {
-        const response = await fetch('/api/user/post'); // Replace with your API endpoint
-        const data = await response.json();
-        setOrders(data);
+        const response = await fetch('/api/user/post') // Replace with your API endpoint
+        const data = await response.json()
+        setOrders(data)
       } catch (error) {
-        console.error('Failed to fetch orders:', error);
+        console.error('Failed to fetch orders:', error)
       }
     }
 
-    fetchOrders();
-  }, []);
+    fetchOrders()
+  }, [])
 
-  const filteredOrders = activeTab === 'All' ? orders : orders.filter((order) => {
-    if (activeTab === 'In Progress'){
-        return order.order_status === 'In Progress' || order.order_status === 'Sending';
-    }else if(activeTab === 'Success'){
-        return order.order_status === 'Complete' || order.order_status === 'Delivered';
-    }else if(activeTab === 'Failed'){
-        return order.order_status === 'Due Dated' || order.order_status === 'Canceled';
-    }else if(activeTab === 'New Request'){
-        return order.order_status === 'New Request' 
-    }else{
-        return order.order_status === 'Waiting' || order.order_status === 'Payment';
-    }
-    });
+  const statusConditions = {
+    All: () => true,
+    'In Progress': (status) => ['In Progress', 'Sending'].includes(status),
+    Success: (status) => ['Complete', 'Delivered'].includes(status),
+    Failed: (status) => ['Due Dated', 'Canceled'].includes(status),
+    'New Request': (status) => status === 'New Request',
+    Other: (status) => ['Waiting', 'Payment'].includes(status),
+  }
 
-  const handleTabClick = (tab) => {
-    setActiveTab(tab);
-  };
+  const filteredOrders =
+    activeTab === 'All'
+      ? orders
+      : orders.filter((order) =>
+          (statusConditions[activeTab] || statusConditions['Other'])(
+            order.order_status
+          )
+        )
 
   return (
-    <div>
-      <div className="flex border-b h-full bg-white shadow-xl rounded-lg my-5 justify-center">
-            {tabs.map((tab) => (
-                <button
-                    key={tab}
-                    className={`px-8 py-2 focus:outline-none ${
-                        activeTab === tab
-                            ? "text-black border-b-2 border-red-600"
-                            : "text-gray-600 hover:text-black"
-                    }`}
-                    onClick={() => handleTabClick(tab)}
-                >
-                    {tab}
-                </button>
-            ))}
-      </div>
-      <div className='pt-1'>
+    <div className='px-5 w-full flex flex-col items-center'>
+      <p className='pt-3 text-3xl font-semibold mb-8 self-start'>My Posts</p>
+
+      <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
+
+      <div className='w-full pt-1'>
         {filteredOrders.map((order) => (
           <Link key={order.id} to={`/post/${order.id}`}>
-            <PostOrderCard key={order.id} orderInfo={order} /> 
+            <PostOrderCard key={order.id} orderInfo={order} />
           </Link>
         ))}
       </div>
-
     </div>
   )
 }

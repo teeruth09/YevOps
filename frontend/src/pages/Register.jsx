@@ -5,16 +5,11 @@ import axios, { endpoints } from '../util/axios'
 
 import { useNavigate } from 'react-router-dom'
 
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import TextField from '../components/hook-form/rhf-textfield'
 import SelectRow from '@/components/register/SelectRow'
+import { BackButton, PrimaryButton } from '@/shared/components/CustomButton'
+
+import { useSnackbar } from 'notistack'
 
 const RegisterPage = () => {
   const navigate = useNavigate()
@@ -50,24 +45,28 @@ const RegisterPage = () => {
       month: z.string().min(1, { message: 'Month is required' }),
       year: z.string().min(1, { message: 'Year is required' }),
       role: z.string().default('client'),
-      
     })
     .refine((data) => data.password === data.confirmPassword, {
       message: 'Passwords do not match',
       path: ['confirmPassword'], // path of error
     })
-     // Create birthdate after validation of other fields
-    .refine((data) => {
-      const isValidDate = !isNaN(new Date(`${data.year}-${data.month}-${data.date}`).getTime());
-      return isValidDate;
-    }, {
-      message: 'Invalid birthdate',
-      path: ['date'], // where you want the error to show
-    })
+    // Create birthdate after validation of other fields
+    .refine(
+      (data) => {
+        const isValidDate = !isNaN(
+          new Date(`${data.year}-${data.month}-${data.date}`).getTime()
+        )
+        return isValidDate
+      },
+      {
+        message: 'Invalid birthdate',
+        path: ['date'], // where you want the error to show
+      }
+    )
     .transform((data) => ({
       ...data,
       birthdate: `${data.year}-${data.month}-${data.date}`, // Concatenate to create birthdate
-    }));
+    }))
 
   const {
     register,
@@ -78,24 +77,21 @@ const RegisterPage = () => {
     resolver: zodResolver(RegisterSchema),
   })
 
-  const onSubmit = async (data) => {
-    // console.log(`data = ${JSON.stringify(data)}`)
+  const { enqueueSnackbar } = useSnackbar()
 
+  const onSubmit = async (data) => {
     try {
       const response = await axios.post(endpoints.auth.register, data)
-      console.log(`response = ${JSON.stringify(response)}`)
       if (response.status === 201) {
-        const {token, role}  = response.data;
+        const { token, role } = response.data
         // Save the token in localStorage
-        localStorage.setItem("x-access-token", token)
-        localStorage.setItem("role",role)
-        console.log("Token saved:", token);
-        console.log("Role save",role)
+        localStorage.setItem('x-access-token', token)
+        localStorage.setItem('role', role)
       }
 
       navigate('/')
     } catch (error) {
-      console.log(`error = ${JSON.stringify(error)}`)
+      enqueueSnackbar(error, { variant: 'error' })
     }
   }
 
@@ -105,7 +101,21 @@ const RegisterPage = () => {
         className='bg-white rounded w-3/5 px-16 py-12 flex flex-col gap-4'
         onSubmit={handleSubmit(onSubmit)}
       >
-        <p className='mb-8 font-bold text-2xl text-center'>Create an Account</p>
+        <div className='w-full grid grid-cols-3 items-center mb-8'>
+          <BackButton containerStyle='items-center' />
+          <p className='font-bold text-2xl text-center justify-self-center whitespace-nowrap'>
+            Create an Account
+          </p>
+        </div>
+
+        <div className='w-full flex items-center gap-2'>
+          <TextField
+            placeholder='Username'
+            name='username'
+            register={register}
+            error={errors.username}
+          />
+        </div>
 
         <div className='w-full flex gap-2'>
           <div className='w-1/2 flex flex-col gap-2'>
@@ -192,41 +202,7 @@ const RegisterPage = () => {
           )}
         </div>
 
-        <div className='w-full flex items-center gap-2'>
-          <p className='w-1/3'>Create As :</p>
-
-          <Select
-            defaultValue='client'
-            onValueChange={(role) => setValue('role', role)}
-          >
-            <SelectTrigger className='w-full'>
-              <SelectValue placeholder='User' />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value='client'>User</SelectItem>
-                {/* <SelectItem value='shop'>Online Shop</SelectItem> */}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className='w-full flex items-center gap-2'>
-          <p className='w-1/3'>Name :</p>
-          <TextField
-            placeholder='Username'
-            name='username'
-            register={register}
-            error={errors.username}
-          />
-        </div>
-
-        <button
-          type='submit'
-          className='mt-4 bg-red-500 py-4 rounded-lg font-bold'
-        >
-          REGISTER
-        </button>
+        <PrimaryButton type='submit'>Register</PrimaryButton>
       </form>
     </div>
   )

@@ -1,13 +1,4 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
-import NavbarClient from "../components/NavbarClient";
-import NavbarShop from "../components/NavbarShop";
-import NavbarAdmin from "../components/NavbarAdmin";
-import Filterbar from "@/components/FilterBar";
-import Shopcard from "@/components/ShopCard";
-import myImage from "../../public/website_picture.png"; // Assuming your component is in src/components
-import { jwtDecode } from "jwt-decode";
-import PostCard from "@/components/PostCard";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import PostCard2 from "@/components/PostCard2";
 
@@ -370,42 +361,8 @@ const PostPage = () => {
     fetchOrders();
   }, []);
 
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  let token = localStorage.getItem("x-access-token");
-  console.log("token", token);
-  let role = localStorage.getItem("role");
-  console.log("role", role);
-
-  useEffect(() => {
-    if (token) {
-      const decoded = jwtDecode(token);
-      const currentTime = Date.now() / 1000;
-
-      if (decoded.exp < currentTime) {
-        setIsAuthenticated(false);
-      } else {
-        setIsAuthenticated(true);
-      }
-    } else {
-      setIsAuthenticated(false);
-    }
-  }, [token]);
-
-  let NavbarComponent;
-  if (isAuthenticated) {
-    if (role === "client") {
-      NavbarComponent = NavbarClient;
-    } else if (role === "shop") {
-      NavbarComponent = NavbarShop;
-    }
-  } else {
-    NavbarComponent = Navbar;
-  }
-
   return (
     <div>
-      {/* Navbar */}
-      <NavbarComponent />
       <Link to="/create-post">
         <div className=" fixed right-8 bottom-8 shadow-lg w-20 h-20 bg-red-500 text-white text-[36px] rounded-full flex items-center justify-center text-center">
           +

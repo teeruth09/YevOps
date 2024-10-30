@@ -1,50 +1,43 @@
-import NavbarShop from "@/components/NavbarShop";
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import OrderInformation from "@/components/OrderInformation";
-import ShopViewOrderInformation from "@/components/ShopViewOrderInformation";
+import { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+import ShopViewOrderInformation from '@/components/ShopViewOrderInformation'
 
 const ShopViewClientOrderPage = () => {
-  const location = useLocation(); // Hook to get the location object
+  const location = useLocation() // Hook to get the location object
 
-  const {orderId} = location.state || {};
+  const { orderId } = location.state || {}
 
-  console.log("OrderId in ShopViewClientOrderPage",orderId)
-
-  if (!orderId) {
-    console.error('Order ID is undefined');
-    return <div>Error: Order ID is missing.</div>;
-  }
+  console.log('OrderId in ShopViewClientOrderPage', orderId)
 
   const [order, setOrder] = useState({
-    status: "New Request",
-    name: "Basic",
-    price: "3000",
+    status: 'New Request',
+    name: 'Basic',
+    price: '3000',
     detail:
-      "The basic pack, low detail cosplay and i write this to test if the message is like 400 charecters long will it able to fit in",
-    deadline: "14",
-
-  });
+      'The basic pack, low detail cosplay and i write this to test if the message is like 400 charecters long will it able to fit in',
+    deadline: '14',
+  })
 
   const [shop, setShop] = useState({
-    name: "Nai_mam dotshop",
-    img: "https://th.bing.com/th/id/OIP.6Vkv1Oyc641507Z8PhZrRgHaHX?w=900&h=895&rs=1&pid=ImgDetMain",
-    shopName: "Nai_mama dotshop",
-    imageProfile: "https://th.bing.com/th/id/OIP.6Vkv1Oyc641507Z8PhZrRgHaHX?w=900&h=895&rs=1&pid=ImgDetMain",
-    confirmDeadline: "17 Sep 2024",
+    name: 'Nai_mam dotshop',
+    img: 'https://th.bing.com/th/id/OIP.6Vkv1Oyc641507Z8PhZrRgHaHX?w=900&h=895&rs=1&pid=ImgDetMain',
+    shopName: 'Nai_mama dotshop',
+    imageProfile:
+      'https://th.bing.com/th/id/OIP.6Vkv1Oyc641507Z8PhZrRgHaHX?w=900&h=895&rs=1&pid=ImgDetMain',
+    confirmDeadline: '17 Sep 2024',
     confirmPrice: 200,
-  });
+  })
 
   const [client, setClient] = useState({
-    fullname: "นายสมศักดิ์ รัตนเกียรติภูมิชัยกุล",
-    phone: "08x-123-4567",
-    address: "123/342 ศรีนครินทร์ 43 ประเวศ ประเวศ กรุงเทพ 10250",
-    size: "ขนาดตัวของ สมชาย",
-    imageProfile: "",
-  });
+    fullname: 'นายสมศักดิ์ รัตนเกียรติภูมิชัยกุล',
+    phone: '08x-123-4567',
+    address: '123/342 ศรีนครินทร์ 43 ประเวศ ประเวศ กรุงเทพ 10250',
+    size: 'ขนาดตัวของ สมชาย',
+    imageProfile: '',
+  })
 
   const [userRequest, setUserRequest] = useState({
-    clothType: "",
+    clothType: '',
     budgetStart: '',
     budgetStop: '',
     deadline: '',
@@ -52,42 +45,44 @@ const ShopViewClientOrderPage = () => {
   })
 
   const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const options = { day: "numeric", month: "short", year: "numeric" };
-    return date.toLocaleDateString("en-GB", options);
-  };
+    const date = new Date(dateString)
+    const options = { day: 'numeric', month: 'short', year: 'numeric' }
+    return date.toLocaleDateString('en-GB', options)
+  }
 
-  useEffect(() =>{
-    const fetchOrderDetail = async () =>{
+  useEffect(() => {
+    const fetchOrderDetail = async () => {
       if (!orderId) {
-        console.error("Order ID is undefined.");
-        return;
+        console.error('Order ID is undefined.')
+        return
       }
-      try{
-        const response = await fetch(`http://localhost:5555/order/orderdetail/${orderId}`,{
-          method: "GET",
-        });
-        const data = await response.json();
+      try {
+        const response = await fetch(
+          `http://localhost:5555/order/orderdetail/${orderId}`,
+          {
+            method: 'GET',
+          }
+        )
+        const data = await response.json()
         // console.log("Get orderDetail",data)
         setClient({
-          fullname: data.clientId.firstname+' '+data.clientId.lastname,
+          fullname: data.clientId.firstname + ' ' + data.clientId.lastname,
           phone: data.clientId.phone,
           address: data.clientId.address,
           size: data.clientSize,
           imageProfile: data.clientId.imageProfile,
-        });
+        })
         setShop({
           shopName: data.shopId.shopName,
           shopDescription: data.shopId.shopDescription,
           imageProfile: data.shopId.imageProfile,
           confirmDeadline: formatDate(data.deadline),
           confirmPrice: data.userRequestDescription.budgetStart,
-
         })
         setOrder({
           status: data.status,
           name: data.orderType,
-          price: data.price
+          price: data.price,
         })
         setUserRequest({
           clothType: data.userRequestDescription.clothType,
@@ -97,31 +92,34 @@ const ShopViewClientOrderPage = () => {
           referenceImage: data.userRequestDescription.referenceImage,
         })
 
-        if (response.ok){
-          console.log("Order Id Detail:",data);
+        if (response.ok) {
+          console.log('Order Id Detail:', data)
           // setShopDetail(data)
-        }else{
-          console.log("Fail to fetch shop",data)
+        } else {
+          console.log('Fail to fetch shop', data)
         }
-      }catch(error){
-        console.error("Error fetch shop info:", error); 
+      } catch (error) {
+        console.error('Error fetch shop info:', error)
       }
     }
-    fetchOrderDetail();
-  }, [orderId]);//Add orderId as a dependency
-
+    fetchOrderDetail()
+  }, [orderId]) //Add orderId as a dependency
 
   const handleOrderChage = (e) => {
     setOrder({
       ...order,
       [e.target.name]: e.target.value,
-    });
-  };
+    })
+  }
+
+  if (!orderId) {
+    console.error('Order ID is undefined')
+    return <div>Error: Order ID is missing.</div>
+  }
 
   return (
     <div>
-      <NavbarShop />
-      <div className="flex pl-5 pt-5"></div>
+      <div className='flex pl-5 pt-5'></div>
       <ShopViewOrderInformation
         shop={shop}
         client={client}
@@ -131,7 +129,7 @@ const ShopViewClientOrderPage = () => {
         orderId={orderId}
       />
     </div>
-  );
-};
+  )
+}
 
-export default ShopViewClientOrderPage;
+export default ShopViewClientOrderPage
