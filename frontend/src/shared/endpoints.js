@@ -11,4 +11,8 @@ export const endpoints = {
   client: {
     search: (searchTerm) => `${BASE}/search?keyword=${searchTerm}`,
   },
+  shops: {
+    shopdata: `${BASE}/shop/shopdata`,
+    id: (shopId) => `${BASE}/shop/shopdata/${shopId}`,
+  },
 }
