@@ -32,7 +32,7 @@ const shopSchema = new mongoose.Schema({
     firstname: {type: String},
     lastname: {type: String},
     imageProfile: {type: String, default: 'https://th.bing.com/th/id/OIP.6Vkv1Oyc641507Z8PhZrRgHaHX?w=900&h=895&rs=1&pid=ImgDetMain'},
-    genre: [{type: String}],
+    genre: {type: String},
 });
 
 module.exports = mongoose.model('Shop', shopSchema);
