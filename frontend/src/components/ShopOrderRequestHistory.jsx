@@ -88,7 +88,7 @@ const ShopOrderRequestHistory = () => {
         )
 
   return (
-    <div className='px-5 lg:px-20 w-full flex flex-col justify-center'>
+    <div className='px-5 w-full flex flex-col justify-center'>
       <p className='pt-3 text-3xl font-semibold mb-8'>Order History</p>
 
       <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />

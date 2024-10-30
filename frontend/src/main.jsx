@@ -7,6 +7,7 @@ import App from './App.jsx'
 import './index.css'
 import MapProvider from './components/google-maps/map-provider.jsx'
 import { SnackbarProvider } from 'notistack'
+import SidebarProvider from './shared/contexts/SidebarProvider.jsx'
 
 const queryClient = new QueryClient()
 
@@ -15,9 +16,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <MapProvider>
       <SnackbarProvider maxSnack={3} autoHideDuration={3000}>
         <QueryClientProvider client={queryClient}>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
+          <SidebarProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </SidebarProvider>
         </QueryClientProvider>
       </SnackbarProvider>
     </MapProvider>

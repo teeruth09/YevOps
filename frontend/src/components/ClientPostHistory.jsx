@@ -26,7 +26,8 @@ const ClientPostHistory = () => {
       due_date: '20 Aug 2024',
       order_status: 'Waiting',
       price: '100.00 THB',
-      order_detail: 'หาร้านตัดชุดสูทสำหรับงานราตรี "Happy Birthday to You", or simply "Happy Birthday", is a song traditionally sung to celebrate a persons birthday. According to the 1998 Guinness World Records, it is the most recognized song in the English language, followed by For Hes a Jolly Good Fellow. The songs base lyrics have been translated into at least 18 languages.[1] The melody of Happy Birthday to You comes from the song Good Morning to All,[2] which has traditionally been attributed to American sisters Patty and Mildred J. Hill in 1893,[3][4] although the claim that the sisters composed the tune is disputed.[5]',
+      order_detail:
+        'หาร้านตัดชุดสูทสำหรับงานราตรี "Happy Birthday to You", or simply "Happy Birthday", is a song traditionally sung to celebrate a persons birthday. According to the 1998 Guinness World Records, it is the most recognized song in the English language, followed by For Hes a Jolly Good Fellow. The songs base lyrics have been translated into at least 18 languages.[1] The melody of Happy Birthday to You comes from the song Good Morning to All,[2] which has traditionally been attributed to American sisters Patty and Mildred J. Hill in 1893,[3][4] although the claim that the sisters composed the tune is disputed.[5]',
     },
   ]) // Array to store fetched orders
 
@@ -72,7 +73,7 @@ const ClientPostHistory = () => {
         )
 
   return (
-    <div className='px-5 lg:px-20 w-full flex flex-col items-center'>
+    <div className='px-5 w-full flex flex-col items-center'>
       <p className='pt-3 text-3xl font-semibold mb-8 self-start'>My Posts</p>
 
       <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />

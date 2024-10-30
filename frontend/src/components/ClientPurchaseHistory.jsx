@@ -84,7 +84,7 @@ const ClientPurchaseHistory = () => {
         )
 
   return (
-    <div className='px-5 lg:px-20 w-full flex flex-col items-center'>
+    <div className='px-5 w-full flex flex-col items-center'>
       <p className='pt-3 text-3xl font-semibold mb-8 self-start'>
         Purchase History
       </p>

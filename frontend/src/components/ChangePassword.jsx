@@ -2,7 +2,7 @@ import ChangePasswordInput from './ChangePasswordInput'
 
 const ChangePassword = () => {
   return (
-    <div className='px-5 lg:px-20 w-full'>
+    <div className='px-5 w-full'>
       <p className='pt-3 text-3xl font-semibold mb-8'>Change Password</p>
       <div className='pt-5'>
         <ChangePasswordInput placeholder='Old Password' name='old password' />

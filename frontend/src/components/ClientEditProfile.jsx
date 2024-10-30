@@ -180,9 +180,9 @@ const ClientEditProfile = () => {
   }
 
   return (
-    <div className='max-w-full w-full px-5 lg:px-20'>
+    <div className='max-w-full w-full px-5'>
       <div className='py-3 text-3xl font-semibold mb-4'>Profile</div>
-      
+
       <div className='w-full h-full max-w-full bg-white shadow-xl p-5 lg:p-10'>
         <div className='Profiledetail'>
           <div className='flex flex-col lg:flex-row'>

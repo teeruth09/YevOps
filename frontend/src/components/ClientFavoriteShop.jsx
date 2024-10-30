@@ -94,10 +94,8 @@ const FavoriteShop = ({
 
 const ClientFavoriteShop = () => {
   return (
-    <div className='px-5 lg:px-20 w-full'>
-      <div className='py-3 text-3xl font-semibold mb-8'>
-        My Favorite Shop
-      </div>
+    <div className='px-5 w-full'>
+      <div className='py-3 text-3xl font-semibold mb-8'>My Favorite Shop</div>
       <div className='grid grid-cols-3 gap-4'>
         <FavoriteShop
           previewImage='https://i.imgur.com/SjjJVdY.png'

@@ -1,12 +1,15 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { FaUserCircle } from 'react-icons/fa'
 import UserNavbarDropdown from './UserNavbarDropdown'
 import { fetchUserData, handleSearch } from './services/navbar.service'
 import { jwtDecode } from 'jwt-decode'
 import { clientLinks, guestLinks, shopLinks } from './links.constant'
+import { SidebarContext } from '../contexts/SidebarProvider'
+import { HamburgerMenuIcon } from '@radix-ui/react-icons'
 
 const Navbar = () => {
+  const { sidebar: drawer } = useContext(SidebarContext)
   const navigate = useNavigate()
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
@@ -27,7 +30,7 @@ const Navbar = () => {
     }
     fetchUserData(onSuccess)
     // userInfo in [] = infinite loop
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -53,6 +56,11 @@ const Navbar = () => {
     <nav className='bg-red-800 fixed w-full top-0 z-50'>
       <div className='mx-1 w-full px-2 sm:px-6 lg:px-8 '>
         <div className='relative flex h-16 items-center justify-between'>
+          <HamburgerMenuIcon
+            className='text-white w-8 h-8 mr-4 sm:hidden cursor-pointer flex-shrink-0'
+            onClick={drawer.toggle}
+          />
+
           {/* Logo */}
           <div
             className='font-medium text-2xl text-white cursor-pointer'
@@ -64,7 +72,7 @@ const Navbar = () => {
           {role === 'client' && <SearchInput />}
 
           <div className='flex flex-1 items-center sm:items-stretch sm:justify-start ml-4'>
-            <div className='hidden sm:ml-6 sm:block'>
+            <div className='sm:ml-6 sm:block'>
               <div className=' space-x-4'>
                 <NavLinkList isAuthenticated={isAuthenticated} role={role} />
               </div>
@@ -94,8 +102,11 @@ const Navbar = () => {
               onClick={toggleDropdown}
             >
               <div className='flex items-center space-x-7'>
-                <div className='font-medium  text-white'>
+                <div className='font-medium  text-white hidden md:block'>
                   {userInfo.username}
+                </div>
+                <div className='font-medium  text-white md:hidden'>
+                  {userInfo.username && userInfo.username[0]}
                 </div>
                 <FaUserCircle size={50} />
 
@@ -120,7 +131,12 @@ const NavLinkList = ({ isAuthenticated, role }) => {
       return (
         <>
           {clientLinks.map((link) => (
-            <CustomNavLink key={link.link} to={link.link} title={link.name} />
+            <CustomNavLink
+              key={link.link}
+              to={link.link}
+              title={link.name}
+              icon={link.icon}
+            />
           ))}
         </>
       )
@@ -128,7 +144,12 @@ const NavLinkList = ({ isAuthenticated, role }) => {
       return (
         <>
           {shopLinks.map((link) => (
-            <CustomNavLink key={link.link} to={link.link} title={link.name} />
+            <CustomNavLink
+              key={link.link}
+              to={link.link}
+              title={link.name}
+              icon={link.icon}
+            />
           ))}
         </>
       )
@@ -138,14 +159,19 @@ const NavLinkList = ({ isAuthenticated, role }) => {
   return (
     <>
       {guestLinks.map((link) => (
-        <CustomNavLink key={link.link} to={link.link} title={link.name} />
+        <CustomNavLink
+          key={link.link}
+          to={link.link}
+          title={link.name}
+          icon={link.icon}
+        />
       ))}
     </>
   )
 }
 
 // eslint-disable-next-line react/prop-types
-const CustomNavLink = ({ to, title }) => {
+const CustomNavLink = ({ to, title, icon }) => {
   return (
     <NavLink
       exact
@@ -156,7 +182,8 @@ const CustomNavLink = ({ to, title }) => {
           : 'rounded-md px-5 py-2 text-sm font-medium text-white hover:font-bold'
       }
     >
-      {title}
+      <div className='hidden md:block'>{title}</div>
+      <div className='flex-shrink-0 md:hidden'>{icon}</div>
     </NavLink>
   )
 }

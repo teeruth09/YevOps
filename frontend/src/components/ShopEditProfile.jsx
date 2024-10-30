@@ -124,7 +124,7 @@ const ShopEditProfile = () => {
   }
 
   return (
-    <div className='px-5 lg:px-20 h-full min-w-full'>
+    <div className='px-5 h-full min-w-full'>
       <div className='py-3 text-3xl font-semibold mb-4'>Profile</div>
       <div className='w-full lg:w-auto h-full bg-white shadow-xl p-5 lg:p-10'>
         <div className='Profiledetail'>

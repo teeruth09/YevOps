@@ -31,7 +31,7 @@ const PostOrderCard = ({ orderInfo }) => {
   return (
     <div className='max-w-full w-full bg-white shadow-xl rounded-lg my-5 overflow-hidden'>
       <div className='flex flex-col md:flex-row md:min-w-[160px]'>
-        <div className='flex bg-gray-100'>
+        <div className='flex bg-gray-100 px-4'>
           <div className='relative w-1/2 mt-auto mb-auto md:w-36 md:h-36 aspect-[4/3]'>
             <img
               src={orderInfo.order_picture}
