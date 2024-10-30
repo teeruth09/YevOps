@@ -86,6 +86,7 @@ const OrderInformation = (props) => {
               onRequestChange={handleUserRequestChange}
             />
           </div>
+          
           <div>
             <OrderInfoSideBar
               shop={shop}

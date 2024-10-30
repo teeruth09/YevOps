@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { PrimaryButton, SecondaryButton } from '@/shared/components/CustomButton'
 import { FaClock } from 'react-icons/fa'
 
 const OrderInfoSideBar = ({ shop, order, onSendRequest, userRequest }) => {
@@ -34,18 +35,11 @@ const OrderInfoSideBar = ({ shop, order, onSendRequest, userRequest }) => {
           {order.detail}
         </p>
       </div>
-      <div className='mb-3'>
-        <button
-          className={
-            'w-full bg-red-700 hover:bg-red-500 hover:text-white text-white border py-2 px-4 rounded mt-3 lg:mt-5'
-          }
-          onClick={onSendRequest} // Trigger the parent’s handleSubmit
-        >
-          Send request
-        </button>
-        <button className='w-full bg-white hover:bg-red-500 hover:text-white text-red-500 border py-2 px-4 rounded mt-3'>
-          Cancel
-        </button>
+      <div className='flex flex-col gap-3 my-6'>
+        <PrimaryButton onClick={onSendRequest}>Send request</PrimaryButton>
+        <SecondaryButton>
+            Cancel
+        </SecondaryButton>
       </div>
     </div>
   )

@@ -1,4 +1,7 @@
+import { cn } from '@/lib/utils'
+import { PrimaryButton } from '@/shared/components/CustomButton'
 import { useState } from 'react'
+import { FaAngleLeft } from 'react-icons/fa6'
 
 const ClientBankProfile = () => {
   const [selectedBank, setSelectedBank] = useState('VISA Kasikornbank')
@@ -10,7 +13,13 @@ const ClientBankProfile = () => {
 
   return (
     <div className='px-5 w-full flex flex-col'>
-      <h1 className='pt-3 text-3xl font-semibold mb-8'>Bank</h1>
+      <div className='flex gap-4 items-center pt-3 mb-8'>
+        <FaAngleLeft
+          className={cn(!isAddingNewBank ? 'hidden' : 'text-gray-600 h-6 w-6')}
+          onClick={() => setIsAddingNewBank(false)}
+        />
+        <h1 className='text-3xl font-semibold'>Bank</h1>
+      </div>
 
       {!isAddingNewBank ? (
         <div className='flex items-center space-x-4'>
@@ -27,12 +36,16 @@ const ClientBankProfile = () => {
           </select>
 
           {/* Add New Bank Button */}
-          <button
+          {/* <button
             onClick={handleAddNewBank}
             className='bg-red-600 text-white px-10 py-2 rounded hover:bg-red-700'
           >
             Add
-          </button>
+          </button> */}
+
+          <PrimaryButton onClick={handleAddNewBank} className='w-fit px-6'>
+            Add
+          </PrimaryButton>
         </div>
       ) : (
         <form className='bg-white p-4 rounded-lg shadow-md space-y-4 mt-6'>
@@ -185,13 +198,8 @@ const ClientBankProfile = () => {
           </div>
 
           {/* Submit Button */}
-          <div className='flex justify-center mt-4'>
-            <button
-              type='submit'
-              className='bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700'
-            >
-              SEND
-            </button>
+          <div className='flex justify-center my-16'>
+            <PrimaryButton className='w-full'>Send</PrimaryButton>
           </div>
         </form>
       )}
