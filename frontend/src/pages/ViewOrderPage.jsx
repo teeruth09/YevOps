@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom' // Import useLocation
-import NavbarClient from '@/components/NavbarClient'
 import ViewOrder from '@/components/ViewOrder'
 import { useParams } from 'react-router-dom'
 const ViewOrderPage = () => {

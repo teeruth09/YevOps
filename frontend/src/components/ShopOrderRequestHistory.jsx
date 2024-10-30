@@ -88,21 +88,21 @@ const ShopOrderRequestHistory = () => {
         )
 
   return (
-    <div className='px-5 w-full flex flex-col justify-center'>
+    <div className='flex flex-col w-full px-5'>
       <p className='pt-3 text-3xl font-semibold mb-8'>Order History</p>
-
       <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
-
-      <div className='w-full pt-1'>
-        {filteredOrders.map((order) => (
-          <Link
-            key={order.id}
-            to={`/shop/viewrequest/${order._id}`}
-            state={{ orderId: order._id }}
-          >
-            <RequestOrderCard key={order.id} orderInfo={order} />
-          </Link>
-        ))}
+      <div className='w-fit px-12 ml-auto mr-auto flex flex-col justify-center'>
+        <div className='w-full pt-1'>
+          {filteredOrders.map((order) => (
+            <Link
+              key={order.id}
+              to={`/shop/viewrequest/${order._id}`}
+              state={{ orderId: order._id }}
+            >
+              <RequestOrderCard key={order.id} orderInfo={order} />
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   )

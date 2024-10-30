@@ -4,6 +4,8 @@ import Shopcard from '../components/ShopCard'
 import { useLocation } from 'react-router-dom'
 import { handleSearch } from '@/shared/navbar/services/navbar.service'
 import { Link } from 'react-router-dom'
+import { useBoolean } from 'usehooks-ts'
+import { LoadingSpinner } from '@/shared/components/Spinner'
 
 const Aftersearch = () => {
   const location = useLocation()
@@ -19,6 +21,9 @@ const Aftersearch = () => {
   const [searchBudget, setSearchBudget] = useState('')
   const [searchVerify, setSearchVerify] = useState('')
   const [budget, setBudget] = useState('')
+  const isLoading = useBoolean(true)
+  // Hey ChatGPT Make a loading before the loading is finished
+  // use <LoadingSpinner /> for loading
 
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search)
@@ -45,6 +50,7 @@ const Aftersearch = () => {
     const onFound = (result) => {
       // Handle what happens when results are found
       setSearchResults(result)
+      isLoading.setFalse()
     }
 
     const onNotFound = () => {
@@ -68,7 +74,7 @@ const Aftersearch = () => {
     const queryParams = new URLSearchParams(location.search)
     const term = queryParams.get('keyword')
     setSearchTerm(term || '')
-  })
+  }, [location.search])
 
   const VerifiedOption = ['Yes', 'No']
   const GenreOption = [
@@ -88,8 +94,9 @@ const Aftersearch = () => {
     <div className='relative'>
       {/* Display search query */}
       <p className='text-4xl font-bold pl-10 pt-8 pb-8'>
-        Result for "{searchTerm}" and {searchBudget} Baht and {searchGenre}{' '}
-        Genre
+        Result for &quot;{searchTerm}&quot;
+        {searchBudget && 'within the budget of ' + searchBudget + ' Baht'}
+        {searchGenre && 'and is in ' + searchGenre + ' Genre'}
       </p>
 
       {/* The filter bar */}
@@ -155,8 +162,10 @@ const Aftersearch = () => {
         stopBudget="999999"/>
       </div> */}
 
-      <div style={centerdiv} className='justify-center w-[90vw] m-auto z-1'>
-        {searchResults.length > 0 ? (
+      <div style={centerdiv} className='flex justify-center w-full px-10 m-auto z-1'>
+        {isLoading.value ? (
+          <LoadingSpinner className='w-48 h-48 ml-auto mr-auto mt-24' />
+        ) : searchResults.length > 0 ? (
           searchResults.map((result, index) => (
             <div key={index}>
               <Link
@@ -165,12 +174,12 @@ const Aftersearch = () => {
               >
                 <Shopcard
                   previewImage={result.previewImage}
-                  shopProfile={result.shopProfile}
+                  shopProfile={result.imageProfile}
                   shopName={result.shopName}
                   shopRating={result.shopRating}
                   reviewCount={result.reviewCount}
                   shopDescription={result.shopDescription}
-                  startBudget={result.startBudget}
+                  startBudget={result.orderTypeIds[0]}
                   stopBudget={result.stopBudget}
                   genre={result.genre}
                 />
@@ -186,7 +195,7 @@ const Aftersearch = () => {
               <img
                 src='https://smartlandapartments.com/media/articles/CLE-3-Blog-8.jpg'
                 alt=''
-                className='w-full h-[300px]  '
+                className='w-full h-[300px]'
               />
             </div>
           </div>

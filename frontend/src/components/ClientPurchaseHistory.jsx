@@ -10,6 +10,7 @@ import { useState, useEffect } from 'react'
 import OrderCard from './OrderCard'
 import { Link } from 'react-router-dom'
 import Tabs from '@/shared/components/Tabs'
+import PostOrderCard from './PostOrderCard'
 
 const ClientPurchaseHistory = () => {
   const [activeTab, setActiveTab] = useState('All')
@@ -99,6 +100,7 @@ const ClientPurchaseHistory = () => {
             state={{ orderId: order._id }}
           >
             <OrderCard key={order.id} orderInfo={order} />
+            {/* <PostOrderCard key={order.id} orderInfo={order} /> */}
           </Link>
         ))}
       </div>

@@ -79,6 +79,7 @@ const fetchProfile = async (req) => {
         location: user.location,
         phone: user.phone,
         imageProfile: user.imageProfile,
+        genre: user.genre,
       })
     }
     return profile
@@ -109,12 +110,16 @@ const updateProfile = async (req) => {
     }
 
     const file = req.file
-
-    const uploadResult = await uploadFile(file)
-    await unlinkFile(file.path)
-    console.log(uploadResult)
-    console.log(uploadResult.Key)
-
+    let uploadResult = ''
+    if(file){
+      console.log("siajigjai",file)
+      uploadResult = await uploadFile(file)
+      await unlinkFile(file.path)
+      console.log(uploadResult)
+      console.log(uploadResult.Key)
+    }
+    // const imageLink = `blob:http://localhost:5173/${uploadResult.Key}`
+    let imageLink = `http://localhost:5555/images/${uploadResult.Key}`
     const updatedFields = {
       address: req.body.address,
     }
@@ -126,7 +131,7 @@ const updateProfile = async (req) => {
         phone: req.body.phone,
         gender: req.body.gender,
         birthdate: req.body.birthdate,
-        imageProfile: uploadResult.Key,
+        ...(file ?{imageProfile: imageLink} : {}),
       })
       // Update client size details
       const clientSizeId = user.clientSize?._id // Use the clientSize ID from the user's profile
@@ -156,17 +161,21 @@ const updateProfile = async (req) => {
         }
       }
     } else if (user.role === 'shop') {
+
+
+
       await user.updateOne({
         shopName: req.body.shopName,
         shopDescription: req.body.shopDescription,
         location: req.body.location,
         phone: req.body.phone,
-        imageProfile: uploadResult.Key,
+        genre: req.body.genre[1],
+        ...(file ?{imageProfile: imageLink} : {}),
       })
     }
 
     await user.updateOne(updatedFields)
-    // console.log(user)
+    // console.log(userw)
 
     return await fetchProfile(req)
   } catch (err) {

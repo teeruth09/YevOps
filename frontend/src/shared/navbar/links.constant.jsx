@@ -22,8 +22,8 @@ export const clientLinks = [
     icon: <FaClipboardCheck size={20} />, // Icon for creating or checking posts
   },
   {
-    link: '/aboutus',
-    name: 'About us',
+    link: '/design',
+    name: 'Design by AI',
     icon: <FaInfoCircle size={20} />, // Icon representing information
   },
   {

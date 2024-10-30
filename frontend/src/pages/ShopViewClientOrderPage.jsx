@@ -1,7 +1,5 @@
-import NavbarShop from '@/components/NavbarShop'
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import OrderInformation from '@/components/OrderInformation'
 import ShopViewOrderInformation from '@/components/ShopViewOrderInformation'
 
 const ShopViewClientOrderPage = () => {
@@ -10,11 +8,6 @@ const ShopViewClientOrderPage = () => {
   const { orderId } = location.state || {}
 
   console.log('OrderId in ShopViewClientOrderPage', orderId)
-
-  if (!orderId) {
-    console.error('Order ID is undefined')
-    return <div>Error: Order ID is missing.</div>
-  }
 
   const [order, setOrder] = useState({
     status: 'New Request',
@@ -117,6 +110,11 @@ const ShopViewClientOrderPage = () => {
       ...order,
       [e.target.name]: e.target.value,
     })
+  }
+
+  if (!orderId) {
+    console.error('Order ID is undefined')
+    return <div>Error: Order ID is missing.</div>
   }
 
   return (

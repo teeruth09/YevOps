@@ -1,5 +1,8 @@
 /* eslint-disable react/prop-types */
-import { PrimaryButton, SecondaryButton } from '@/shared/components/CustomButton'
+import {
+  PrimaryButton,
+  SecondaryButton,
+} from '@/shared/components/CustomButton'
 import { FaClock } from 'react-icons/fa'
 
 const OrderInfoSideBar = ({ shop, order, onSendRequest, userRequest }) => {
@@ -37,9 +40,7 @@ const OrderInfoSideBar = ({ shop, order, onSendRequest, userRequest }) => {
       </div>
       <div className='flex flex-col gap-3 my-6'>
         <PrimaryButton onClick={onSendRequest}>Send request</PrimaryButton>
-        <SecondaryButton>
-            Cancel
-        </SecondaryButton>
+        <SecondaryButton>Cancel</SecondaryButton>
       </div>
     </div>
   )

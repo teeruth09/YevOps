@@ -44,10 +44,10 @@ const OrderCard = ({ orderInfo }) => {
   const deadline = formatDate(orderInfo.deadline)
 
   return (
-    <div className='w-full h-auto bg-white shadow-xl px-3 rounded-lg my-5'>
+    <div className='w-fit ml-auto mr-auto px-12 h-auto bg-white shadow-xl px-3 rounded-lg my-5'>
       <div className='flex'>
         <img
-          src={orderInfo.order_picture}
+          src={orderInfo.userRequestDescription.referenceImage[0]}
           alt='ชุดสูท'
           className='w-52 h-52 mr-3'
         />

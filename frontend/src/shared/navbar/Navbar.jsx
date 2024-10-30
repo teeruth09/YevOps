@@ -234,7 +234,7 @@ const SearchInput = () => {
         />
         <button
           type='submit'
-          className='flex items-center whitespace-nowrap  py-[0.25rem] text-surface dark:border-neutral-400 dark:text-white [&>svg]:h-5 [&>svg]:w-5'
+          className='flex items-center whitespace-nowrap  py-[0.25rem] text-surface [&>svg]:h-5 [&>svg]:w-5'
         >
           <FaMagnifyingGlass />
         </button>

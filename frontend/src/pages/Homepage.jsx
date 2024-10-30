@@ -65,6 +65,39 @@ const HomePage = () => {
 
         {/* Placing cards  */}
         <div style={centerdiv} className='justify-center w-[90vw] m-auto z-1'>
+          {/* <div style={centerdiv} className="justify-center w-[90vw] m-auto z-1">
+          <Shopcard previewImage="https://i.imgur.com/SjjJVdY.png"
+          shopProfile="https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg"
+          shopName="Hinoshii is cool"
+          shopRating="3.0"
+          reviewCount="1384"
+          shopDescription="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+          startBudget="2100"
+          stopBudget="999999"
+          genre="Wedding"/>
+
+          <Shopcard previewImage="https://i.imgur.com/SjjJVdY.png"
+          shopProfile="https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg"
+          shopName="Read this is gay"
+          shopRating="5.0"
+          reviewCount="1384"
+          shopDescription="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+          startBudget="2100"
+          stopBudget="999999"
+          genre="Cosplay"/>
+
+          <Shopcard previewImage="https://i.imgur.com/SjjJVdY.png"
+          shopProfile="https://i.pinimg.com/736x/19/ff/ee/19ffee4239d4ed94b7715d44bdb86cf6.jpg"
+          shopName="Hinoshii is cool"
+          shopRating="5.0"
+          reviewCount="1384"
+          shopDescription="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+          startBudget="2100"
+          stopBudget="999999"
+          genre="Cosplay"/>
+          
+        </div> */}
+
           {allshop.length > 0 ? (
             allshop.map((result) => {
               // Check if any of the required fields are empty
@@ -72,7 +105,8 @@ const HomePage = () => {
               if (
                 !result.shopName ||
                 !result.imageProfile ||
-                !result.shopDescription
+                !result.shopDescription ||
+                !result.orderTypeIds
               ) {
                 return null // Skip this shop if any of the fields are empty
               }
@@ -92,10 +126,11 @@ const HomePage = () => {
                     shopRating={result.shopRating}
                     reviewCount={result.reviewCount}
                     shopDescription={result.shopDescription}
-                    startBudget={result.startBudget}
+                    startBudget={result.orderTypeIds[0]}
                     stopBudget={result.stopBudget}
                     genre={result.genre}
                   />
+                  {/* <p>ShopId:{result._id}</p> */}
                 </Link>
               )
             })

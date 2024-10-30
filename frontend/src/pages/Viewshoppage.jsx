@@ -22,6 +22,7 @@ const Viewshoppage = () => {
     'login-background.png',
     'profile.png',
   ]
+
   const location = useLocation()
   const { shopId } = location.state || {}
   const [shopDetail, setShopDetail] = useState({
@@ -41,6 +42,41 @@ const Viewshoppage = () => {
     const options = { day: 'numeric', month: 'short', year: 'numeric' }
     return date.toLocaleDateString('en-GB', options)
   }
+
+  // console.log("ShopId:",shopId)
+
+  useEffect(() => {
+    const fetchShopProfile = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:5555/shop/shopdata/${shopId}`
+        )
+        const data = await response.json()
+        setShopDetail({
+          ...shopDetail,
+          location: data.location,
+          registerDate: data.registerDate,
+          isVerified: data.isVerified,
+          shopName: data.shopName,
+          imageProfile: data.imageProfile,
+          shopDescription: data.shopDescription,
+          previewImage: data.previewImage,
+          phone: data.phone,
+          address: data.address,
+          orderTypeIds: data.orderTypeIds,
+        })
+        if (response.ok) {
+          console.log('Shop Profile:', data)
+          setShopDetail(data)
+        } else {
+          console.log('Fail to fetch shop', data)
+        }
+      } catch (error) {
+        console.error('Error fetch shop info:', error)
+      }
+    }
+    fetchShopProfile()
+  }, [])
 
   useEffect(() => {
     const fetchShopProfile = async () => {
@@ -98,7 +134,7 @@ const Viewshoppage = () => {
             <p className='text-sm'>5.0 (37)</p>
           </div>
 
-          <ShopCarousel imageUrls={mockImages} />
+          <ShopCarousel imageUrls={shopDetail.previewImage} />
 
           <MainDetailCard
             address={shopDetail.address}
@@ -121,6 +157,7 @@ const Viewshoppage = () => {
 
         <OrderType shopId={shopId} orderTypeIds={shopDetail.orderTypeIds} />
       </div>
+      {/* <img src={`http://localhost:5555/images/8ce421e182c9e39b152d2d054e888f74`} alt="" /> */}
     </div>
   )
 }

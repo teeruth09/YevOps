@@ -37,6 +37,7 @@ import ClientEditProfile from './components/ClientEditProfile'
 import ClientFavoriteShop from './components/ClientFavoriteShop'
 import ClientPurchaseHistory from './components/ClientPurchaseHistory'
 import ClientPostHistory from './components/ClientPostHistory'
+import DesignAIPage from './pages/DesignAIPage'
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
       {/* Routes with MainLayout */}
       <Route path='/' element={<MainLayout />}>
         <Route index element={<HomePage />} />
+        <Route path='/design' element={<DesignAIPage />} />
         <Route path='/viewshop' element={<Viewshoppage />} />
         <Route path='/viewshop/:id' element={<Viewshoppage />} />
         <Route path='/order/:id' element={<ViewOrderPage />} />
@@ -74,18 +76,9 @@ function App() {
             path='/client/profile/history'
             element={<ClientPurchaseHistory />}
           />
-          <Route
-            path='/client/profile/password'
-            element={<ChangePassword />}
-          />
-          <Route
-            path='/client/profile/bank'
-            element={<ClientBankProfile />}
-          />
-          <Route
-            path='/client/profile/post'
-            element={<ClientPostHistory />}
-          />
+          <Route path='/client/profile/password' element={<ChangePassword />} />
+          <Route path='/client/profile/bank' element={<ClientBankProfile />} />
+          <Route path='/client/profile/post' element={<ClientPostHistory />} />
 
           {/* Shop Profile Pages */}
           <Route path='/shop/profile' element={<ShopEditProfile />} />

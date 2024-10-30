@@ -114,7 +114,7 @@ function PostCard({ orderInfo }) {
           />
           <button
             type="submit"
-            className="w-full lg:w-40 border py-2 px-4 rounded bg-blue-500 text-white"
+            className="w-full lg:w-40 border py-2 px-4 rounded bg-red-500 text-white"
           >
             Add Comment
           </button>
@@ -131,7 +131,7 @@ function PostCard({ orderInfo }) {
             </div>
           ))}
           {comments.length > 2 && (
-            <button onClick={toggleShowMore} className="text-blue-500 mt-2">
+            <button onClick={toggleShowMore} className="text-red-500 mt-2">
               {showMore ? "Show Less" : "Show More"}
             </button>
           )}
