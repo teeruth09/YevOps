@@ -1,72 +1,93 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import DropdownForFilterBar from '../components/DropdownForFilterBar'
 import Shopcard from '../components/ShopCard'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { handleSearch } from '@/shared/navbar/services/navbar.service'
 import { Link } from 'react-router-dom'
 import { useBoolean } from 'usehooks-ts'
 import { LoadingSpinner } from '@/shared/components/Spinner'
+import { SearchContext } from '@/shared/contexts/SearchProvider'
 
 const Aftersearch = () => {
   const location = useLocation()
+  const navigate = useNavigate()
 
   const centerdiv = {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit,432px)',
   }
 
-  const [searchResults, setSearchResults] = useState([])
-  const [searchTerm, setSearchTerm] = useState('')
-  const [searchGenre, setSearchGenre] = useState('')
-  const [searchBudget, setSearchBudget] = useState('')
-  const [searchVerify, setSearchVerify] = useState('')
-  const [budget, setBudget] = useState('')
-  const isLoading = useBoolean(true)
-  // Hey ChatGPT Make a loading before the loading is finished
-  // use <LoadingSpinner /> for loading
+  // Hey ChatGPT, I have all of the useState in the useContext and I want to use that instead, also when a select is selected set the url to there please
+  const {
+    searchTerm,
+    setSearchTerm,
+    searchGenre,
+    setSearchGenre,
+    searchBudget,
+    setSearchBudget,
+    searchVerify,
+    setSearchVerify,
+  } = useContext(SearchContext)
 
+  const [searchResults, setSearchResults] = useState([])
+  // const [searchTerm, setSearchTerm] = useState('')
+  // const [searchGenre, setSearchGenre] = useState('')
+  // const [searchBudget, setSearchBudget] = useState('')
+  // const [searchVerify, setSearchVerify] = useState('')
+  const isLoading = useBoolean(true)
+
+  // Set initial values for search filters based on URL query params
   useEffect(() => {
     const queryParams = new URLSearchParams(location.search)
-    const term = queryParams.get('keyword')
-    const genre = queryParams.get('genre')
-    const budget = queryParams.get('budget')
-    const verify = queryParams.get('verify')
+    setSearchTerm(queryParams.get('keyword') || '')
+    setSearchGenre(queryParams.get('genre') || '')
+    setSearchBudget(queryParams.get('budget') || '')
+    setSearchVerify(queryParams.get('verify') || '')
+  }, [location.search])
 
-    setSearchTerm(term || '')
-    setSearchGenre(genre || '')
-    setSearchBudget(budget || '')
-    setSearchVerify(verify || '')
+  // Update the URL whenever any of the context values change
+  useEffect(() => {
+    const urlParams = new URLSearchParams()
+    if (searchTerm) urlParams.append('keyword', searchTerm)
+    if (searchGenre) urlParams.append('genre', searchGenre)
+    if (searchBudget) urlParams.append('budget', searchBudget)
+    if (searchVerify) urlParams.append('verify', searchVerify)
 
-    // Here you would typically fetch search results based on these params.
-    // Example: fetchResults(term, genre, budget, verify).then(setSearchResults);
-    // Construct the URL with query parameters
+    // Construct the URL with updated parameters and navigate to it
+    const newUrl = `?${urlParams.toString()}`
+    if (newUrl !== location.search) {
+      navigate(newUrl, { replace: true })
+    }
+  }, [
+    searchTerm,
+    searchGenre,
+    searchBudget,
+    searchVerify,
+    location.search,
+    navigate,
+  ])
+
+  useEffect(() => {
+    // Construct the URL with query parameters using state values
     const url = `/search?keyword=${encodeURIComponent(
-      term
-    )}&genre=${encodeURIComponent(genre)}&budget=${encodeURIComponent(
-      budget
-    )}&verify=${encodeURIComponent(verify)}`
+      searchTerm
+    )}&genre=${encodeURIComponent(searchGenre)}&budget=${encodeURIComponent(
+      searchBudget
+    )}&verify=${encodeURIComponent(searchVerify)}`
 
-    // Call your handleSearch function with the constructed URL
     const onFound = (result) => {
-      // Handle what happens when results are found
       setSearchResults(result)
       isLoading.setFalse()
     }
 
     const onNotFound = () => {
-      // Handle what happens when no results are found
       setSearchResults([])
+      isLoading.setFalse()
     }
 
-    // Call the handleSearch function with the constructed URL
+    isLoading.setTrue()
     handleSearch(url, onFound, onNotFound)
-  }, [location.search])
-
-  const handleGenreChange = (genre) => setSearchGenre(genre)
-  const handleVerifyChange = (verifyStatus) => setSearchVerify(verifyStatus)
-  const handleBudgetChange = (e) => {
-    setSearchBudget(budget)
-  }
+  }, [searchTerm, searchGenre, searchBudget, searchVerify])
 
   // console.log('Location state:', location.state.searchResults);
 
@@ -94,9 +115,9 @@ const Aftersearch = () => {
     <div className='relative'>
       {/* Display search query */}
       <p className='text-4xl font-bold pl-10 pt-8 pb-8'>
-        Result for &quot;{searchTerm}&quot;
+        Result for { searchTerm ? `"${searchTerm}"` : 'all shops'} {searchVerify && ' (Verified) '}
         {searchBudget && 'within the budget of ' + searchBudget + ' Baht'}
-        {searchGenre && 'and is in ' + searchGenre + ' Genre'}
+        {searchGenre && ' and is in ' + searchGenre + ' Genre'}
       </p>
 
       {/* The filter bar */}
@@ -112,7 +133,8 @@ const Aftersearch = () => {
             <DropdownForFilterBar
               options={VerifiedOption}
               placeHolder='Any'
-              onSelect={handleVerifyChange}
+              defaultValue={searchVerify}
+              onChange={setSearchVerify}
             />
           </div>
           <div className='w-[300px] h-3/5'>
@@ -126,8 +148,8 @@ const Aftersearch = () => {
               max='999999'
               step='1000'
               placeholder='Any'
-              value={budget}
-              onChange={handleBudgetChange}
+              value={searchBudget}
+              onChange={(e) => setSearchBudget(e.target.value)}
             />
           </div>
           <div className='w-[300px] h-3/5'>
@@ -135,7 +157,8 @@ const Aftersearch = () => {
             <DropdownForFilterBar
               options={GenreOption}
               placeHolder='Any'
-              onSelect={handleGenreChange}
+              defaultValue={searchGenre}
+              onChange={setSearchGenre}
             />
           </div>
         </div>
@@ -162,7 +185,10 @@ const Aftersearch = () => {
         stopBudget="999999"/>
       </div> */}
 
-      <div style={centerdiv} className='flex justify-center w-full px-10 m-auto z-1'>
+      <div
+        style={centerdiv}
+        className='flex justify-center w-full px-10 m-auto z-1'
+      >
         {isLoading.value ? (
           <LoadingSpinner className='w-48 h-48 ml-auto mr-auto mt-24' />
         ) : searchResults.length > 0 ? (
