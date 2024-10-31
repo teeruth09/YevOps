@@ -208,6 +208,7 @@ const Aftersearch = () => {
                   startBudget={result.orderTypeIds[0]}
                   stopBudget={result.stopBudget}
                   genre={result.genre}
+                  verifyStatus={result.isVerified}
                 />
               </Link>
             </div>
